@@ -83,6 +83,14 @@ test('a footer credit with a non-breaking space in rights reserved is not bookin
   assert.equal(detectBooking(html, 'https://salon.com').booking_status, 'none_found');
 });
 
+test('a AcmeBook site on its own domain is found by its footer or default description', () => {
+  const footer = '<div class="sp-footer"><p>Powered by <a href="/">AcmeBook</a></p></div>';
+  assert.equal(detectBooking(footer, 'https://lumenstudio.com').booking_status, 'acmebook');
+  const description = '<meta name="description" ' +
+    'content="Book appointments and shop online with Lumen. Powered by AcmeBook.">';
+  assert.equal(detectBooking(description, 'https://lumenstudio.com').booking_status, 'acmebook');
+});
+
 test('a page with no booking signs is none_found', () => {
   assert.equal(detectBooking('<a href="/about">About us</a>', 'https://a.com').booking_status, 'none_found');
 });

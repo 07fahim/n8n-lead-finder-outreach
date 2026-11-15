@@ -167,6 +167,9 @@ const ACMEBOOK_DOMAINS = ['acmebook.example'];
 // the bare word "acmebook" appears in unrelated text; customer pages are on acmebook.example (the embed snippet itself
 // was not seen, so a widget served from another host would be missed)
 const ACMEBOOK_TEXT_MARKER = 'acmebook';
+// published AcmeBook sites end with "Powered by <a href="/">AcmeBook</a>", a relative link that never names
+// acmebook on a custom domain (seen in acmebook.example's site code, 2026-11-16)
+const ACMEBOOK_FOOTER = /powered by\s*(?:<[^>]*>\s*)*acmebook\b/i;
 // links to these are never booking tools, even behind a "Book" button
 const NON_BOOKING_DOMAINS = [
   'facebook.com', 'fb.com', 'fb.me', 'instagram.com', 'twitter.com', 'x.com', 'tiktok.com', 'youtube.com',
@@ -245,7 +248,7 @@ module.exports = {
   OVERPASS_SERVERS, OVERPASS_WAITS_SECONDS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_CITY_BUDGET_SECONDS,
   OVERPASS_USER_AGENT, BROWSER_USER_AGENT, MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY,
   THIN_CITY_THRESHOLD, CATEGORY_RULES, BARBERSHOP_CATEGORY, BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS,
-  ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, GOOGLE_HOST, BOOKING_WORDS, RIGHTS_RESERVED, CONTACT_PATH,
+  ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, NON_BOOKING_DOMAINS, GOOGLE_HOST, BOOKING_WORDS, RIGHTS_RESERVED, CONTACT_PATH,
   JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS,
   LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS,
 };

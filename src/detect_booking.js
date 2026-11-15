@@ -1,5 +1,6 @@
 const {
-  BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, GOOGLE_HOST,
+  BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, NON_BOOKING_DOMAINS,
+  GOOGLE_HOST,
   BOOKING_WORDS, RIGHTS_RESERVED, CONTACT_PATH,
 } = require('./config');
 
@@ -70,7 +71,7 @@ function usesAcmebook(html, hosts) {
 
   const onAcmebookHost = [...hosts].some(
     (host) => ACMEBOOK_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain)));
-  return onAcmebookHost || html.toLowerCase().includes(ACMEBOOK_TEXT_MARKER);
+  return onAcmebookHost || html.toLowerCase().includes(ACMEBOOK_TEXT_MARKER) || ACMEBOOK_FOOTER.test(html);
 }
 
 
