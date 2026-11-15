@@ -38,8 +38,17 @@ Writes `build/workflow.json` (the workflow), `build/tables.json` (the columns of
 node build.js
 ```
 
-Then call `mcp__n8n__n8n_update_full_workflow` with the contents of `build/workflow.json` and the workflow id
-`<workflow id: filled in at first deploy>`.
+Then import the file with n8n's own command, so the code reaches n8n exactly as built (the workflow id is
+`AcmeBookFinder01`; the import replaces that workflow and leaves it inactive):
+
+```bash
+node -e "const w=require('./build/workflow.json'); w.id='AcmeBookFinder01'; w.active=false;
+require('fs').writeFileSync('build/workflow-import.json', JSON.stringify(w));"
+cmd //c "set N8N_USER_FOLDER=D:\\Tools\\n8n\\data&& D:\\Tools\\n8n\\node_modules\\.bin\\n8n.cmd import:workflow --input=build\\workflow-import.json"
+```
+
+Do not paste the workflow through an AI tool call: a hand-copied 115 kB of code changed a comment on the first
+deploy (2026-11-16). Reload the n8n editor tab after importing.
 
 ## Run
 
