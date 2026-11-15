@@ -251,6 +251,49 @@ const CITY_COLUMNS = [
   { name: 'last_leads', type: 'number' },
 ];
 
+// outreach: the Google Sheet Alex ticks, and the email sent from Gmail
+const SHEET_HEADERS = {
+  name: 'Name', city: 'City', tier: 'Tier', score: 'Score', email: 'Lead email', phone: 'Contact number',
+  opener: 'Opener', send: 'Send email', sentDate: 'Sent date', status: 'Status', leadId: 'Lead ID',
+};
+const LEAD_STATUS = { new: 'New', sent: 'Sent', replied: 'Replied', stopped: 'Stopped', bounced: 'Bounced' };
+// the id from the sheet's URL (docs.google.com/spreadsheets/d/<id>/edit), set during setup
+const SHEET_ID = '';
+const SHEET_TAB = 'Leads';
+const SENDER_NAME = 'Alex';
+// Alex chose the area without house and road (2026-11-16); the warning that it may not count as a valid postal
+// address under CAN-SPAM is recorded in the spec
+const POSTAL_ADDRESS = '1 Example Street, Springfield, IL 62701, USA';
+// a new free Gmail account gets locked for bursts of cold mail; raise after 2-3 weeks without complaints
+const DAILY_SEND_LIMIT = 15;
+// a random pause between two emails, so the mailbox does not send in a machine-like burst
+const SEND_WAIT_SECONDS = [60, 180];
+// the daily limit counts Alex's calendar day
+const SEND_TIMEZONE = 'America/New_York';
+const EMAIL_SUBJECT = 'Quick question, {name}';
+const EMAIL_BODY = [
+  '{opener}',
+  '',
+  "There's a free plan to try it: https://acmebook.example",
+  '',
+  'Thanks,',
+  '{sender}',
+  'AcmeBook',
+  '',
+  '--',
+  '{address}',
+  'Not interested? Reply "stop" and I won\'t email again.',
+].join('\n');
+const STOP_WORDS = /\b(stop|unsubscribe|remove me|remove us)\b/i;
+const BOUNCE_SENDER = /mailer-daemon|postmaster/i;
+// where the quoted original starts in a reply from Gmail, Outlook and Apple Mail
+const REPLY_QUOTE_START = /^On .+wrote:\s*$|^-{2,}\s*Original Message|^From: .+$/im;
+// credential ids and names are not secret; set them during setup from the n8n Credentials page
+const GMAIL_CREDENTIAL = { id: '', name: '' };
+const SHEETS_CREDENTIAL = { id: '', name: '' };
+// fixed ids, so the Lead Finder can call Sheet Sync and an import replaces the same workflow each time
+const WORKFLOW_IDS = { sheetSync: 'AcmeBookSheetSyn', sender: 'AcmeBookSender01', replyChecker: 'AcmeBookReplyChk' };
+
 module.exports = {
   CITIES, CITIES_PER_RUN, SEARCH_RADIUS_METRES, OVERPASS_SERVER_TIMEOUT_SECONDS, OVERPASS_RESULT_LIMIT,
   OVERPASS_SERVERS, OVERPASS_WAITS_SECONDS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_CITY_BUDGET_SECONDS,
@@ -260,4 +303,7 @@ module.exports = {
   RIGHTS_RESERVED, CONTACT_PATH,
   JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS,
   LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS,
+  SHEET_HEADERS, LEAD_STATUS, SHEET_ID, SHEET_TAB, SENDER_NAME, POSTAL_ADDRESS,
+  DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, SEND_TIMEZONE, EMAIL_SUBJECT, EMAIL_BODY, STOP_WORDS, BOUNCE_SENDER,
+  REPLY_QUOTE_START, GMAIL_CREDENTIAL, SHEETS_CREDENTIAL, WORKFLOW_IDS,
 };
