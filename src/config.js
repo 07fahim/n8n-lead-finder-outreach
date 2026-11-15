@@ -71,7 +71,7 @@ const BROWSER_USER_AGENT =
 
 // the source document's cap; measured yield is 20-50 per city, so it guards dense cities only
 const MAX_LEADS_PER_RUN = 200;
-// the slowest of the 39 sites that loaded in the 2026-11-16 probe answered well inside this
+// the 2026-11-16 probe loaded 39 of 46 sites with this timeout
 const WEBSITE_TIMEOUT_SECONDS = 15;
 // 8 at a time keeps 200 sites with booking pages under about 13 minutes at the 15 s timeout
 const WEBSITE_CONCURRENCY = 8;
