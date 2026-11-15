@@ -295,7 +295,6 @@ const STOP_WORDS = new RegExp([
   '\\btake (me|us) off\\b',
   '\\bstop (emailing|sending|contacting)\\b',
   "\\b(do not|don['’]t) (email|contact|message)\\b",
-  '\\bnot interested\\b',
 ].join('|'), 'im');
 const BOUNCE_SENDER = /mailer-daemon|postmaster/i;
 // where the quoted original starts in a reply from Gmail, Outlook and Apple Mail

@@ -89,3 +89,15 @@ test('auto-replies are skipped, but not bounces or Auto-Submitted: no', () => {
   assert.deepEqual(classifyReply(makeMessage('mailer-daemon@googlemail.com', 'owner@salon.com failed', auto), ROWS),
     { leadId: 'node/1', status: 'Bounced' });
 });
+
+test('a decline or a leaked footer line is a reply, not an opt-out', () => {
+  assert.equal(classifyReply(makeMessage('owner@salon.com', 'Not interested right now, maybe in spring'), ROWS).status,
+    'Replied');
+  const leaked = 'Sounds great, call me\n\nNot interested? Reply "stop" and I won\'t email again.';
+  assert.equal(classifyReply(makeMessage('owner@salon.com', leaked), ROWS).status, 'Replied');
+});
+
+test('a bounce naming the address at the end of a sentence still finds the row', () => {
+  assert.deepEqual(classifyReply(makeMessage('postmaster@mail.example', 'Delivery to owner@salon.com.'), ROWS),
+    { leadId: 'node/1', status: 'Bounced' });
+});

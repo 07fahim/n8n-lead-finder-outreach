@@ -3,7 +3,7 @@ const { SHEET_HEADERS, LEAD_STATUS, STOP_WORDS, BOUNCE_SENDER, REPLY_QUOTE_START
 function readNewText(text) {
 
   // ponytail: cuts at the usual quote-start lines and drops '>' lines; a mail app with another quote style leaks the
-  // quoted text into the check, and our footer's "Not interested?" line then marks the lead Stopped
+  // quoted text into the check, which is harmless for our footer (no stop word matches it) but not for other quotes
   const body = String(text || '');
   const quoteStart = body.search(REPLY_QUOTE_START);
   return (quoteStart === -1 ? body : body.slice(0, quoteStart))
@@ -20,7 +20,7 @@ function readRowEmail(row) {
 function findBouncedRow(message, sheetRows) {
 
   const bounceText = `${message.headers?.['x-failed-recipients'] || ''}\n${message.text || ''}`.toLowerCase();
-  const addresses = new Set(bounceText.match(/[\w.+-]+@[\w.-]+/g));
+  const addresses = new Set(bounceText.match(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g));
   return sheetRows.find((row) => row[SHEET_HEADERS.sentDate] && addresses.has(readRowEmail(row)));
 }
 
