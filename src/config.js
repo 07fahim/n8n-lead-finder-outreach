@@ -164,15 +164,20 @@ const BOOKING_TOOLS = [
 const BOOKING_TEXT_MARKERS = [{ name: 'Wix Bookings', marker: 'wix-bookings' }];
 // customer pages live on <business>.acmebook.example (seen on acmebook.example, 2026-11-16)
 const ACMEBOOK_DOMAINS = ['acmebook.example'];
+// the bare word "acmebook" appears in unrelated text, while every AcmeBook page and embed names acmebook
 const ACMEBOOK_TEXT_MARKER = 'acmebook';
 // links to these are never booking tools, even behind a "Book" button
 const NON_BOOKING_DOMAINS = [
   'facebook.com', 'fb.com', 'fb.me', 'instagram.com', 'twitter.com', 'x.com', 'tiktok.com', 'youtube.com',
   'youtu.be', 'linkedin.com', 'pinterest.com', 'google.com', 'goo.gl', 'g.page', 'apple.com', 'bing.com',
   'openstreetmap.org', 'yelp.com', 'yelp.co.uk', 'tripadvisor.com', 'tripadvisor.co.uk', 'trustpilot.com',
-  'wa.me', 'whatsapp.com', 'nhs.uk', 'gov.uk',
+  'wa.me', 'whatsapp.com', 'nhs.uk', 'gov.uk', 'googletagmanager.com', 'doubleclick.net', 'vimeo.com', 'spotify.com',
 ];
+// uk and other sites embed maps from google.co.uk and similar country domains
+const GOOGLE_HOST = /(^|\.)google\.[a-z.]+$/;
 const BOOKING_WORDS = /\b(book|booking|appointment|schedul|reserv)/i;
+// a footer credit link says "All rights reserved" and is not booking
+const RIGHTS_RESERVED = /rights reserved/gi;
 // a "Book an appointment" button that opens the contact page is not online booking (seen on dental-d)
 const CONTACT_PATH = /contact/i;
 const JUNK_EMAIL_PARTS = [
@@ -239,7 +244,7 @@ module.exports = {
   OVERPASS_SERVERS, OVERPASS_WAITS_SECONDS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_CITY_BUDGET_SECONDS,
   OVERPASS_USER_AGENT, BROWSER_USER_AGENT, MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY,
   THIN_CITY_THRESHOLD, CATEGORY_RULES, BARBERSHOP_CATEGORY, BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS,
-  ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, BOOKING_WORDS, CONTACT_PATH, JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS,
-  INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS,
-  CITY_COLUMNS,
+  ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, GOOGLE_HOST, BOOKING_WORDS, RIGHTS_RESERVED, CONTACT_PATH,
+  JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS,
+  LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS,
 };

@@ -1,6 +1,6 @@
 const {
-  BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, BOOKING_WORDS,
-  CONTACT_PATH,
+  BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, GOOGLE_HOST,
+  BOOKING_WORDS, RIGHTS_RESERVED, CONTACT_PATH,
 } = require('./config');
 
 function readHost(url, baseUrl) {
@@ -21,7 +21,7 @@ function isDomainOrSubdomain(host, domain) {
 
 function isNonBookingHost(host) {
 
-  return NON_BOOKING_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
+  return GOOGLE_HOST.test(host) || NON_BOOKING_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
 }
 
 
@@ -80,7 +80,7 @@ function findBookingLinks(html, pageUrl) {
   for (const match of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
     const href = (match[1].match(/href\s*=\s*["']([^"']+)["']/i) || [])[1];
     if (!href || /^(mailto:|tel:|javascript:|#)/i.test(href)) continue;
-    const text = match[2].replace(/<[^>]+>/g, ' ');
+    const text = match[2].replace(/<[^>]+>/g, ' ').replace(RIGHTS_RESERVED, ' ');
     if (!BOOKING_WORDS.test(`${text} ${href}`)) continue;
     try {
       links.push(new URL(href, pageUrl));
@@ -123,7 +123,9 @@ function detectBookingPage(html, pageUrl) {
 
   // booking pages usually embed the tool in an iframe rather than linking to it
   const ownHosts = findOwnHosts(html, pageUrl);
-  for (const match of html.matchAll(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
+  // tag managers put a tracking iframe inside noscript
+  const visibleHtml = html.replace(/<noscript\b[\s\S]*?<\/noscript>/gi, '');
+  for (const match of visibleHtml.matchAll(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
     const host = readHost(match[1], pageUrl);
     if (host && !isOwnHost(host, ownHosts) && !isNonBookingHost(host)) {
       return { booking_status: 'competitor', booking_tool: host, booking_page_url: '' };

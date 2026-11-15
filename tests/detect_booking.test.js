@@ -60,8 +60,17 @@ test('a page on or linking to a acmebook.example subdomain is an existing custom
 });
 
 test('a AcmeBook widget marks the business as an existing customer', () => {
-  assert.equal(detectBooking('<script src="https://cdn.x.com/acmebook.js">', 'https://a.com').booking_status,
-    'acmebook');
+  const html = '<script src="https://cdn.example.com/widgets/acmebook-embed.js"></script>';
+  assert.equal(detectBooking(html, 'https://a.com').booking_status, 'acmebook');
+});
+
+test('a bare mention of acmebook in page text is not an existing customer', () => {
+  assert.equal(detectBooking('<p>Join the acmebooks newsletter</p>', 'https://a.com').booking_status, 'none_found');
+});
+
+test('a footer credit link saying all rights reserved is not booking', () => {
+  const html = '<a href="https://webdesignco.com">© 2026 Salon. All rights reserved</a>';
+  assert.equal(detectBooking(html, 'https://salon.com').booking_status, 'none_found');
 });
 
 test('a page with no booking signs is none_found', () => {
@@ -75,3 +84,16 @@ test('booking page: an embedded unknown widget is a competitor, a map is not', (
   const map = '<iframe src="https://www.google.com/maps/embed?pb=1"></iframe>';
   assert.equal(detectBookingPage(map, 'https://a.com/book').booking_status, 'none_found');
 });
+
+const NON_BOOKING_IFRAMES = [
+  ['a tag manager iframe in noscript',
+    '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-X"></iframe></noscript>'],
+  ['a map from a google country domain', '<iframe src="https://maps.google.co.uk/maps?q=x&output=embed"></iframe>'],
+  ['a vimeo video', '<iframe src="https://player.vimeo.com/video/1"></iframe>'],
+];
+
+for (const [description, html] of NON_BOOKING_IFRAMES) {
+  test(`booking page: ${description} is not a booking tool`, () => {
+    assert.equal(detectBookingPage(html, 'https://a.com/book').booking_status, 'none_found');
+  });
+}
