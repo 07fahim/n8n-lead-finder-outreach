@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { CITIES, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS, WORKFLOW_IDS } = require('./src/config');
 const { inlineSources, buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
-const { buildSheetSyncWorkflow } = require('./build_outreach');
+const { buildSheetSyncWorkflow, buildSenderWorkflow } = require('./build_outreach');
 
 const OUTPUT_FOLDER = path.join(__dirname, 'build');
 const WORKFLOW_NAME = 'AcmeBook Lead Finder';
@@ -152,6 +152,7 @@ function writeBuildFiles() {
     'tables.json': { [LEADS_TABLE]: LEAD_COLUMNS, [CITIES_TABLE]: CITY_COLUMNS },
     'cities.json': buildCityRows(),
     'sheet_sync.json': buildSheetSyncWorkflow(),
+    'sender.json': buildSenderWorkflow(),
   };
   for (const [fileName, content] of Object.entries(files)) {
     fs.writeFileSync(path.join(OUTPUT_FOLDER, fileName), `${JSON.stringify(content, null, 2)}\n`);

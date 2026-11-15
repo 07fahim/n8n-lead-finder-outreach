@@ -1,5 +1,6 @@
 const { buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
-const { LEADS_TABLE, SHEET_ID, SHEET_TAB, SHEETS_CREDENTIAL, WORKFLOW_IDS } = require('./src/config');
+const { LEADS_TABLE, SHEET_ID, SHEET_TAB, SHEETS_CREDENTIAL, WORKFLOW_IDS, LEAD_STATUS, GMAIL_CREDENTIAL, SENDER_NAME,
+  DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, SEND_TIMEZONE } = require('./src/config');
 
 const SHEETS = { type: 'n8n-nodes-base.googleSheets', typeVersion: 4.7 };
 const SETTINGS = { executionOrder: 'v1', saveManualExecutions: true };
@@ -71,5 +72,63 @@ function buildSheetSyncWorkflow() {
     active: false };
 }
 
-module.exports = { buildSheetSyncWorkflow, buildSheetReference, withCredential, sheetColumns, buildSheetNode,
-  SETTINGS };
+
+function buildSenderWorkflow() {
+
+  const [shortestWait, longestWait] = SEND_WAIT_SECONDS;
+  const current = "$('Send One by One').item.json";
+  const nodes = [
+    buildNode({ name: 'Run manually', type: 'n8n-nodes-base.manualTrigger', position: [0, 0], parameters: {} }),
+    buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }),
+    buildCodeNode({ name: 'Pick Emails', files: ['config.js', 'pick_rows_to_send.js', 'build_email.js'],
+      position: [440, 0], glue: [
+        "const today = new Date().toLocaleDateString('en-CA', { timeZone: SEND_TIMEZONE });",
+        'const sheetRows = $input.all().map((item) => item.json);',
+        'return pickRowsToSend(sheetRows, today, DAILY_SEND_LIMIT)',
+        '  .map((row) => ({ json: { ...buildEmail(row), sentDate: today } }));',
+      ].join('\n') }),
+    buildNode({ name: 'Send One by One', type: 'n8n-nodes-base.splitInBatches', typeVersion: 3, position: [660, 0],
+      parameters: { batchSize: 1, options: {} } }),
+    withCredential(buildNode({ name: 'Send Email', type: 'n8n-nodes-base.gmail', typeVersion: 2.2,
+      position: [880, 100], parameters: { resource: 'message', operation: 'send', sendTo: '={{ $json.to }}',
+        subject: '={{ $json.subject }}', emailType: 'text', message: '={{ $json.text }}',
+        options: { appendAttribution: false, senderName: SENDER_NAME } },
+
+      // one failed send must not stop the others; the row keeps no Sent date, so the next run tries it again
+      extra: { onError: 'continueErrorOutput' } }), 'gmailOAuth2', GMAIL_CREDENTIAL),
+    buildSheetNode('Mark Sheet Sent', [1100, 0], { operation: 'update', columns: sheetColumns({
+      'Lead ID': `={{ ${current}.leadId }}`,
+      'Sent date': `={{ ${current}.sentDate }}`,
+      'Status': LEAD_STATUS.sent,
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } }),
+    buildNode({ name: 'Mark Table Sent', type: 'n8n-nodes-base.dataTable', position: [1320, 0], parameters: {
+      resource: 'row', operation: 'update', dataTableId: buildTableReference(LEADS_TABLE), matchType: 'allConditions',
+      filters: { conditions: [{ keyName: 'osm_key', condition: 'eq', keyValue: `={{ ${current}.leadId }}` }] },
+      columns: { mappingMode: 'defineBelow', value: { status: LEAD_STATUS.sent }, matchingColumns: [], schema: [] },
+    }, extra: { alwaysOutputData: true } }),
+    buildNode({ name: 'Wait', type: 'n8n-nodes-base.wait', typeVersion: 1.1, position: [1540, 0], parameters: {
+      resume: 'timeInterval', unit: 'seconds',
+      amount: `={{ Math.floor(Math.random() * ${longestWait - shortestWait + 1}) + ${shortestWait} }}` } }),
+    buildCodeNode({ name: 'Report', files: [], position: [880, -200], glue: [
+      "const sent = $('Mark Sheet Sent').all().length;",
+      "const picked = $('Pick Emails').all().length;",
+      'return [{ json: { picked, sent, failed: picked - sent } }];',
+    ].join('\n') }),
+  ];
+  const connections = connectNodes([
+    ['Run manually', 'Read Sheet'],
+    ['Read Sheet', 'Pick Emails'],
+    ['Pick Emails', 'Send One by One'],
+    ['Send One by One', 'Report', 0],
+    ['Send One by One', 'Send Email', 1],
+    ['Send Email', 'Mark Sheet Sent', 0],
+    ['Send Email', 'Send One by One', 1],
+    ['Mark Sheet Sent', 'Mark Table Sent'],
+    ['Mark Table Sent', 'Wait'],
+    ['Wait', 'Send One by One'],
+  ]);
+  return { id: WORKFLOW_IDS.sender, name: 'AcmeBook Sender', nodes, connections, settings: SETTINGS, active: false };
+}
+
+module.exports = { buildSheetSyncWorkflow, buildSenderWorkflow, buildSheetReference, withCredential, sheetColumns,
+  buildSheetNode, SETTINGS };

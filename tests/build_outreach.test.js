@@ -1,6 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { buildSheetSyncWorkflow } = require('../build_outreach');
+const { buildSheetSyncWorkflow, buildSenderWorkflow } = require('../build_outreach');
+const { connectNodes } = require('../build_nodes');
 const { buildWorkflow } = require('../build');
 const { runNodeLikeN8n } = require('./run_node_like_n8n');
 
@@ -24,6 +25,9 @@ test('sheet sync is wired, has its fixed id, and writes RAW', () => {
   checkWiring(workflow);
   assert.equal(workflow.id, 'AcmeBookSheetSyn');
   assert.equal(findNode(workflow, 'Add Rows').parameters.options.cellFormat, 'RAW');
+  assert.equal(findNode(workflow, 'Add Rows').parameters.columns.mappingMode, 'autoMapInputData');
+  assert.deepEqual(workflow.connections['Called by Lead Finder'].main[0],
+    [{ node: 'Read Leads', type: 'main', index: 0 }]);
 });
 
 test('the Find New Rows node returns only leads missing from the sheet, in the sandbox', async () => {
@@ -39,5 +43,39 @@ test('the Lead Finder calls sheet sync after Check Run and keeps going if it fai
   const sync = findNode(workflow, 'Sync Sheet');
   assert.equal(sync.parameters.workflowId, 'AcmeBookSheetSyn');
   assert.equal(sync.onError, 'continueRegularOutput');
+  assert.equal(sync.typeVersion, 1);
+  assert.equal(sync.parameters.source, 'database');
   assert.deepEqual(workflow.connections['Check Run'].main[0], [{ node: 'Sync Sheet', type: 'main', index: 0 }]);
+});
+
+test('connectNodes puts a numbered output in its own slot', () => {
+  assert.deepEqual(connectNodes([['A', 'B', 1]]), { A: { main: [[], [{ node: 'B', type: 'main', index: 0 }]] } });
+});
+
+test('sender sends plain text without the n8n credit line, marks RAW, and loops with a random wait', () => {
+  const workflow = buildSenderWorkflow();
+  checkWiring(workflow);
+  assert.equal(workflow.id, 'AcmeBookSender01');
+  const send = findNode(workflow, 'Send Email');
+  assert.equal(send.parameters.emailType, 'text');
+  assert.equal(send.parameters.options.appendAttribution, false);
+  assert.equal(send.parameters.options.senderName, 'Alex');
+  assert.equal(send.onError, 'continueErrorOutput');
+  assert.equal(findNode(workflow, 'Mark Sheet Sent').parameters.options.cellFormat, 'RAW');
+  assert.match(findNode(workflow, 'Wait').parameters.amount, /Math\.random\(\) \* 121\) \+ 60/);
+  assert.deepEqual(workflow.connections['Send Email'].main[1], [{ node: 'Send One by One', type: 'main', index: 0 }]);
+  assert.deepEqual(workflow.connections['Wait'].main[0], [{ node: 'Send One by One', type: 'main', index: 0 }]);
+});
+
+test('the Pick Emails node builds emails for ticked rows only, in the sandbox', async () => {
+  const rows = [
+    { 'Name': 'A', 'Lead email': 'a@a.com', 'Opener': 'Hi A', 'Send email': true, 'Sent date': '', 'Status': 'New',
+      'Lead ID': 'node/1' },
+    { 'Name': 'B', 'Lead email': 'b@b.com', 'Opener': 'Hi B', 'Send email': false, 'Sent date': '', 'Status': 'New',
+      'Lead ID': 'node/2' },
+  ].map((json) => ({ json }));
+  const emails = await runNodeLikeN8n(buildSenderWorkflow(), 'Pick Emails', rows);
+  assert.equal(emails.length, 1);
+  assert.equal(emails[0].json.to, 'a@a.com');
+  assert.match(emails[0].json.sentDate, /^\d{4}-\d{2}-\d{2}$/);
 });
