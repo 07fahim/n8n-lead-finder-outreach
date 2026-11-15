@@ -1,13 +1,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { CITIES, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS } = require('./src/config');
+const { inlineSources, buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
 
-const SOURCE_FOLDER = path.join(__dirname, 'src');
 const OUTPUT_FOLDER = path.join(__dirname, 'build');
 const WORKFLOW_NAME = 'AcmeBook Lead Finder';
-const REQUIRE_LINE = /^const \{[^}]*\} = require\([^)]*\);\r?\n/gm;
-// n8n's Code node sandbox has no global URL (execution 343, 2026-11-16); start-n8n.cmd allows the url module
-const SANDBOX_PREAMBLE = "const { URL } = require('url');";
 
 // each Code node gets config.js, the files it needs in dependency order, then the glue that n8n runs
 const CODE_NODES = [
@@ -89,53 +86,27 @@ const CHAIN = [
   ['Mark Cities', 'Check Run'],
 ];
 
-function inlineSources(fileNames) {
-
-  return fileNames.map((fileName) => {
-    const source = fs.readFileSync(path.join(SOURCE_FOLDER, fileName), 'utf8');
-    const withoutExports = source.slice(0, source.indexOf('module.exports'));
-    return withoutExports.replace(REQUIRE_LINE, '').trim();
-  }).join('\n\n');
-}
-
-
-function buildTableReference(tableName) {
-
-  return { __rl: true, mode: 'name', value: tableName };
-}
-
-
-function buildNode(name, type, parameters, extra = {}) {
-
-  return { id: name.toLowerCase().replace(/\s+/g, '-'), name, type, typeVersion: 1, position: POSITIONS[name],
-    parameters, ...extra };
-}
-
-
-function buildCodeNode(codeNode) {
-
-  const jsCode = `${SANDBOX_PREAMBLE}\n\n${inlineSources(codeNode.files)}\n\n${codeNode.glue}\n`;
-  return { ...buildNode(codeNode.name, 'n8n-nodes-base.code', { jsCode }), typeVersion: 2 };
-}
-
-
 function buildWorkflow() {
 
   const dataTable = 'n8n-nodes-base.dataTable';
   const readAll = (tableName) => ({ resource: 'row', operation: 'get', dataTableId: buildTableReference(tableName),
     returnAll: true });
   const nodes = [
-    buildNode('Run manually', 'n8n-nodes-base.manualTrigger', {}),
-    buildNode('Read Cities', dataTable, readAll(CITIES_TABLE), { executeOnce: true }),
+    buildNode({ name: 'Run manually', type: 'n8n-nodes-base.manualTrigger', position: POSITIONS['Run manually'],
+      parameters: {} }),
+    buildNode({ name: 'Read Cities', type: dataTable, position: POSITIONS['Read Cities'],
+      parameters: readAll(CITIES_TABLE), extra: { executeOnce: true } }),
 
     // an empty leads table returns no items, which would stop the run; one empty item keeps it going
-    buildNode('Read Seen', dataTable, readAll(LEADS_TABLE), { executeOnce: true, alwaysOutputData: true }),
-    ...CODE_NODES.map(buildCodeNode),
-    buildNode('Save Leads', dataTable, { resource: 'row', operation: 'insert',
-      dataTableId: buildTableReference(LEADS_TABLE), columns: { mappingMode: 'autoMapInputData', value: null } }),
+    buildNode({ name: 'Read Seen', type: dataTable, position: POSITIONS['Read Seen'],
+      parameters: readAll(LEADS_TABLE), extra: { executeOnce: true, alwaysOutputData: true } }),
+    ...CODE_NODES.map((codeNode) => buildCodeNode({ ...codeNode, position: POSITIONS[codeNode.name] })),
+    buildNode({ name: 'Save Leads', type: dataTable, position: POSITIONS['Save Leads'], parameters: {
+      resource: 'row', operation: 'insert', dataTableId: buildTableReference(LEADS_TABLE),
+      columns: { mappingMode: 'autoMapInputData', value: null } } }),
 
     // Check Run must still run when no city row matched, so it can report the run
-    buildNode('Mark Cities', dataTable, {
+    buildNode({ name: 'Mark Cities', type: dataTable, position: POSITIONS['Mark Cities'], parameters: {
       resource: 'row',
       operation: 'update',
       dataTableId: buildTableReference(CITIES_TABLE),
@@ -151,13 +122,9 @@ function buildWorkflow() {
         matchingColumns: [],
         schema: [],
       },
-    }, { alwaysOutputData: true }),
+    }, extra: { alwaysOutputData: true } }),
   ];
-  const connections = {};
-  for (const [source, target] of CHAIN) {
-    if (!connections[source]) connections[source] = { main: [[]] };
-    connections[source].main[0].push({ node: target, type: 'main', index: 0 });
-  }
+  const connections = connectNodes(CHAIN);
   return { name: WORKFLOW_NAME, nodes, connections, settings: { executionOrder: 'v1', saveManualExecutions: true } };
 }
 
