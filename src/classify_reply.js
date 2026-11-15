@@ -57,4 +57,17 @@ function classifyReply(message, sheetRows) {
   return { leadId: row[SHEET_HEADERS.leadId], status };
 }
 
-module.exports = { classifyReply };
+
+function keepStrongestPerLead(results) {
+
+  // several messages in one poll can name the same lead; a bounce or an opt-out must not be overwritten by a reply
+  const strength = [LEAD_STATUS.replied, LEAD_STATUS.stopped, LEAD_STATUS.bounced];
+  const strongest = new Map();
+  for (const result of results) {
+    const kept = strongest.get(result.leadId);
+    if (!kept || strength.indexOf(result.status) > strength.indexOf(kept.status)) strongest.set(result.leadId, result);
+  }
+  return [...strongest.values()];
+}
+
+module.exports = { classifyReply, keepStrongestPerLead };

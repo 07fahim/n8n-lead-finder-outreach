@@ -109,8 +109,9 @@ replaces the same workflow.
   each run (the "Sync Sheet" node). It can also be run by hand.
 - **AcmeBook Sender** (`build/sender.json`): run by hand. Sends one email per ticked row that has an email, an opener,
   Status `New` and no Sent date, at most `DAILY_SEND_LIMIT` a day, with a random pause of 1 to 3 minutes between
-  emails. It writes the Sent date and Status `Sent` into the sheet and `Sent` into `acmebook_leads`. The Report node
-  shows `sent` and `failed`.
+  emails. Before each email it claims the row (Sent date and Status `Sent` in the sheet), so a lead is never emailed
+  twice; a failed send sets the row back to `New`. After a send it writes `Sent` into `acmebook_leads`. The Report
+  node shows `sent` and `failed`.
 - **AcmeBook Reply Checker** (`build/reply_checker.json`): when Active, checks Gmail every 15 minutes. A reply from
   a lead sets Status `Replied`, a reply asking to stop sets `Stopped`, and a bounce sets `Bounced`, in the sheet and
   in `acmebook_leads`.
@@ -151,11 +152,16 @@ An import leaves the workflow inactive. Reload the n8n editor, then switch AcmeB
    has a Lead email, an Opener, a Lead ID, Status `New` and no Sent date.
 3. In n8n, open AcmeBook Sender and click **Execute workflow**. It sends at most `DAILY_SEND_LIMIT` emails a day,
    1 to 3 minutes apart, so a run can take a while.
-4. Check the Report node: it shows `sent` and `failed`. A failed row keeps no Sent date, so the next run tries it
-   again.
+4. Check the Report node: it shows `sent` and `failed`. A failed row is set back to Status `New` with no Sent date,
+   so the next run tries it again. If no Report node runs, nothing was ready to send.
 
-To stop a lead by hand, type `Stopped` in its Status cell. Leads without an email have a Contact number for a call
-or WhatsApp.
+- Never start the Sender while an earlier Sender run is still running or waiting (check n8n → Executions).
+- If the Sender stopped with an error, look in Gmail → Sent before running it again.
+- To stop a lead, change its Status to `Stopped`; never delete rows. A deleted row comes back from the leads table
+  as New.
+- Replies that Gmail files in Spam are not checked: look in Spam now and then.
+
+Leads without an email have a Contact number for a call or WhatsApp.
 
 ## Replies
 

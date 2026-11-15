@@ -263,9 +263,9 @@ const SHEET_TAB = 'Leads';
 // the gid in the sheet URL after #gid= (0 for a new sheet's first tab)
 const SHEET_TAB_GID = 0;
 const SENDER_NAME = 'Alex';
-// Alex chose the area without house and road (2026-11-16); the warning that it may not count as a valid postal
-// address under CAN-SPAM is recorded in the spec
-const POSTAL_ADDRESS = '1 Example Street, Springfield, IL 62701, USA';
+// the sender's real postal address (street, city, postcode, country); US law requires one in every sales email, and
+// the Sender refuses to run while it is empty
+const POSTAL_ADDRESS = '';
 // a new free Gmail account gets locked for bursts of cold mail; raise after 2-3 weeks without complaints
 const DAILY_SEND_LIMIT = 15;
 // a random pause between two emails, so the mailbox does not send in a machine-like burst
@@ -298,6 +298,8 @@ const STOP_WORDS = new RegExp([
   '\\bstop (emailing|sending|contacting)\\b',
   "\\b(do not|don['’]t) (email|contact|message)\\b",
 ].join('|'), 'im');
+// one address only: a cell holding "a@x.com;b@y.com" would send one email to two people
+const SINGLE_ADDRESS = /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/;
 const BOUNCE_SENDER = /mailer-daemon|postmaster/i;
 // where the quoted original starts in a reply from Gmail, Outlook and Apple Mail
 const REPLY_QUOTE_START = /^On .+wrote:\s*$|^-{2,}\s*Original Message|^From: .*@.*$/im;
@@ -317,6 +319,6 @@ module.exports = {
   JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS,
   LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS,
   SHEET_HEADERS, LEAD_STATUS, SHEET_ID, SHEET_TAB, SHEET_TAB_GID, SENDER_NAME, POSTAL_ADDRESS,
-  DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, SEND_TIMEZONE, EMAIL_SUBJECT, EMAIL_BODY, STOP_WORDS, BOUNCE_SENDER,
-  REPLY_QUOTE_START, GMAIL_CREDENTIAL, SHEETS_CREDENTIAL, WORKFLOW_IDS,
+  DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, SEND_TIMEZONE, EMAIL_SUBJECT, EMAIL_BODY, STOP_WORDS, SINGLE_ADDRESS,
+  BOUNCE_SENDER, REPLY_QUOTE_START, GMAIL_CREDENTIAL, SHEETS_CREDENTIAL, WORKFLOW_IDS,
 };

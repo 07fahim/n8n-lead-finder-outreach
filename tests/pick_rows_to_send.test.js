@@ -43,3 +43,9 @@ test('an address that was already emailed, or appears twice, is emailed once', (
     makeRow('c', { 'Lead email': 'TWIN@salon.com' })];
   assert.deepEqual(pickedIds(pickRowsToSend(rows, TODAY, 15)), ['b']);
 });
+
+test('a cell holding two addresses is not picked', () => {
+  const rows = [makeRow('semicolon', { 'Lead email': 'a@x.com;b@y.com' }),
+    makeRow('comma', { 'Lead email': 'a@x.com, b@y.com' }), makeRow('ok')];
+  assert.deepEqual(pickedIds(pickRowsToSend(rows, TODAY, 15)), ['ok']);
+});

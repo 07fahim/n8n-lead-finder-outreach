@@ -1,4 +1,4 @@
-const { SHEET_HEADERS, LEAD_STATUS } = require('./config');
+const { SHEET_HEADERS, LEAD_STATUS, SINGLE_ADDRESS } = require('./config');
 
 function isTicked(value) {
 
@@ -15,7 +15,7 @@ function readEmail(row) {
 
 function isReadyToSend(row) {
 
-  return isTicked(row[SHEET_HEADERS.send]) && !row[SHEET_HEADERS.sentDate] && Boolean(readEmail(row)) &&
+  return isTicked(row[SHEET_HEADERS.send]) && !row[SHEET_HEADERS.sentDate] && SINGLE_ADDRESS.test(readEmail(row)) &&
     Boolean(row[SHEET_HEADERS.opener]) && row[SHEET_HEADERS.status] === LEAD_STATUS.new &&
     Boolean(row[SHEET_HEADERS.leadId]);
 }

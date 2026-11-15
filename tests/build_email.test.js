@@ -6,7 +6,7 @@ const ROW = { 'Name': 'Hue Hair', 'Lead email': ' info@salon-one.test ', 'Lead I
   'Opener': 'Hi Hue Hair, noticed your website does not have a way to book online...' };
 
 test('the email is the opener, the free plan line, the signature and the footer', () => {
-  assert.deepEqual(buildEmail(ROW), {
+  assert.deepEqual(buildEmail(ROW, '1 Example Street, Springfield, IL 62701, USA'), {
     leadId: 'node/7',
     to: 'info@salon-one.test',
     subject: 'Quick question, Hue Hair',
@@ -27,7 +27,7 @@ test('the email is the opener, the free plan line, the signature and the footer'
 });
 
 test('a $ in a name stays literal', () => {
-  assert.equal(buildEmail({ ...ROW, 'Name': 'Cuts $& Co' }).subject, 'Quick question, Cuts $& Co');
+  assert.equal(buildEmail({ ...ROW, 'Name': 'Cuts $& Co' }, 'Main Street 1').subject, 'Quick question, Cuts $& Co');
 });
 
 test('an empty postal address stops the send', () => {

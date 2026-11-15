@@ -107,21 +107,32 @@ function buildSenderWorkflow() {
       ].join('\n') }),
     buildNode({ name: 'Send One by One', type: 'n8n-nodes-base.splitInBatches', typeVersion: 3, position: [660, 0],
       parameters: { batchSize: 1, options: {} } }),
-    withCredential(buildNode({ name: 'Send Email', type: 'n8n-nodes-base.gmail', typeVersion: 2.2,
-      position: [880, 100], parameters: { resource: 'message', operation: 'send', sendTo: '={{ $json.to }}',
-        subject: '={{ $json.subject }}', emailType: 'text', message: '={{ $json.text }}',
-        options: { appendAttribution: false, senderName: SENDER_NAME } },
 
-      // one failed send must not stop the others; the row keeps no Sent date, so the next run tries it again
-      extra: { onError: 'continueErrorOutput' } }), 'gmailOAuth2', GMAIL_CREDENTIAL),
-    buildSheetNode('Mark Sheet Sent', [1100, 0], { operation: 'update', columns: sheetColumns({
+    // the row is marked Sent before Gmail sends, because a mark that failed after a send would let the next run email
+    // the lead again; a row the user deleted matches nothing and returns [], and without alwaysOutputData the loop
+    // stops there
+    buildSheetNode('Claim Row', [880, 100], { operation: 'update', columns: sheetColumns({
       'Lead ID': `={{ ${current}.leadId }}`,
       'Sent date': `={{ ${current}.sentDate }}`,
       'Status': LEAD_STATUS.sent,
-    }, ['Lead ID']), options: { cellFormat: 'RAW' } },
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } }, { alwaysOutputData: true }),
 
-    // a row the user deleted matches nothing and returns []; without this the loop stops there
-    { alwaysOutputData: true }),
+    // its input is the Claim Row output, so the email is read from the loop item
+    withCredential(buildNode({ name: 'Send Email', type: 'n8n-nodes-base.gmail', typeVersion: 2.2,
+      position: [1100, 100], parameters: { resource: 'message', operation: 'send', sendTo: `={{ ${current}.to }}`,
+        subject: `={{ ${current}.subject }}`, emailType: 'text', message: `={{ ${current}.text }}`,
+        options: { appendAttribution: false, senderName: SENDER_NAME } },
+
+      // one failed send must not stop the others; Release Row hands the row back to the next run
+      extra: { onError: 'continueErrorOutput' } }), 'gmailOAuth2', GMAIL_CREDENTIAL),
+
+    // onError stays at the default: if releasing fails, the row stays claimed, which is the safe direction (the lead is
+    // never emailed twice), and the run stops so the problem is seen. Report counts Status New as a failure
+    buildSheetNode('Release Row', [1320, 300], { operation: 'update', columns: sheetColumns({
+      'Lead ID': `={{ ${current}.leadId }}`,
+      'Sent date': '',
+      'Status': LEAD_STATUS.new,
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } }, { alwaysOutputData: true }),
     buildNode({ name: 'Mark Table Sent', type: 'n8n-nodes-base.dataTable', position: [1320, 0], parameters: {
       resource: 'row', operation: 'update', dataTableId: buildTableReference(LEADS_TABLE), matchType: 'allConditions',
       filters: { conditions: [{ keyName: 'osm_key', condition: 'eq', keyValue: `={{ ${current}.leadId }}` }] },
@@ -131,12 +142,12 @@ function buildSenderWorkflow() {
       resume: 'timeInterval', unit: 'seconds',
       amount: `={{ Math.floor(Math.random() * ${longestWait - shortestWait + 1}) + ${shortestWait} }}` } }),
 
-    // the loop's done output holds every item fed back: sends from Wait, failures (with error) from Send Email
+    // the loop's done output holds every item fed back: sends from Wait, failures from Release Row, which returns the
+    // values it wrote (Status New); the Gmail error text is in the execution view
     buildCodeNode({ name: 'Report', files: [], position: [880, -200], glue: [
       'const results = $input.all().map((item) => item.json);',
-      'const failed = results.filter((json) => json.error);',
-      'return [{ json: { sent: results.length - failed.length, failed: failed.length,',
-      '  errors: failed.map((json) => String(json.error.message || json.error)) } }];',
+      `const failed = results.filter((json) => json.Status === '${LEAD_STATUS.new}').length;`,
+      'return [{ json: { sent: results.length - failed, failed } }];',
     ].join('\n') }),
   ];
   const connections = connectNodes([
@@ -144,10 +155,11 @@ function buildSenderWorkflow() {
     ['Read Sheet', 'Pick Emails'],
     ['Pick Emails', 'Send One by One'],
     ['Send One by One', 'Report', 0],
-    ['Send One by One', 'Send Email', 1],
-    ['Send Email', 'Mark Sheet Sent', 0],
-    ['Send Email', 'Send One by One', 1],
-    ['Mark Sheet Sent', 'Mark Table Sent'],
+    ['Send One by One', 'Claim Row', 1],
+    ['Claim Row', 'Send Email'],
+    ['Send Email', 'Mark Table Sent', 0],
+    ['Send Email', 'Release Row', 1],
+    ['Release Row', 'Send One by One'],
     ['Mark Table Sent', 'Wait'],
     ['Wait', 'Send One by One'],
   ]);
@@ -168,8 +180,8 @@ function buildReplyCheckerWorkflow() {
     buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }, { executeOnce: true }),
     buildCodeNode({ name: 'Classify Replies', files: ['config.js', 'classify_reply.js'], position: [440, 0], glue: [
       'const sheetRows = $input.all().map((item) => item.json);',
-      "return $('New Email').all().map((item) => classifyReply(item.json, sheetRows)).filter(Boolean)",
-      '  .map((json) => ({ json }));',
+      "const results = $('New Email').all().map((item) => classifyReply(item.json, sheetRows)).filter(Boolean);",
+      'return keepStrongestPerLead(results).map((json) => ({ json }));',
     ].join('\n') }),
     buildSheetNode('Mark Sheet Status', [660, 0], { operation: 'update', columns: sheetColumns({
       'Lead ID': '={{ $json.leadId }}',

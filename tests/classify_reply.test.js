@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { classifyReply } = require('../src/classify_reply');
+const { classifyReply, keepStrongestPerLead } = require('../src/classify_reply');
 
 const ROWS = [
   { 'Lead email': 'Owner@Salon.com', 'Lead ID': 'node/1', 'Status': 'Sent', 'Sent date': '2026-11-16' },
@@ -100,4 +100,16 @@ test('a decline or a leaked footer line is a reply, not an opt-out', () => {
 test('a bounce naming the address at the end of a sentence still finds the row', () => {
   assert.deepEqual(classifyReply(makeMessage('postmaster@mail.example', 'Delivery to owner@salon.com.'), ROWS),
     { leadId: 'node/1', status: 'Bounced' });
+});
+
+test('several results for one lead keep the strongest: Bounced over Stopped over Replied', () => {
+  const results = [
+    { leadId: 'node/1', status: 'Replied' }, { leadId: 'node/2', status: 'Stopped' },
+    { leadId: 'node/1', status: 'Bounced' }, { leadId: 'node/2', status: 'Replied' },
+    { leadId: 'node/1', status: 'Stopped' }, { leadId: 'node/3', status: 'Replied' },
+  ];
+  assert.deepEqual(keepStrongestPerLead(results), [
+    { leadId: 'node/1', status: 'Bounced' }, { leadId: 'node/2', status: 'Stopped' },
+    { leadId: 'node/3', status: 'Replied' },
+  ]);
 });

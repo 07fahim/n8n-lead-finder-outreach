@@ -91,7 +91,7 @@ test('connectNodes puts a numbered output in its own slot', () => {
   assert.deepEqual(connectNodes([['A', 'B', 1]]), { A: { main: [[], [{ node: 'B', type: 'main', index: 0 }]] } });
 });
 
-test('sender sends plain text without the n8n credit line, marks RAW, and loops with a random wait', () => {
+test('sender claims the row, sends plain text without the n8n credit line, and loops with a random wait', () => {
   const workflow = buildSenderWorkflow();
   checkWiring(workflow);
   assert.equal(workflow.id, 'AcmeBookSender01');
@@ -100,40 +100,53 @@ test('sender sends plain text without the n8n credit line, marks RAW, and loops 
   assert.equal(send.parameters.options.appendAttribution, false);
   assert.equal(send.parameters.options.senderName, 'Alex');
   assert.equal(send.onError, 'continueErrorOutput');
-  assert.equal(findNode(workflow, 'Mark Sheet Sent').parameters.options.cellFormat, 'RAW');
-  // a deleted sheet row returns [] from the update; the loop must still reach Wait
-  assert.equal(findNode(workflow, 'Mark Sheet Sent').alwaysOutputData, true);
-  assert.deepEqual(findNode(workflow, 'Mark Sheet Sent').parameters.columns.matchingColumns, ['Lead ID']);
+  // the input of Send Email is the Claim Row output, so the email comes from the loop item
+  assert.equal(send.parameters.sendTo, "={{ $('Send One by One').item.json.to }}");
+  assert.equal(send.parameters.subject, "={{ $('Send One by One').item.json.subject }}");
+  assert.equal(send.parameters.message, "={{ $('Send One by One').item.json.text }}");
+  assert.equal(findNode(workflow, 'Mark Sheet Sent'), undefined);
+  for (const name of ['Claim Row', 'Release Row']) {
+    const node = findNode(workflow, name);
+    assert.equal(node.parameters.options.cellFormat, 'RAW', name);
+    assert.deepEqual(node.parameters.columns.matchingColumns, ['Lead ID'], name);
+    // a deleted sheet row returns [] from the update; the loop must still go on
+    assert.equal(node.alwaysOutputData, true, name);
+  }
+  assert.equal(findNode(workflow, 'Claim Row').parameters.columns.value.Status, 'Sent');
+  const release = findNode(workflow, 'Release Row');
+  assert.equal(release.parameters.columns.value.Status, 'New');
+  assert.equal(release.parameters.columns.value['Sent date'], '');
+  assert.equal(release.onError, undefined);
   const tableFilter = findNode(workflow, 'Mark Table Sent').parameters.filters.conditions[0];
   assert.equal(tableFilter.keyName, 'osm_key');
   assert.ok(tableFilter.keyValue.includes("$('Send One by One').item.json.leadId"));
   assert.match(findNode(workflow, 'Wait').parameters.amount, /Math\.random\(\) \* 121\) \+ 60/);
-  assert.deepEqual(workflow.connections['Send Email'].main[1], [{ node: 'Send One by One', type: 'main', index: 0 }]);
-  assert.deepEqual(workflow.connections['Wait'].main[0], [{ node: 'Send One by One', type: 'main', index: 0 }]);
-  assert.deepEqual(workflow.connections['Send One by One'].main[0], [{ node: 'Report', type: 'main', index: 0 }]);
+  const link = (node) => [{ node, type: 'main', index: 0 }];
+  assert.deepEqual(workflow.connections['Send One by One'].main[0], link('Report'));
+  assert.deepEqual(workflow.connections['Send One by One'].main[1], link('Claim Row'));
+  assert.deepEqual(workflow.connections['Claim Row'].main[0], link('Send Email'));
+  assert.deepEqual(workflow.connections['Send Email'].main[0], link('Mark Table Sent'));
+  assert.deepEqual(workflow.connections['Send Email'].main[1], link('Release Row'));
+  assert.deepEqual(workflow.connections['Release Row'].main[0], link('Send One by One'));
+  assert.deepEqual(workflow.connections['Mark Table Sent'].main[0], link('Wait'));
+  assert.deepEqual(workflow.connections['Wait'].main[0], link('Send One by One'));
 });
 
-test('the Pick Emails node builds emails for ticked rows only, in the sandbox', async () => {
-  const rows = [
-    { 'Name': 'A', 'Lead email': 'a@a.com', 'Opener': 'Hi A', 'Send email': true, 'Sent date': '', 'Status': 'New',
-      'Lead ID': 'node/1' },
-    { 'Name': 'B', 'Lead email': 'b@b.com', 'Opener': 'Hi B', 'Send email': false, 'Sent date': '', 'Status': 'New',
-      'Lead ID': 'node/2' },
-  ].map((json) => ({ json }));
-  const emails = await runNodeLikeN8n(buildSenderWorkflow(), 'Pick Emails', rows);
-  assert.equal(emails.length, 1);
-  assert.equal(emails[0].json.to, 'a@a.com');
-  assert.match(emails[0].json.sentDate, /^\d{4}-\d{2}-\d{2}$/);
-});
+test('the Pick Emails node stops with the POSTAL_ADDRESS error while the address is empty, in the sandbox',
+  async () => {
+    // picking itself is tested in pick_rows_to_send.test.js
+    const rows = [{ 'Name': 'A', 'Lead email': 'a@a.com', 'Opener': 'Hi A', 'Send email': true, 'Sent date': '',
+      'Status': 'New', 'Lead ID': 'node/1' }].map((json) => ({ json }));
+    await assert.rejects(runNodeLikeN8n(buildSenderWorkflow(), 'Pick Emails', rows), /POSTAL_ADDRESS/);
+  });
 
-test('the Report node counts sent and failed emails from the loop done output, in the sandbox', async () => {
-  // Gmail's error output carries the error as a plain string, e.g. 'quota (item 0)'
-  const done = [{ leadId: 'node/1' }, { leadId: 'node/2', error: { message: 'quota' } }, { leadId: 'node/3' },
-    { leadId: 'node/4', error: 'quota (item 0)' }].map((json) => ({ json }));
+test('the Report node counts released rows as failed and the rest as sent, in the sandbox', async () => {
+  // Wait passes the Mark Table Sent output on; Release Row returns the values it wrote
+  const done = [{ id: 1, status: 'Sent' }, { 'Lead ID': 'node/2', 'Sent date': '', 'Status': 'New' }, {},
+    { 'Lead ID': 'node/4', 'Sent date': '', 'Status': 'New' }].map((json) => ({ json }));
   const report = await runNodeLikeN8n(buildSenderWorkflow(), 'Report', done);
   // the node runs in another vm realm, so compare plain copies
-  assert.deepEqual(JSON.parse(JSON.stringify(report[0].json)),
-    { sent: 2, failed: 2, errors: ['quota', 'quota (item 0)'] });
+  assert.deepEqual(JSON.parse(JSON.stringify(report[0].json)), { sent: 2, failed: 2 });
 });
 
 test('reply checker polls Gmail every 15 minutes with full messages and writes RAW', () => {
@@ -150,6 +163,18 @@ test('the Classify Replies node marks a lead reply, in the sandbox', async () =>
   const sheet = [{ json: { 'Lead email': 'owner@salon.com', 'Lead ID': 'node/1', 'Status': 'Sent',
     'Sent date': '2026-11-16' } }];
   const mail = [{ json: { from: { value: [{ address: 'owner@salon.com' }] }, text: 'stop', headers: {} } }];
+  const results = await runNodeLikeN8n(buildReplyCheckerWorkflow(), 'Classify Replies', sheet,
+    { nodeOutputs: { 'New Email': mail } });
+  // the node runs in another vm realm, so compare plain copies
+  assert.deepEqual(JSON.parse(JSON.stringify(results.map((item) => item.json))),
+    [{ leadId: 'node/1', status: 'Stopped' }]);
+});
+
+test('the Classify Replies node keeps one result per lead, the strongest, in the sandbox', async () => {
+  const sheet = [{ json: { 'Lead email': 'owner@salon.com', 'Lead ID': 'node/1', 'Status': 'Sent',
+    'Sent date': '2026-11-16' } }];
+  const mail = [{ json: { from: { value: [{ address: 'owner@salon.com' }] }, text: 'Tell me more', headers: {} } },
+    { json: { from: { value: [{ address: 'owner@salon.com' }] }, text: 'stop', headers: {} } }];
   const results = await runNodeLikeN8n(buildReplyCheckerWorkflow(), 'Classify Replies', sheet,
     { nodeOutputs: { 'New Email': mail } });
   // the node runs in another vm realm, so compare plain copies
