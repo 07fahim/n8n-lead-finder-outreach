@@ -8,26 +8,26 @@ function readFixture(name) {
   return fs.readFileSync(path.join(__dirname, 'fixtures', 'html', `${name}.html`), 'utf8');
 }
 
-const REAL_SITES = [
-  ['salon-h', 'https://salon-h.test/', 'competitor', 'Mangomint'],
-  ['studio-i', 'https://www.studio-i.test/', 'competitor', 'Acuity'],
-  ['nailbar-e', 'https://nailbar-e.test/', 'competitor', 'Freetime'],
-  ['bodybar-g', 'https://bodybar-g.test', 'competitor', 'Booker'],
-  ['dental-d', 'https://www.dental-d.test/', 'competitor', 'portal.dental'],
+const SITES = [
+  ['mangomint_salon', 'https://fernandfoxsalon.example/', 'competitor', 'Mangomint'],
+  ['acuity_studio', 'https://lanternroomstudio.example/', 'competitor', 'Acuity'],
+  ['freetime_nails', 'https://pebblelanenails.example/', 'competitor', 'Freetime'],
+  ['booker_bodybar', 'https://saltandsagebodybar.example', 'competitor', 'Booker'],
+  ['portal_dental', 'https://www.brookfielddental.example/', 'competitor', 'portal.dental'],
 ];
 
-for (const [name, url, status, tool] of REAL_SITES) {
-  test(`real site ${name} -> ${status} ${tool}`, () => {
+for (const [name, url, status, tool] of SITES) {
+  test(`page like ${name} -> ${status} ${tool}`, () => {
     const detection = detectTool(readFixture(name), url);
     assert.equal(detection.tool_status, status);
     assert.equal(detection.tool_name, tool);
   });
 }
 
-test('real site salon-f links to its own /book-now page', () => {
-  const detection = detectTool(readFixture('salon-f'), 'https://salon-f.test/');
+test('page like own_book_page links to its own /book-now page', () => {
+  const detection = detectTool(readFixture('own_book_page'), 'https://harlowhairhouse.example/');
   assert.equal(detection.tool_status, 'action_page');
-  assert.match(detection.action_page_url, /^https:\/\/salon-f\.com\/book-now\/?$/);
+  assert.match(detection.action_page_url, /^https:\/\/harlowhairhouse\.example\/book-now\/?$/);
 });
 
 test('a known tool loaded by a script counts as a competitor with its name', () => {
