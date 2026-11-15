@@ -91,8 +91,9 @@ the counts per city; the Check Run node shows the totals for the run.
 
 ## AcmeBook domains
 
-`ACMEBOOK_DOMAINS` in `src/config.js` holds `acmebook.example`. Add any custom domain a AcmeBook customer uses, then
-build and deploy.
+`OWN_PRODUCT_DOMAINS` in `src/product.js` holds `acmebook.example`. A site on one of these domains is marked
+`already_customer` in the `tool_status` column and is not a lead. Add any custom domain a AcmeBook customer uses,
+then build and deploy.
 
 ## Stop seeing a lead
 
@@ -118,17 +119,25 @@ replaces the same workflow.
 
 ## Email setup (once)
 
-On a new PC, follow `SETUP.md`. On this PC, the values live in `src/config.js`:
+On a new PC, follow `SETUP.md`. The ids of this PC live in `install.json` (a copy of `install.example.json`, never
+committed):
+
+| Value in `install.json` | What it is |
+|---|---|
+| `sheetId` | the part of the sheet URL between `/d/` and `/edit` |
+| `sheetTabGid` | the number after `#gid=` in the sheet URL (`0` for the first tab) |
+| `gmailCredential` | id and name of the n8n Gmail credential (id from the URL `/credentials/<id>`) |
+| `sheetsCredential` | id and name of the n8n Google Sheets credential |
+
+Without `install.json`, `node build.js` warns and builds with empty ids. The sender values live in `src/product.js`,
+the limit in `src/config.js`:
 
 | Value | What it is |
 |---|---|
-| `SHEET_ID` | the part of the sheet URL between `/d/` and `/edit` |
-| `SHEET_TAB_GID` | the number after `#gid=` in the sheet URL (`0` for the first tab) |
-| `GMAIL_CREDENTIAL` | id and name of the n8n Gmail credential (id from the URL `/credentials/<id>`) |
-| `SHEETS_CREDENTIAL` | id and name of the n8n Google Sheets credential |
-| `SENDER_NAME` | the name the emails are signed with |
-| `POSTAL_ADDRESS` | the sender's real postal address, shown in every email footer; the Sender stops if it is empty |
-| `DAILY_SEND_LIMIT` | most emails sent per day (America/New_York calendar day) |
+| `SENDER_NAME` (`src/product.js`) | the name the emails are signed with |
+| `POSTAL_ADDRESS` (`src/product.js`) | the sender's real postal address, shown in every email footer; the Sender stops if it is empty |
+| `SEND_TIMEZONE` (`src/product.js`) | the time zone whose calendar day the daily limit counts (`America/New_York`) |
+| `DAILY_SEND_LIMIT` (`src/config.js`) | most emails sent per day |
 
 After a change, run `node build.js` and deploy the workflows again.
 
@@ -172,3 +181,50 @@ yourself in Gmail.
 Do not test with an email to the sending account itself: its own email would be read as a reply. Test from another
 address you can reply from. To check at once, open the Reply Checker and click **Execute workflow**: run by hand, it
 reads the latest message in the inbox.
+
+## Use it for your own product
+
+The finder looks for businesses whose website does not show your kind of product yet. So it fits any product a
+business shows on its homepage: online booking, online ordering, live chat, review widgets, payments, newsletter
+sign-ups. It does not fit products that leave no mark on the homepage, such as SEO, web design or accounting: the
+check cannot tell who already has them.
+
+1. Edit `src/product.js`. Every value about what you sell is there, and nowhere else (a test checks this):
+   - `PRODUCT_NAME`: your product's name, shown in the workflow names and the Overpass user agent.
+   - `TABLE_PREFIX`: the start of the Data table names (`<prefix>_leads`, `<prefix>_cities`).
+   - `CITIES`: the cities to search, with country and centre coordinates, in run order.
+   - `CATEGORY_RULES`: which OpenStreetMap tags count as a lead, and the category name each gets.
+   - `BARBERSHOP_CATEGORY`: the category for a `hairdresser` whose OpenStreetMap tags mention barber.
+   - `COMPETITOR_TOOLS`: competing tools and the domains that show a site uses them.
+   - `COMPETITOR_TEXT_MARKERS`: text in a page that shows a competitor running on the site's own domain.
+   - `ACTION_WORDS`: the words in a link that point to your kind of feature (for AcmeBook: book, appointment).
+   - `OWN_PRODUCT_DOMAINS`: your own domains; a site on them is already a customer.
+   - `OWN_PRODUCT_TEXT_MARKER`: text in a page that shows your product is there.
+   - `OWN_PRODUCT_FOOTER`: your "Powered by" footer, for customers on their own domain.
+   - `POINTS`: the points for each signal in the score.
+   - `REASON_TEXTS`: how the reasons in the sheet name your signal.
+   - `HOT_MIN_SCORE`, `WARM_MIN_SCORE`: the lowest score for Hot and for Warm.
+   - `FEEDBACK_ASK`: the question the openers end with.
+   - `OPENERS`: the first line of the email for each `tool_status`; `{name}` and `{tool}` are filled in.
+   - `SENDER_NAME`: the name the emails are signed with.
+   - `POSTAL_ADDRESS`: your real postal address; the Sender refuses to run while it is empty.
+   - `SEND_TIMEZONE`: the time zone whose calendar day the daily limit counts.
+   - `EMAIL_SUBJECT`, `EMAIL_BODY`: the email; `{name}` (subject), `{opener}`, `{sender}` and `{address}` are filled
+     in.
+2. After the n8n credentials exist (SETUP.md step 4), copy `install.example.json` to `install.json` and fill in the
+   sheet id, the tab gid and both credentials (SETUP.md step 6).
+3. Run `npm test` and `node build.js`, then deploy (SETUP.md step 7, or "Deploy a change" above).
+4. The law. US law (CAN-SPAM) requires a real postal address in every sales email. Other countries may forbid cold
+   email to some businesses altogether: PECR in the UK, CASL in Canada and the Spam Act in Australia. It is the
+   sender's job to check the law for each country before sending.
+
+The website check is in `src/check_websites.js` and `src/detect_tool.js`. It writes `tool_status`
+(`already_customer`, `competitor`, `none_found`, `no_website`, `site_down` or `site_blocked`) and `tool_name` into
+the leads table. A link to the site's own action page (`action_page`) is followed, and the page it opens decides
+between `competitor` and `none_found`.
+
+## Credits and license
+
+Business data © OpenStreetMap contributors, ODbL (`tests/fixtures/overpass_*.json` and every run).
+
+License: MIT (see `LICENSE`).

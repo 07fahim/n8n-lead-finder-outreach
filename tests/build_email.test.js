@@ -31,5 +31,5 @@ test('a $ in a name stays literal', () => {
 });
 
 test('an empty postal address stops the send', () => {
-  assert.throws(() => buildEmail(ROW, '  '), /POSTAL_ADDRESS/);
+  assert.throws(() => buildEmail(ROW, '  '), /POSTAL_ADDRESS in src\/product\.js/);
 });

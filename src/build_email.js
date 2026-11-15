@@ -11,7 +11,7 @@ function fillTemplate(template, values) {
 function buildEmail(row, postalAddress = POSTAL_ADDRESS) {
 
   if (!postalAddress.trim()) {
-    throw new Error('POSTAL_ADDRESS in src/config.js is empty: a sales email must carry a postal address');
+    throw new Error('POSTAL_ADDRESS in src/product.js is empty: a sales email must carry a postal address');
   }
   return {
     leadId: row[SHEET_HEADERS.leadId],
