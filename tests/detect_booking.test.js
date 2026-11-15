@@ -73,6 +73,16 @@ test('a footer credit link saying all rights reserved is not booking', () => {
   assert.equal(detectBooking(html, 'https://salon.com').booking_status, 'none_found');
 });
 
+test('a booking tool whose host merely starts with google. is still a competitor', () => {
+  const html = '<a href="https://google.bookingtool.io/salon">Book now</a>';
+  assert.equal(detectBooking(html, 'https://salon.com').booking_tool, 'google.bookingtool.io');
+});
+
+test('a footer credit with a non-breaking space in rights reserved is not booking', () => {
+  const html = '<a href="https://webdesignco.com">All rights reserved</a>';
+  assert.equal(detectBooking(html, 'https://salon.com').booking_status, 'none_found');
+});
+
 test('a page with no booking signs is none_found', () => {
   assert.equal(detectBooking('<a href="/about">About us</a>', 'https://a.com').booking_status, 'none_found');
 });

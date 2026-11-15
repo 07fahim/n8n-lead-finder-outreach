@@ -164,7 +164,8 @@ const BOOKING_TOOLS = [
 const BOOKING_TEXT_MARKERS = [{ name: 'Wix Bookings', marker: 'wix-bookings' }];
 // customer pages live on <business>.acmebook.example (seen on acmebook.example, 2026-11-16)
 const ACMEBOOK_DOMAINS = ['acmebook.example'];
-// the bare word "acmebook" appears in unrelated text, while every AcmeBook page and embed names acmebook
+// the bare word "acmebook" appears in unrelated text; customer pages are on acmebook.example (the embed snippet itself
+// was not seen, so a widget served from another host would be missed)
 const ACMEBOOK_TEXT_MARKER = 'acmebook';
 // links to these are never booking tools, even behind a "Book" button
 const NON_BOOKING_DOMAINS = [
@@ -174,10 +175,10 @@ const NON_BOOKING_DOMAINS = [
   'wa.me', 'whatsapp.com', 'nhs.uk', 'gov.uk', 'googletagmanager.com', 'doubleclick.net', 'vimeo.com', 'spotify.com',
 ];
 // uk and other sites embed maps from google.co.uk and similar country domains
-const GOOGLE_HOST = /(^|\.)google\.[a-z.]+$/;
+const GOOGLE_HOST = /(^|\.)google\.(com?\.)?[a-z]{2,3}$/;
 const BOOKING_WORDS = /\b(book|booking|appointment|schedul|reserv)/i;
 // a footer credit link says "All rights reserved" and is not booking
-const RIGHTS_RESERVED = /rights reserved/gi;
+const RIGHTS_RESERVED = /rights\s+reserved/gi;
 // a "Book an appointment" button that opens the contact page is not online booking (seen on dental-d)
 const CONTACT_PATH = /contact/i;
 const JUNK_EMAIL_PARTS = [
