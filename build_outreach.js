@@ -100,7 +100,10 @@ function buildSenderWorkflow() {
       'Lead ID': `={{ ${current}.leadId }}`,
       'Sent date': `={{ ${current}.sentDate }}`,
       'Status': LEAD_STATUS.sent,
-    }, ['Lead ID']), options: { cellFormat: 'RAW' } }),
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } },
+
+    // a row the user deleted matches nothing and returns []; without this the loop stops there
+    { alwaysOutputData: true }),
     buildNode({ name: 'Mark Table Sent', type: 'n8n-nodes-base.dataTable', position: [1320, 0], parameters: {
       resource: 'row', operation: 'update', dataTableId: buildTableReference(LEADS_TABLE), matchType: 'allConditions',
       filters: { conditions: [{ keyName: 'osm_key', condition: 'eq', keyValue: `={{ ${current}.leadId }}` }] },
@@ -109,10 +112,13 @@ function buildSenderWorkflow() {
     buildNode({ name: 'Wait', type: 'n8n-nodes-base.wait', typeVersion: 1.1, position: [1540, 0], parameters: {
       resume: 'timeInterval', unit: 'seconds',
       amount: `={{ Math.floor(Math.random() * ${longestWait - shortestWait + 1}) + ${shortestWait} }}` } }),
+
+    // the loop's done output holds every item fed back: sends from Wait, failures (with error) from Send Email
     buildCodeNode({ name: 'Report', files: [], position: [880, -200], glue: [
-      "const sent = $('Mark Sheet Sent').all().length;",
-      "const picked = $('Pick Emails').all().length;",
-      'return [{ json: { picked, sent, failed: picked - sent } }];',
+      'const results = $input.all().map((item) => item.json);',
+      'const failed = results.filter((json) => json.error);',
+      'return [{ json: { sent: results.length - failed.length, failed: failed.length,',
+      '  errors: failed.map((json) => String(json.error.message || json.error)) } }];',
     ].join('\n') }),
   ];
   const connections = connectNodes([

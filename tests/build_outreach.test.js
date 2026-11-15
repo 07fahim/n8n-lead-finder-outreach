@@ -62,6 +62,12 @@ test('sender sends plain text without the n8n credit line, marks RAW, and loops 
   assert.equal(send.parameters.options.senderName, 'Alex');
   assert.equal(send.onError, 'continueErrorOutput');
   assert.equal(findNode(workflow, 'Mark Sheet Sent').parameters.options.cellFormat, 'RAW');
+  // a deleted sheet row returns [] from the update; the loop must still reach Wait
+  assert.equal(findNode(workflow, 'Mark Sheet Sent').alwaysOutputData, true);
+  assert.deepEqual(findNode(workflow, 'Mark Sheet Sent').parameters.columns.matchingColumns, ['Lead ID']);
+  const tableFilter = findNode(workflow, 'Mark Table Sent').parameters.filters.conditions[0];
+  assert.equal(tableFilter.keyName, 'osm_key');
+  assert.ok(tableFilter.keyValue.includes("$('Send One by One').item.json.leadId"));
   assert.match(findNode(workflow, 'Wait').parameters.amount, /Math\.random\(\) \* 121\) \+ 60/);
   assert.deepEqual(workflow.connections['Send Email'].main[1], [{ node: 'Send One by One', type: 'main', index: 0 }]);
   assert.deepEqual(workflow.connections['Wait'].main[0], [{ node: 'Send One by One', type: 'main', index: 0 }]);
@@ -78,4 +84,12 @@ test('the Pick Emails node builds emails for ticked rows only, in the sandbox', 
   assert.equal(emails.length, 1);
   assert.equal(emails[0].json.to, 'a@a.com');
   assert.match(emails[0].json.sentDate, /^\d{4}-\d{2}-\d{2}$/);
+});
+
+test('the Report node counts sent and failed emails from the loop done output, in the sandbox', async () => {
+  const done = [{ leadId: 'node/1' }, { leadId: 'node/2', error: { message: 'quota' } }, { leadId: 'node/3' }]
+    .map((json) => ({ json }));
+  const report = await runNodeLikeN8n(buildSenderWorkflow(), 'Report', done);
+  // the node runs in another vm realm, so compare plain copies
+  assert.deepEqual(JSON.parse(JSON.stringify(report[0].json)), { sent: 2, failed: 1, errors: ['quota'] });
 });
