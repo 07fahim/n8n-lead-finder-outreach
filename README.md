@@ -22,15 +22,34 @@ Writes `build/workflow.json` (the workflow), `build/tables.json` (the columns of
 
 ## First-time setup in n8n
 
-1. Raise the Code node timeout: back up `D:\Tools\n8n\start-n8n.cmd`, add `set N8N_RUNNERS_TASK_TIMEOUT=2400` above
-   the line that starts n8n, restart n8n and check that `curl -s -o /dev/null -w "%{http_code}"
-   http://127.0.0.1:5678/healthz` prints `200`.
+1. Set up the Code node runner: back up `D:\Tools\n8n\start-n8n.cmd` and make sure these two lines stand above
+   the line that starts n8n:
+
+   ```bat
+   set N8N_RUNNERS_TASK_TIMEOUT=2400
+   set NODE_FUNCTION_ALLOW_BUILTIN=crypto,url
+   ```
+
+   The timeout covers the long Overpass queries and website checks. The `url` module is needed because the Code
+   node sandbox has no global `URL`, and every Code node starts with `const { URL } = require('url');`. Keep
+   `crypto` in the list: other workflows on this machine already use it. Restart n8n and check that
+   `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:5678/healthz` prints `200`.
 2. Create the Data tables: for each table in `build/tables.json`, call `mcp__n8n__n8n_manage_datatable` with
    `action: createTable`, the table name and its columns; check with `action: listTables`.
 3. Load the cities: insert one probe row into `acmebook_cities` to check that `last_run` accepts an ISO date, delete
    it, then `insertRows` with the array in `build/cities.json` (expect 43).
-4. Create the workflow: `mcp__n8n__n8n_create_workflow` with `name`, `nodes`, `connections` and `settings` from
-   `build/workflow.json`, and record the returned id below.
+4. Create the workflow with n8n's own import command (see the warning under "Deploy a change"). Build the import
+   file without an `id`, so the first import creates a new workflow:
+
+   ```bash
+   node build.js
+   node -e "const w=require('./build/workflow.json'); delete w.id; w.active=false;
+   require('fs').writeFileSync('build/workflow-import.json', JSON.stringify(w));"
+   cmd //c "set N8N_USER_FOLDER=D:\\Tools\\n8n\\data&& D:\\Tools\\n8n\\node_modules\\.bin\\n8n.cmd import:workflow --input=build\\workflow-import.json"
+   ```
+
+   Reload the n8n editor, open "AcmeBook Lead Finder" and read the new id from the editor URL
+   (`/workflow/<id>`). Write that id into the "Deploy a change" section below in place of the current one.
 
 ## Deploy a change
 

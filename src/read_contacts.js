@@ -15,7 +15,7 @@ function findEmails(html) {
   // site builders escape '>' as \u003e inside JSON, which would glue "u003e" to the address
   const text = html.replace(/\\u003[ce]/gi, ' ');
   const emails = new Set();
-  for (const match of text.matchAll(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)) {
+  for (const match of text.matchAll(/[A-Z0-9._%+-]{1,64}@[A-Z0-9.-]{1,253}\.[A-Z]{2,}/gi)) {
     const email = match[0].toLowerCase();
     if (/\.(png|jpe?g|gif|webp|svg|css|js)$/.test(email)) continue;
     if (JUNK_EMAIL_PARTS.some((part) => email.includes(part))) continue;

@@ -137,4 +137,4 @@ function detectBookingPage(html, pageUrl) {
   return { booking_status: 'none_found', booking_tool: '', booking_page_url: '' };
 }
 
-module.exports = { detectBooking, detectBookingPage };
+module.exports = { readHost, isDomainOrSubdomain, isNonBookingHost, detectBooking, detectBookingPage };

@@ -1,7 +1,29 @@
-const { MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY, BROWSER_USER_AGENT } = require('./config');
-const { detectBooking, detectBookingPage } = require('./detect_booking');
+const {
+  MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY, BROWSER_USER_AGENT, REDIRECT_DOMAINS,
+} = require('./config');
+const {
+  readHost, isDomainOrSubdomain, isNonBookingHost, detectBooking, detectBookingPage,
+} = require('./detect_booking');
 const { findEmails, findWhatsapp, findInstagram } = require('./read_contacts');
 const { buildLead } = require('./score_lead');
+
+function isLocalHost(host) {
+
+  // websites come from OpenStreetMap, which anyone can edit, so a planted address must not reach this machine
+  // or its local network
+  // ponytail: a public name that resolves to a private ip, and redirects to one, are not caught; checking those
+  // needs a dns lookup before each fetch and redirects followed by hand
+  return host === 'localhost' || /\.(local|internal)$/.test(host) || /^\d{1,3}(\.\d{1,3}){3}$/.test(host)
+    || host.startsWith('[');
+}
+
+
+function hasNoOwnWebsite(host) {
+
+  // a business whose only page is facebook or a link-in-bio has no website of its own
+  return isNonBookingHost(host) || REDIRECT_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
+}
+
 
 function classifyFetchError(error) {
 
@@ -42,7 +64,11 @@ async function fetchPage(url, httpRequest) {
 async function checkWebsite(business, httpRequest) {
 
   const noContacts = { emails: [], whatsapp: '', instagram: '' };
-  if (!business.website) return { booking_status: 'no_website', booking_tool: '', ...noContacts };
+  const host = readHost(business.website);
+  if (!business.website || hasNoOwnWebsite(host)) {
+    return { booking_status: 'no_website', booking_tool: '', ...noContacts };
+  }
+  if (isLocalHost(host)) return { booking_status: 'site_blocked', booking_tool: '', ...noContacts };
   const homepage = await fetchPage(business.website, httpRequest);
   if (homepage.outcome !== 'loaded') return { booking_status: homepage.outcome, booking_tool: '', ...noContacts };
   let detection = detectBooking(homepage.html, business.website);

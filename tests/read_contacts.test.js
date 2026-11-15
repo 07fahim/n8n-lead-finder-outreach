@@ -21,3 +21,9 @@ test('instagram: posts are skipped, the profile handle is kept', () => {
   assert.equal(readInstagramHandle('https://www.instagram.com/salon_x'), 'salon_x');
   assert.equal(readInstagramHandle('not a handle!'), '');
 });
+
+test('a long run of dotted letters after an @ is scanned in under a second', () => {
+  const started = Date.now();
+  findEmails('a@' + 'a.'.repeat(80000));
+  assert.ok(Date.now() - started < 1000, `took ${Date.now() - started} ms`);
+});

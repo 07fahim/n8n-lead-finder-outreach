@@ -143,3 +143,22 @@ test('a check that throws is kept for a person, with the error in its reasons', 
   assert.match(leads[0].reasons, /check failed: boom/);
   assert.deepEqual(warn.mock.calls[0].arguments, ["'node/broken': check failed, boom"]);
 });
+
+test('a social page or link-in-bio is no website and is not fetched', async () => {
+  const urls = ['https://www.facebook.com/ExampleSalonPage', 'https://paa.ge', 'https://www.instagram.com/salon'];
+  for (const url of urls) {
+    const network = makeHttpRequest({});
+    const check = await checkWebsite(makeBusiness(url), network.httpRequest);
+    assert.equal(check.booking_status, 'no_website', url);
+    assert.deepEqual(network.requested, [], url);
+  }
+});
+
+test('a local or private address is site_blocked and is not fetched', async () => {
+  for (const url of ['http://localhost:5678/webhook/x', 'http://192.168.1.1/', 'http://[::1]/']) {
+    const network = makeHttpRequest({});
+    const check = await checkWebsite(makeBusiness(url), network.httpRequest);
+    assert.equal(check.booking_status, 'site_blocked', url);
+    assert.deepEqual(network.requested, [], url);
+  }
+});
