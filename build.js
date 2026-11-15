@@ -1,7 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { CITIES, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS } = require('./src/config');
+const { CITIES, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS, WORKFLOW_IDS } = require('./src/config');
 const { inlineSources, buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
+const { buildSheetSyncWorkflow } = require('./build_outreach');
 
 const OUTPUT_FOLDER = path.join(__dirname, 'build');
 const WORKFLOW_NAME = 'AcmeBook Lead Finder';
@@ -71,6 +72,7 @@ const POSITIONS = {
   'Run Report': [1320, 320],
   'Mark Cities': [1540, 320],
   'Check Run': [1760, 320],
+  'Sync Sheet': [1980, 320],
 };
 
 const CHAIN = [
@@ -84,6 +86,7 @@ const CHAIN = [
   ['Check Websites', 'Save Leads'],
   ['Run Report', 'Mark Cities'],
   ['Mark Cities', 'Check Run'],
+  ['Check Run', 'Sync Sheet'],
 ];
 
 function buildWorkflow() {
@@ -123,6 +126,12 @@ function buildWorkflow() {
         schema: [],
       },
     }, extra: { alwaysOutputData: true } }),
+
+    // the leads are already saved; a sheet problem (setup not done, Google down) must not fail the run, and the
+    // next run's sync adds whatever this one missed
+    buildNode({ name: 'Sync Sheet', type: 'n8n-nodes-base.executeWorkflow', position: POSITIONS['Sync Sheet'],
+      parameters: { source: 'database', workflowId: WORKFLOW_IDS.sheetSync, options: {} },
+      extra: { onError: 'continueRegularOutput' } }),
   ];
   const connections = connectNodes(CHAIN);
   return { name: WORKFLOW_NAME, nodes, connections, settings: { executionOrder: 'v1', saveManualExecutions: true } };
@@ -142,6 +151,7 @@ function writeBuildFiles() {
     'workflow.json': buildWorkflow(),
     'tables.json': { [LEADS_TABLE]: LEAD_COLUMNS, [CITIES_TABLE]: CITY_COLUMNS },
     'cities.json': buildCityRows(),
+    'sheet_sync.json': buildSheetSyncWorkflow(),
   };
   for (const [fileName, content] of Object.entries(files)) {
     fs.writeFileSync(path.join(OUTPUT_FOLDER, fileName), `${JSON.stringify(content, null, 2)}\n`);
