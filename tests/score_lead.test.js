@@ -7,8 +7,8 @@ const BUSINESS = { osm_key: 'node/1', name: 'Cut Co', category: 'Hair Salon', co
   phone: '+44 1', email: '', website: 'https://cutco.com', instagram: '', address: 'Leeds', maps_link: 'm' };
 const TODAY = '2026-11-16T10:00:00.000Z';
 
-function makeCheck(bookingStatus, extra = {}) {
-  return { booking_status: bookingStatus, booking_tool: '', emails: [], whatsapp: '', instagram: '', ...extra };
+function makeCheck(toolStatus, extra = {}) {
+  return { tool_status: toolStatus, tool_name: '', emails: [], whatsapp: '', instagram: '', ...extra };
 }
 
 test('website without booking, email and phone scores 55 and is Warm (accepted effect of 60/40)', () => {
@@ -27,7 +27,7 @@ test('no website and a phone scores 65 and is Hot', () => {
 });
 
 test('a competitor gets no booking points and the feedback opener', () => {
-  const check = makeCheck('competitor', { booking_tool: 'Fresha', emails: ['a@b.co'], whatsapp: 'https://wa.me/1',
+  const check = makeCheck('competitor', { tool_name: 'Fresha', emails: ['a@b.co'], whatsapp: 'https://wa.me/1',
     instagram: 'cutco' });
   const lead = buildLead(BUSINESS, check, TODAY);
   assert.equal(lead.score, 35);
@@ -65,7 +65,7 @@ test('tier edges', () => {
 });
 
 test('existing AcmeBook customers are not leads', () => {
-  assert.equal(buildLead(BUSINESS, makeCheck('acmebook'), TODAY), null);
+  assert.equal(buildLead(BUSINESS, makeCheck('already_customer'), TODAY), null);
 });
 
 test('OSM contacts win over page contacts; row keys match the table columns', () => {

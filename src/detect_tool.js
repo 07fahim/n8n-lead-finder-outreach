@@ -1,6 +1,7 @@
-const { REDIRECT_DOMAINS, NON_BOOKING_DOMAINS, GOOGLE_HOST, RIGHTS_RESERVED, CONTACT_PATH } = require('./config');
+const { REDIRECT_DOMAINS, NON_TOOL_DOMAINS, GOOGLE_HOST, RIGHTS_RESERVED, CONTACT_PATH } = require('./config');
 const {
-  BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, BOOKING_WORDS,
+  PRODUCT_NAME, COMPETITOR_TOOLS, COMPETITOR_TEXT_MARKERS, OWN_PRODUCT_DOMAINS, OWN_PRODUCT_TEXT_MARKER,
+  OWN_PRODUCT_FOOTER, ACTION_WORDS,
 } = require('./product');
 
 function readHost(url, baseUrl) {
@@ -19,9 +20,9 @@ function isDomainOrSubdomain(host, domain) {
 }
 
 
-function isNonBookingHost(host) {
+function isNonToolHost(host) {
 
-  return GOOGLE_HOST.test(host) || NON_BOOKING_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
+  return GOOGLE_HOST.test(host) || NON_TOOL_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
 }
 
 
@@ -57,31 +58,31 @@ function isOwnHost(host, ownHosts) {
 
 function findKnownTool(html, hosts) {
 
-  for (const tool of BOOKING_TOOLS) {
+  for (const tool of COMPETITOR_TOOLS) {
     if ([...hosts].some((host) => tool.domains.some((domain) => isDomainOrSubdomain(host, domain)))) return tool.name;
   }
   const lowerHtml = html.toLowerCase();
-  const marker = BOOKING_TEXT_MARKERS.find((candidate) => lowerHtml.includes(candidate.marker));
+  const marker = COMPETITOR_TEXT_MARKERS.find((candidate) => lowerHtml.includes(candidate.marker));
   return marker ? marker.name : '';
 }
 
 
-function usesAcmebook(html, hosts) {
+function usesOwnProduct(html, hosts) {
 
-  const onAcmebookHost = [...hosts].some(
-    (host) => ACMEBOOK_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain)));
-  return onAcmebookHost || html.toLowerCase().includes(ACMEBOOK_TEXT_MARKER) || ACMEBOOK_FOOTER.test(html);
+  const onOwnProductHost = [...hosts].some(
+    (host) => OWN_PRODUCT_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain)));
+  return onOwnProductHost || html.toLowerCase().includes(OWN_PRODUCT_TEXT_MARKER) || OWN_PRODUCT_FOOTER.test(html);
 }
 
 
-function findBookingLinks(html, pageUrl) {
+function findActionLinks(html, pageUrl) {
 
   const links = [];
   for (const match of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
     const href = (match[1].match(/href\s*=\s*["']([^"']+)["']/i) || [])[1];
     if (!href || /^(mailto:|tel:|javascript:|#)/i.test(href)) continue;
     const text = match[2].replace(/<[^>]+>/g, ' ').replace(RIGHTS_RESERVED, ' ');
-    if (!BOOKING_WORDS.test(`${text} ${href}`)) continue;
+    if (!ACTION_WORDS.test(`${text} ${href}`)) continue;
     try {
       links.push(new URL(href, pageUrl));
     } catch {
@@ -92,47 +93,49 @@ function findBookingLinks(html, pageUrl) {
 }
 
 
-function detectBooking(html, pageUrl) {
+function detectTool(html, pageUrl) {
 
   const hosts = findPageHosts(html);
-  if (usesAcmebook(html, hosts)) return { booking_status: 'acmebook', booking_tool: 'AcmeBook', booking_page_url: '' };
+  if (usesOwnProduct(html, hosts)) {
+    return { tool_status: 'already_customer', tool_name: PRODUCT_NAME, action_page_url: '' };
+  }
   const tool = findKnownTool(html, hosts);
-  if (tool) return { booking_status: 'competitor', booking_tool: tool, booking_page_url: '' };
+  if (tool) return { tool_status: 'competitor', tool_name: tool, action_page_url: '' };
   const ownHosts = findOwnHosts(html, pageUrl);
-  let bookingPageUrl = '';
-  for (const link of findBookingLinks(html, pageUrl)) {
+  let actionPageUrl = '';
+  for (const link of findActionLinks(html, pageUrl)) {
     const host = readHost(link.href);
     if (isOwnHost(host, ownHosts)) {
       const isOwnSubdomain = !ownHosts.has(host);
-      const looksLikeBookingPage = BOOKING_WORDS.test(link.pathname) || isOwnSubdomain;
-      if (!bookingPageUrl && looksLikeBookingPage && !CONTACT_PATH.test(link.pathname)) bookingPageUrl = link.href;
+      const looksLikeActionPage = ACTION_WORDS.test(link.pathname) || isOwnSubdomain;
+      if (!actionPageUrl && looksLikeActionPage && !CONTACT_PATH.test(link.pathname)) actionPageUrl = link.href;
       continue;
     }
-    if (!host || isNonBookingHost(host)) continue;
+    if (!host || isNonToolHost(host)) continue;
     const viaRedirect = REDIRECT_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
-    return { booking_status: 'competitor', booking_tool: viaRedirect ? '' : host, booking_page_url: '' };
+    return { tool_status: 'competitor', tool_name: viaRedirect ? '' : host, action_page_url: '' };
   }
-  return { booking_status: bookingPageUrl ? 'booking_page' : 'none_found', booking_tool: '',
-    booking_page_url: bookingPageUrl };
+  return { tool_status: actionPageUrl ? 'action_page' : 'none_found', tool_name: '',
+    action_page_url: actionPageUrl };
 }
 
 
-function detectBookingPage(html, pageUrl) {
+function detectActionPage(html, pageUrl) {
 
-  const detection = detectBooking(html, pageUrl);
-  if (detection.booking_status === 'competitor' || detection.booking_status === 'acmebook') return detection;
+  const detection = detectTool(html, pageUrl);
+  if (detection.tool_status === 'competitor' || detection.tool_status === 'already_customer') return detection;
 
-  // booking pages usually embed the tool in an iframe rather than linking to it
+  // action pages usually embed the tool in an iframe rather than linking to it
   const ownHosts = findOwnHosts(html, pageUrl);
   // tag managers put a tracking iframe inside noscript
   const visibleHtml = html.replace(/<noscript\b[\s\S]*?<\/noscript>/gi, '');
   for (const match of visibleHtml.matchAll(/<iframe\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
     const host = readHost(match[1], pageUrl);
-    if (host && !isOwnHost(host, ownHosts) && !isNonBookingHost(host)) {
-      return { booking_status: 'competitor', booking_tool: host, booking_page_url: '' };
+    if (host && !isOwnHost(host, ownHosts) && !isNonToolHost(host)) {
+      return { tool_status: 'competitor', tool_name: host, action_page_url: '' };
     }
   }
-  return { booking_status: 'none_found', booking_tool: '', booking_page_url: '' };
+  return { tool_status: 'none_found', tool_name: '', action_page_url: '' };
 }
 
-module.exports = { readHost, isDomainOrSubdomain, isNonBookingHost, detectBooking, detectBookingPage };
+module.exports = { readHost, isDomainOrSubdomain, isNonToolHost, detectTool, detectActionPage };

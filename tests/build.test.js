@@ -57,5 +57,5 @@ test('the Check Websites node runs where URL is not a global', async () => {
   const httpRequest = async (options) => ({ statusCode: 200, body: pages[options.url] });
   const leads = await runNodeLikeN8n(buildWorkflow(), 'Check Websites', [{ json: { businesses: [business] } }],
     { httpRequest });
-  assert.equal(leads[0].json.booking_tool, 'bookme.newtool.io');
+  assert.equal(leads[0].json.tool_name, 'bookme.newtool.io');
 });

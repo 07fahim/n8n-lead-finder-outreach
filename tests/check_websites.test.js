@@ -32,7 +32,7 @@ function makeBusiness(website, extra = {}) {
 test('no website is not fetched', async () => {
   const network = makeHttpRequest({});
   const check = await checkWebsite(makeBusiness(''), network.httpRequest);
-  assert.equal(check.booking_status, 'no_website');
+  assert.equal(check.tool_status, 'no_website');
   assert.deepEqual(network.requested, []);
 });
 
@@ -65,7 +65,7 @@ test('fetch failures are sorted into site_down and site_blocked', async () => {
   const network = makeHttpRequest(pages);
   const statuses = {};
   for (const website of Object.keys(expected)) {
-    statuses[website] = (await checkWebsite(makeBusiness(website), network.httpRequest)).booking_status;
+    statuses[website] = (await checkWebsite(makeBusiness(website), network.httpRequest)).tool_status;
   }
   assert.deepEqual(statuses, expected);
 });
@@ -78,8 +78,8 @@ test('an own booking page is fetched and checked; contacts come from the homepag
   });
   const check = await checkWebsite(makeBusiness('https://salon.com'), network.httpRequest);
   assert.deepEqual(network.requested, ['https://salon.com', 'https://salon.com/book-now']);
-  assert.equal(check.booking_status, 'competitor');
-  assert.equal(check.booking_tool, 'Fresha');
+  assert.equal(check.tool_status, 'competitor');
+  assert.equal(check.tool_name, 'Fresha');
   assert.deepEqual(check.emails, ['hi@salon.com']);
   assert.equal(check.whatsapp, 'https://wa.me/447700900123');
 });
@@ -90,7 +90,7 @@ test('a booking page that cannot be fetched is checked by hand, not called none_
     'https://salon.com/booking': makeError('ECONNABORTED'),
   });
   const check = await checkWebsite(makeBusiness('https://salon.com'), network.httpRequest);
-  assert.equal(check.booking_status, 'site_blocked');
+  assert.equal(check.tool_status, 'site_blocked');
 });
 
 test('the run keeps exactly 200 leads and sorts them by score', async () => {
@@ -139,7 +139,7 @@ test('a check that throws is kept for a person, with the error in its reasons', 
   });
   const network = makeHttpRequest({ 'https://broken.com': { statusCode: 200, body: '<p>hi</p>' } });
   const leads = await checkBusinesses([business], network.httpRequest, TODAY, () => 0);
-  assert.equal(leads[0].booking_status, 'site_blocked');
+  assert.equal(leads[0].tool_status, 'site_blocked');
   assert.match(leads[0].reasons, /check failed: boom/);
   assert.deepEqual(warn.mock.calls[0].arguments, ["'node/broken': check failed, boom"]);
 });
@@ -149,7 +149,7 @@ test('a social page or link-in-bio is no website and is not fetched', async () =
   for (const url of urls) {
     const network = makeHttpRequest({});
     const check = await checkWebsite(makeBusiness(url), network.httpRequest);
-    assert.equal(check.booking_status, 'no_website', url);
+    assert.equal(check.tool_status, 'no_website', url);
     assert.deepEqual(network.requested, [], url);
   }
 });
@@ -158,7 +158,7 @@ test('a local or private address is site_blocked and is not fetched', async () =
   for (const url of ['http://localhost:5678/webhook/x', 'http://192.168.1.1/', 'http://[::1]/']) {
     const network = makeHttpRequest({});
     const check = await checkWebsite(makeBusiness(url), network.httpRequest);
-    assert.equal(check.booking_status, 'site_blocked', url);
+    assert.equal(check.tool_status, 'site_blocked', url);
     assert.deepEqual(network.requested, [], url);
   }
 });

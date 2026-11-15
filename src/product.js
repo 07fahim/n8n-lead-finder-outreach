@@ -75,7 +75,7 @@ const BARBERSHOP_CATEGORY = 'Barbershop';
 
 // matched against every host named in a page; as.me, booker.com, mangomint.com, frively.com, book.app,
 // portal.dental and freetimepos.com were found behind "Book now" buttons in the 2026-11-16 probe
-const BOOKING_TOOLS = [
+const COMPETITOR_TOOLS = [
   { name: 'Fresha', domains: ['fresha.com', 'shedul.com'] },
   { name: 'Booksy', domains: ['booksy.com'] },
   { name: 'Vagaro', domains: ['vagaro.com'] },
@@ -139,20 +139,22 @@ const BOOKING_TOOLS = [
 ];
 // Wix Bookings runs on the business's own domain, so it is found by its app id; every Wix site loads
 // "wix-seo-bookings-*" strings, so those prove nothing (seen on hairstudio-a.test vs studio-b.test)
-const BOOKING_TEXT_MARKERS = [{ name: 'Wix Bookings', marker: '13d21c63-b5ec-5912-8397-c3a5ddb27a97' }];
-const BOOKING_WORDS = /\b(book|booking|appointment|schedul|reserv)/i;
+const COMPETITOR_TEXT_MARKERS = [{ name: 'Wix Bookings', marker: '13d21c63-b5ec-5912-8397-c3a5ddb27a97' }];
+const ACTION_WORDS = /\b(book|booking|appointment|schedul|reserv)/i;
 // customer pages live on <business>.acmebook.example (seen on acmebook.example, 2026-11-16)
-const ACMEBOOK_DOMAINS = ['acmebook.example'];
+const OWN_PRODUCT_DOMAINS = ['acmebook.example'];
 // the bare word "acmebook" appears in unrelated text; customer pages are on acmebook.example (the embed snippet itself
 // was not seen, so a widget served from another host would be missed)
-const ACMEBOOK_TEXT_MARKER = 'acmebook';
+const OWN_PRODUCT_TEXT_MARKER = 'acmebook';
 // published AcmeBook sites end with "Powered by <a href="/">AcmeBook</a>", a relative link that never names
 // acmebook on a custom domain (seen in acmebook.example's site code, 2026-11-16)
-const ACMEBOOK_FOOTER = /powered by\s*(?:<[^>]*>\s*)*acmebook\b/i;
+const OWN_PRODUCT_FOOTER = /powered by\s*(?:<[^>]*>\s*)*acmebook\b/i;
 
 // the source document's points; the +10 for an unreachable website is removed because 5 of the 7 failed sites
 // measured were dead domains
-const POINTS = { noOnlineBooking: 35, noWebsite: 25, email: 15, whatsapp: 10, phone: 5, instagram: 5 };
+const POINTS = { noTool: 35, noWebsite: 25, email: 15, whatsapp: 10, phone: 5, instagram: 5 };
+// how a lead's reasons describe your product's signal in the sheet and the export
+const REASON_TEXTS = { noTool: 'no online booking found', unnamedTool: 'an online booking tool' };
 const HOT_MIN_SCORE = 60;
 const WARM_MIN_SCORE = 40;
 
@@ -190,7 +192,8 @@ const EMAIL_BODY = [
 ].join('\n');
 
 module.exports = {
-  PRODUCT_NAME, TABLE_PREFIX, CITIES, CATEGORY_RULES, BARBERSHOP_CATEGORY, BOOKING_TOOLS, BOOKING_TEXT_MARKERS,
-  BOOKING_WORDS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE,
-  FEEDBACK_ASK, OPENERS, SENDER_NAME, POSTAL_ADDRESS, SEND_TIMEZONE, EMAIL_SUBJECT, EMAIL_BODY,
+  PRODUCT_NAME, TABLE_PREFIX, CITIES, CATEGORY_RULES, BARBERSHOP_CATEGORY, COMPETITOR_TOOLS,
+  COMPETITOR_TEXT_MARKERS, ACTION_WORDS, OWN_PRODUCT_DOMAINS, OWN_PRODUCT_TEXT_MARKER, OWN_PRODUCT_FOOTER, POINTS,
+  REASON_TEXTS, HOT_MIN_SCORE, WARM_MIN_SCORE, FEEDBACK_ASK, OPENERS, SENDER_NAME, POSTAL_ADDRESS, SEND_TIMEZONE,
+  EMAIL_SUBJECT, EMAIL_BODY,
 };

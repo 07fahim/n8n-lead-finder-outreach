@@ -11,8 +11,8 @@ DATABASE_URI = 'file:D:/Tools/n8n/data/.n8n/database.sqlite?mode=ro'
 LEADS_TABLE = 'data_table_user_DwACewp4ryc8HaRW'
 COLUMNS = [
     ('tier', 8), ('score', 7), ('name', 32), ('category', 18), ('city', 12), ('country', 8), ('phone', 18),
-    ('email', 28), ('whatsapp', 26), ('instagram', 18), ('website', 34), ('booking_status', 15),
-    ('booking_tool', 18), ('opener', 70), ('reasons', 55), ('address', 36), ('maps_link', 30), ('status', 9),
+    ('email', 28), ('whatsapp', 26), ('instagram', 18), ('website', 34), ('tool_status', 15),
+    ('tool_name', 18), ('opener', 70), ('reasons', 55), ('address', 36), ('maps_link', 30), ('status', 9),
     ('date_found', 12), ('osm_key', 18),
 ]
 TIER_ORDER = {'Hot': 0, 'Warm': 1, 'Cold': 2}

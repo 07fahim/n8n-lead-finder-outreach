@@ -1,10 +1,12 @@
 const { buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
-const { LEADS_TABLE, SHEET_ID, SHEET_TAB, SHEETS_CREDENTIAL, WORKFLOW_IDS, LEAD_STATUS, GMAIL_CREDENTIAL,
+const { LEADS_TABLE, SHEET_ID, SHEET_TAB, SHEETS_CREDENTIAL, LEAD_STATUS, GMAIL_CREDENTIAL,
   DAILY_SEND_LIMIT, SEND_WAIT_SECONDS } = require('./src/config');
 const { PRODUCT_NAME, SENDER_NAME, SEND_TIMEZONE } = require('./src/product');
 
 const SHEETS = { type: 'n8n-nodes-base.googleSheets', typeVersion: 4.7 };
 const SETTINGS = { executionOrder: 'v1', saveManualExecutions: true };
+// fixed ids, so the Lead Finder can call Sheet Sync and an import replaces the same workflow each time
+const WORKFLOW_IDS = { sheetSync: 'AcmeBookSheetSyn', sender: 'AcmeBookSender01', replyChecker: 'AcmeBookReplyChk' };
 
 function buildSheetReference() {
 
@@ -211,4 +213,4 @@ function buildReplyCheckerWorkflow() {
 }
 
 module.exports = { buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow, buildSheetReference,
-  withCredential, sheetColumns, buildSheetNode, SETTINGS };
+  withCredential, sheetColumns, buildSheetNode, SETTINGS, WORKFLOW_IDS };

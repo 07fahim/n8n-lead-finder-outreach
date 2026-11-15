@@ -2,8 +2,8 @@ const {
   MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY, BROWSER_USER_AGENT, REDIRECT_DOMAINS,
 } = require('./config');
 const {
-  readHost, isDomainOrSubdomain, isNonBookingHost, detectBooking, detectBookingPage,
-} = require('./detect_booking');
+  readHost, isDomainOrSubdomain, isNonToolHost, detectTool, detectActionPage,
+} = require('./detect_tool');
 const { findEmails, findWhatsapp, findInstagram } = require('./read_contacts');
 const { buildLead } = require('./score_lead');
 
@@ -21,7 +21,7 @@ function isLocalHost(host) {
 function hasNoOwnWebsite(host) {
 
   // a business whose only page is facebook or a link-in-bio has no website of its own
-  return isNonBookingHost(host) || REDIRECT_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
+  return isNonToolHost(host) || REDIRECT_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
 }
 
 
@@ -66,23 +66,23 @@ async function checkWebsite(business, httpRequest) {
   const noContacts = { emails: [], whatsapp: '', instagram: '' };
   const host = readHost(business.website);
   if (!business.website || hasNoOwnWebsite(host)) {
-    return { booking_status: 'no_website', booking_tool: '', ...noContacts };
+    return { tool_status: 'no_website', tool_name: '', ...noContacts };
   }
-  if (isLocalHost(host)) return { booking_status: 'site_blocked', booking_tool: '', ...noContacts };
+  if (isLocalHost(host)) return { tool_status: 'site_blocked', tool_name: '', ...noContacts };
   const homepage = await fetchPage(business.website, httpRequest);
-  if (homepage.outcome !== 'loaded') return { booking_status: homepage.outcome, booking_tool: '', ...noContacts };
-  let detection = detectBooking(homepage.html, business.website);
-  if (detection.booking_status === 'booking_page') {
-    const bookingPage = await fetchPage(detection.booking_page_url, httpRequest);
+  if (homepage.outcome !== 'loaded') return { tool_status: homepage.outcome, tool_name: '', ...noContacts };
+  let detection = detectTool(homepage.html, business.website);
+  if (detection.tool_status === 'action_page') {
+    const actionPage = await fetchPage(detection.action_page_url, httpRequest);
 
-    // a booking page we could not open may well take bookings, so it is left for a person to check
-    detection = bookingPage.outcome === 'loaded'
-      ? detectBookingPage(bookingPage.html, detection.booking_page_url)
-      : { booking_status: 'site_blocked', booking_tool: '' };
+    // an action page we could not open may well use a tool, so it is left for a person to check
+    detection = actionPage.outcome === 'loaded'
+      ? detectActionPage(actionPage.html, detection.action_page_url)
+      : { tool_status: 'site_blocked', tool_name: '' };
   }
   return {
-    booking_status: detection.booking_status,
-    booking_tool: detection.booking_tool,
+    tool_status: detection.tool_status,
+    tool_name: detection.tool_name,
     emails: findEmails(homepage.html),
     whatsapp: findWhatsapp(homepage.html),
     instagram: findInstagram(homepage.html),
@@ -126,7 +126,7 @@ async function checkBusinesses(businesses, httpRequest, today, random = Math.ran
     } catch (error) {
 
       // a bug must not look like a site that refused us, so the error stays on the lead and in the log
-      const check = { booking_status: 'site_blocked', booking_tool: '', emails: [], whatsapp: '', instagram: '' };
+      const check = { tool_status: 'site_blocked', tool_name: '', emails: [], whatsapp: '', instagram: '' };
       const lead = buildLead(business, check, today);
       lead.reasons += `; check failed: ${error.message}`;
       console.warn(`'${business.osm_key}': check failed, ${error.message}`);

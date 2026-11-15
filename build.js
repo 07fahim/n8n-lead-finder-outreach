@@ -1,14 +1,16 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS, WORKFLOW_IDS } = require('./src/config');
+const { LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS } = require('./src/config');
 const { PRODUCT_NAME, CITIES } = require('./src/product');
 const { inlineSources, buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
-const { buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow } = require('./build_outreach');
+const {
+  buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow, WORKFLOW_IDS,
+} = require('./build_outreach');
 
 const OUTPUT_FOLDER = path.join(__dirname, 'build');
 const WORKFLOW_NAME = `${PRODUCT_NAME} Lead Finder`;
 
-// each Code node gets config.js, the files it needs in dependency order, then the glue that n8n runs
+// each Code node gets product.js, config.js, the files it needs in dependency order, then the glue that n8n runs
 const CODE_NODES = [
   {
     name: 'Pick Cities',
@@ -37,7 +39,7 @@ const CODE_NODES = [
   },
   {
     name: 'Check Websites',
-    files: ['product.js', 'config.js', 'read_contacts.js', 'detect_booking.js', 'score_lead.js', 'check_websites.js'],
+    files: ['product.js', 'config.js', 'read_contacts.js', 'detect_tool.js', 'score_lead.js', 'check_websites.js'],
     glue: [
       'const businesses = $input.all().flatMap((item) => item.json.businesses);',
       'const leads = await checkBusinesses(businesses, (options) => this.helpers.httpRequest(options),',

@@ -26,17 +26,17 @@ const BROWSER_USER_AGENT =
 const MAX_LEADS_PER_RUN = 200;
 // the 2026-11-16 probe loaded 39 of 46 sites with this timeout
 const WEBSITE_TIMEOUT_SECONDS = 15;
-// 8 at a time keeps 200 sites with booking pages under about 13 minutes at the 15 s timeout
+// 8 at a time keeps 200 sites with action pages under about 13 minutes at the 15 s timeout
 const WEBSITE_CONCURRENCY = 8;
 // a city with fewer reachable businesses is flagged in the run report so it can be replaced
 const THIN_CITY_THRESHOLD = 5;
 
-// a booking button can point at a redirect or link-in-bio service; the business books online, but the service
-// is not their booking tool (seen: qrfy.com on nails-c.test, 2026-11-16)
+// an action button can point at a redirect or link-in-bio service; the business uses some tool, but the service
+// is not that tool (seen: qrfy.com on nails-c.test, 2026-11-16)
 const REDIRECT_DOMAINS = ['qrfy.com', 'bit.ly', 'tinyurl.com', 'linktr.ee', 'linkin.bio', 'beacons.ai', 'paa.ge',
   'qr-code-generator.com', 'rebrand.ly', 't.co'];
-// links to these are never booking tools, even behind a "Book" button
-const NON_BOOKING_DOMAINS = [
+// links to these are never a competitor's tool, even behind an action button
+const NON_TOOL_DOMAINS = [
   'facebook.com', 'fb.com', 'fb.me', 'instagram.com', 'twitter.com', 'x.com', 'tiktok.com', 'youtube.com',
   'youtu.be', 'linkedin.com', 'pinterest.com', 'google.com', 'goo.gl', 'g.page', 'apple.com', 'bing.com',
   'openstreetmap.org', 'yelp.com', 'yelp.co.uk', 'tripadvisor.com', 'tripadvisor.co.uk', 'trustpilot.com',
@@ -44,9 +44,9 @@ const NON_BOOKING_DOMAINS = [
 ];
 // uk and other sites embed maps from google.co.uk and similar country domains
 const GOOGLE_HOST = /(^|\.)google\.(com?\.)?[a-z]{2,3}$/;
-// a footer credit link says "All rights reserved" and is not booking
+// a footer credit link says "All rights reserved", and its "reserved" is not an action word
 const RIGHTS_RESERVED = /rights\s+reserved/gi;
-// a "Book an appointment" button that opens the contact page is not online booking (seen on dental-d)
+// an action button that opens the contact page is not a tool (seen: "Book an appointment" on dental-d)
 const CONTACT_PATH = /contact/i;
 const JUNK_EMAIL_PARTS = [
   'example.', 'sentry', 'wixpress', '@domain.com', '@email.com', 'yourname', 'yourdomain', 'yourcompany',
@@ -72,8 +72,8 @@ const LEAD_COLUMNS = [
   { name: 'whatsapp', type: 'string' },
   { name: 'instagram', type: 'string' },
   { name: 'website', type: 'string' },
-  { name: 'booking_status', type: 'string' },
-  { name: 'booking_tool', type: 'string' },
+  { name: 'tool_status', type: 'string' },
+  { name: 'tool_name', type: 'string' },
   { name: 'address', type: 'string' },
   { name: 'maps_link', type: 'string' },
   { name: 'opener', type: 'string' },
@@ -126,15 +126,13 @@ const REPLY_QUOTE_START = /^On .+wrote:\s*$|^-{2,}\s*Original Message|^From: .*@
 // credential ids and names are not secret; set them during setup from the n8n Credentials page
 const GMAIL_CREDENTIAL = { id: 'YOUR_GMAIL_CRED', name: 'Gmail account' };
 const SHEETS_CREDENTIAL = { id: 'YOUR_SHEETS_CRED', name: 'Google Sheets account 2' };
-// fixed ids, so the Lead Finder can call Sheet Sync and an import replaces the same workflow each time
-const WORKFLOW_IDS = { sheetSync: 'AcmeBookSheetSyn', sender: 'AcmeBookSender01', replyChecker: 'AcmeBookReplyChk' };
 
 module.exports = {
   CITIES_PER_RUN, SEARCH_RADIUS_METRES, OVERPASS_SERVER_TIMEOUT_SECONDS, OVERPASS_RESULT_LIMIT, OVERPASS_SERVERS,
   OVERPASS_WAITS_SECONDS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_CITY_BUDGET_SECONDS, OVERPASS_USER_AGENT,
   BROWSER_USER_AGENT, MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY, THIN_CITY_THRESHOLD,
-  REDIRECT_DOMAINS, NON_BOOKING_DOMAINS, GOOGLE_HOST, RIGHTS_RESERVED, CONTACT_PATH, JUNK_EMAIL_PARTS,
+  REDIRECT_DOMAINS, NON_TOOL_DOMAINS, GOOGLE_HOST, RIGHTS_RESERVED, CONTACT_PATH, JUNK_EMAIL_PARTS,
   JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS, SHEET_HEADERS,
   LEAD_STATUS, SHEET_ID, SHEET_TAB, SHEET_TAB_GID, DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, STOP_WORDS, SINGLE_ADDRESS,
-  BOUNCE_SENDER, REPLY_QUOTE_START, GMAIL_CREDENTIAL, SHEETS_CREDENTIAL, WORKFLOW_IDS,
+  BOUNCE_SENDER, REPLY_QUOTE_START, GMAIL_CREDENTIAL, SHEETS_CREDENTIAL,
 };

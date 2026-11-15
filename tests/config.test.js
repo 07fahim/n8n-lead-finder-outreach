@@ -1,10 +1,12 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const {
   LEAD_COLUMNS, CITY_COLUMNS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_SERVER_TIMEOUT_SECONDS,
 } = require('../src/config');
-const { CITIES, CATEGORY_RULES, BOOKING_TOOLS } = require('../src/product');
 const product = require('../src/product');
+const { CITIES, CATEGORY_RULES, COMPETITOR_TOOLS } = product;
 
 test('43 unique cities in the five markets, document order first', () => {
   assert.equal(CITIES.length, 43);
@@ -24,7 +26,7 @@ test('13 target categories', () => {
 });
 
 test('booking tool domains are bare lower-case hosts', () => {
-  for (const tool of BOOKING_TOOLS) {
+  for (const tool of COMPETITOR_TOOLS) {
     for (const domain of tool.domains) assert.match(domain, /^[a-z0-9.-]+\.[a-z]+$/, tool.name);
   }
 });
@@ -42,13 +44,22 @@ test('the overpass client waits longer than the server may run', () => {
 });
 
 test('the product file holds every product value the engine needs', () => {
-  const needed = ['PRODUCT_NAME', 'TABLE_PREFIX', 'CITIES', 'CATEGORY_RULES', 'BARBERSHOP_CATEGORY', 'BOOKING_TOOLS',
-    'BOOKING_TEXT_MARKERS', 'BOOKING_WORDS', 'ACMEBOOK_DOMAINS', 'ACMEBOOK_TEXT_MARKER', 'ACMEBOOK_FOOTER', 'POINTS',
-    'HOT_MIN_SCORE', 'WARM_MIN_SCORE', 'FEEDBACK_ASK', 'OPENERS', 'SENDER_NAME', 'POSTAL_ADDRESS', 'SEND_TIMEZONE',
-    'EMAIL_SUBJECT', 'EMAIL_BODY'];
+  const needed = ['PRODUCT_NAME', 'TABLE_PREFIX', 'CITIES', 'CATEGORY_RULES', 'BARBERSHOP_CATEGORY', 'COMPETITOR_TOOLS',
+    'COMPETITOR_TEXT_MARKERS', 'ACTION_WORDS', 'OWN_PRODUCT_DOMAINS', 'OWN_PRODUCT_TEXT_MARKER', 'OWN_PRODUCT_FOOTER',
+    'POINTS', 'REASON_TEXTS', 'HOT_MIN_SCORE', 'WARM_MIN_SCORE', 'FEEDBACK_ASK', 'OPENERS', 'SENDER_NAME',
+    'POSTAL_ADDRESS', 'SEND_TIMEZONE', 'EMAIL_SUBJECT', 'EMAIL_BODY'];
   for (const name of needed) assert.ok(name in product, name);
   const config = require('../src/config');
   for (const name of needed) assert.ok(!(name in config), `${name} is still in config.js`);
   assert.equal(config.LEADS_TABLE, `${product.TABLE_PREFIX}_leads`);
   assert.equal(config.CITIES_TABLE, `${product.TABLE_PREFIX}_cities`);
+});
+
+test('only src/product.js names the example product', () => {
+  const sourceFolder = path.join(__dirname, '..', 'src');
+  for (const fileName of fs.readdirSync(sourceFolder)) {
+    if (fileName === 'product.js') continue;
+    const source = fs.readFileSync(path.join(sourceFolder, fileName), 'utf8');
+    assert.doesNotMatch(source, /acmebook|alex/i, fileName);
+  }
 });
