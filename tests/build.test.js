@@ -1,5 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const vm = require('node:vm');
 const { buildWorkflow, buildCityRows, inlineSources } = require('../build');
 
 const AsyncFunction = (async () => {}).constructor;
@@ -36,4 +37,34 @@ test('city rows keep list order and start never-run', () => {
   assert.equal(rows.length, 43);
   assert.deepEqual(rows[0], { city: 'Nashville', country: 'US', lat: 36.1627, lon: -86.7816, list_order: 1,
     last_status: '', last_leads: 0 });
+});
+
+// n8n runs Code nodes in a vm context without web globals such as URL (seen in execution 343, 2026-11-16)
+function runNodeLikeN8n(nodeName, items, httpRequest) {
+
+  const node = buildWorkflow().nodes.find((candidate) => candidate.name === nodeName);
+  const context = vm.createContext({ require, console, setTimeout: (resolve) => resolve() });
+  const nodeFunction = vm.runInContext(`(async function ($input, $) {\n${node.parameters.jsCode}\n})`, context);
+  return nodeFunction.call({ helpers: { httpRequest } }, { all: () => items }, () => ({ all: () => [] }));
+}
+
+
+test('the Query Overpass node runs where URL is not a global', async () => {
+  const refused = async () => {
+    throw Object.assign(new Error('refused'), { code: 'ECONNREFUSED' });
+  };
+  const city = { id: 1, city: 'Leeds', country: 'UK', lat: 53.8, lon: -1.55, last_run: null };
+  const [result] = await runNodeLikeN8n('Query Overpass', [{ json: city }], refused);
+  assert.equal(result.json.overpass_status, 'failed');
+  assert.match(result.json.overpass_error, /overpass-api\.de: refused/);
+});
+
+
+test('the Check Websites node runs where URL is not a global', async () => {
+  const business = { osm_key: 'node/1', name: 'Salon', category: 'Hair Salon', country: 'UK', city: 'Leeds',
+    phone: '1', email: '', website: 'https://salon.com', instagram: '', address: 'Leeds', maps_link: 'm' };
+  const pages = { 'https://salon.com': '<a href="https://bookme.newtool.io/x">Book now</a>' };
+  const httpRequest = async (options) => ({ statusCode: 200, body: pages[options.url] });
+  const leads = await runNodeLikeN8n('Check Websites', [{ json: { businesses: [business] } }], httpRequest);
+  assert.equal(leads[0].json.booking_tool, 'bookme.newtool.io');
 });

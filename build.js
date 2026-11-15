@@ -6,6 +6,8 @@ const SOURCE_FOLDER = path.join(__dirname, 'src');
 const OUTPUT_FOLDER = path.join(__dirname, 'build');
 const WORKFLOW_NAME = 'AcmeBook Lead Finder';
 const REQUIRE_LINE = /^const \{[^}]*\} = require\([^)]*\);\r?\n/gm;
+// n8n's Code node sandbox has no global URL (execution 343, 2026-11-16); start-n8n.cmd allows the url module
+const SANDBOX_PREAMBLE = "const { URL } = require('url');";
 
 // each Code node gets config.js, the files it needs in dependency order, then the glue that n8n runs
 const CODE_NODES = [
@@ -112,7 +114,7 @@ function buildNode(name, type, parameters, extra = {}) {
 
 function buildCodeNode(codeNode) {
 
-  const jsCode = `${inlineSources(codeNode.files)}\n\n${codeNode.glue}\n`;
+  const jsCode = `${SANDBOX_PREAMBLE}\n\n${inlineSources(codeNode.files)}\n\n${codeNode.glue}\n`;
   return { ...buildNode(codeNode.name, 'n8n-nodes-base.code', { jsCode }), typeVersion: 2 };
 }
 
