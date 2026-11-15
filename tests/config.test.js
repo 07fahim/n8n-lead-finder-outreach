@@ -1,6 +1,9 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { CITIES, CATEGORY_RULES, BOOKING_TOOLS, LEAD_COLUMNS, CITY_COLUMNS } = require('../src/config');
+const {
+  CITIES, CATEGORY_RULES, BOOKING_TOOLS, LEAD_COLUMNS, CITY_COLUMNS, OVERPASS_REQUEST_TIMEOUT_SECONDS,
+  OVERPASS_SERVER_TIMEOUT_SECONDS,
+} = require('../src/config');
 
 test('43 unique cities in the five markets, document order first', () => {
   assert.equal(CITIES.length, 43);
@@ -31,4 +34,8 @@ test('table columns have names and n8n types', () => {
     assert.ok(['string', 'number', 'date', 'boolean'].includes(column.type), column.name);
   }
   assert.equal(LEAD_COLUMNS[0].name, 'osm_key');
+});
+
+test('the overpass client waits longer than the server may run', () => {
+  assert.ok(OVERPASS_REQUEST_TIMEOUT_SECONDS > OVERPASS_SERVER_TIMEOUT_SECONDS);
 });

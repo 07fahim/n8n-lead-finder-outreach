@@ -60,7 +60,8 @@ const OVERPASS_SERVERS = [
 ];
 // measured 2026-11-16: busy servers recovered after minutes, so waits grow instead of the 5 s n8n retry allows
 const OVERPASS_WAITS_SECONDS = [15, 45, 90];
-const OVERPASS_REQUEST_TIMEOUT_SECONDS = 120;
+// above the 170 s the server may spend on the query, so a slow but valid answer is not thrown away
+const OVERPASS_REQUEST_TIMEOUT_SECONDS = 180;
 // four cities at this budget fit in N8N_RUNNERS_TASK_TIMEOUT=2400 set in start-n8n.cmd
 const OVERPASS_CITY_BUDGET_SECONDS = 420;
 const OVERPASS_USER_AGENT = 'AcmeBookLeadFinder/1.0 (n8n)';
@@ -70,6 +71,7 @@ const BROWSER_USER_AGENT =
 
 // the source document's cap; measured yield is 20-50 per city, so it guards dense cities only
 const MAX_LEADS_PER_RUN = 200;
+// the slowest of the 39 sites that loaded in the 2026-11-16 probe answered well inside this
 const WEBSITE_TIMEOUT_SECONDS = 15;
 // 8 at a time keeps 200 sites with booking pages under about 13 minutes at the 15 s timeout
 const WEBSITE_CONCURRENCY = 8;
@@ -175,8 +177,10 @@ const BOOKING_WORDS = /\b(book|booking|appointment|schedul|reserv)/i;
 const CONTACT_PATH = /contact/i;
 const JUNK_EMAIL_PARTS = [
   'example.', 'sentry', 'wixpress', '@domain.com', '@email.com', 'yourname', 'yourdomain', 'yourcompany',
-  'godaddy', '@2x', 'name@', 'user@', 'test@',
+  'godaddy', '@2x',
 ];
+// placeholder addresses are only junk when this is the whole part before the @ (salonname@ is real)
+const JUNK_EMAIL_LOCAL_PARTS = ['name', 'user', 'test', 'email'];
 const INSTAGRAM_NON_HANDLES = ['p', 'reel', 'reels', 'explore', 'stories', 'accounts', 'tv', 'about', 'developer'];
 
 // the source document's points; the +10 for an unreachable website is removed because 5 of the 7 failed sites
@@ -235,6 +239,7 @@ module.exports = {
   OVERPASS_SERVERS, OVERPASS_WAITS_SECONDS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_CITY_BUDGET_SECONDS,
   OVERPASS_USER_AGENT, BROWSER_USER_AGENT, MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY,
   THIN_CITY_THRESHOLD, CATEGORY_RULES, BARBERSHOP_CATEGORY, BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS,
-  ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, BOOKING_WORDS, CONTACT_PATH, JUNK_EMAIL_PARTS, INSTAGRAM_NON_HANDLES,
-  POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS,
+  ACMEBOOK_TEXT_MARKER, NON_BOOKING_DOMAINS, BOOKING_WORDS, CONTACT_PATH, JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS,
+  INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS,
+  CITY_COLUMNS,
 };
