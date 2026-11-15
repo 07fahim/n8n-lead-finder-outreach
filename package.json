@@ -1,5 +1,5 @@
 {
-  "name": "acmebook-lead-finder",
+  "name": "n8n-lead-finder-outreach",
   "private": true,
   "scripts": {
     "test": "node --test \"tests/*.test.js\""

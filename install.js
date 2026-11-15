@@ -19,7 +19,7 @@ function readInstallSettings(folder) {
   const example = readJson(path.join(folder, 'install.example.json'));
   const installPath = path.join(folder, 'install.json');
   if (!fs.existsSync(installPath)) {
-    console.warn("no 'install.json': building with empty sheet and credential ids (SETUP.md step 6)");
+    console.warn("no 'install.json': building with empty sheet and credential ids (README, Setup step 6)");
     return example;
   }
   // a key left out of install.json falls back to the empty example, so that node asks for it in the n8n editor

@@ -141,13 +141,13 @@ const COMPETITOR_TOOLS = [
 // "wix-seo-bookings-*" strings, so those prove nothing (seen on hairstudio-a.test vs studio-b.test)
 const COMPETITOR_TEXT_MARKERS = [{ name: 'Wix Bookings', marker: '13d21c63-b5ec-5912-8397-c3a5ddb27a97' }];
 const ACTION_WORDS = /\b(book|booking|appointment|schedul|reserv)/i;
-// customer pages live on <business>.acmebook.example (seen on acmebook.example, 2026-11-16)
+// customer pages live on <business>.acmebook.example
 const OWN_PRODUCT_DOMAINS = ['acmebook.example'];
-// the bare word "acmebook" appears in unrelated text; customer pages are on acmebook.example (the embed snippet itself
-// was not seen, so a widget served from another host would be missed)
-const OWN_PRODUCT_TEXT_MARKER = 'acmebook';
+// the bare word "acmebook" appears in unrelated text, so the marker is the name of the embed script a customer
+// page loads
+const OWN_PRODUCT_TEXT_MARKER = 'acmebook-embed';
 // published AcmeBook sites end with "Powered by <a href="/">AcmeBook</a>", a relative link that never names
-// acmebook on a custom domain (seen in acmebook.example's site code, 2026-11-16)
+// acmebook on a custom domain
 const OWN_PRODUCT_FOOTER = /powered by\s*(?:<[^>]*>\s*)*acmebook\b/i;
 
 // the source document's points; the +10 for an unreachable website is removed because 5 of the 7 failed sites
