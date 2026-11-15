@@ -258,7 +258,7 @@ const SHEET_HEADERS = {
 };
 const LEAD_STATUS = { new: 'New', sent: 'Sent', replied: 'Replied', stopped: 'Stopped', bounced: 'Bounced' };
 // the id from the sheet's URL (docs.google.com/spreadsheets/d/<id>/edit), set during setup
-const SHEET_ID = '';
+const SHEET_ID = 'YOUR_SHEET_ID';
 const SHEET_TAB = 'Leads';
 const SENDER_NAME = 'Alex';
 // Alex chose the area without house and road (2026-11-16); the warning that it may not count as a valid postal
@@ -300,8 +300,8 @@ const BOUNCE_SENDER = /mailer-daemon|postmaster/i;
 // where the quoted original starts in a reply from Gmail, Outlook and Apple Mail
 const REPLY_QUOTE_START = /^On .+wrote:\s*$|^-{2,}\s*Original Message|^From: .*@.*$/im;
 // credential ids and names are not secret; set them during setup from the n8n Credentials page
-const GMAIL_CREDENTIAL = { id: '', name: '' };
-const SHEETS_CREDENTIAL = { id: '', name: '' };
+const GMAIL_CREDENTIAL = { id: 'YOUR_GMAIL_CRED', name: 'Gmail account' };
+const SHEETS_CREDENTIAL = { id: 'YOUR_SHEETS_CRED', name: 'Google Sheets account 2' };
 // fixed ids, so the Lead Finder can call Sheet Sync and an import replaces the same workflow each time
 const WORKFLOW_IDS = { sheetSync: 'AcmeBookSheetSyn', sender: 'AcmeBookSender01', replyChecker: 'AcmeBookReplyChk' };
 
