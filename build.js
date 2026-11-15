@@ -6,6 +6,7 @@ const { inlineSources, buildTableReference, buildNode, buildCodeNode, connectNod
 const {
   buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow, WORKFLOW_IDS,
 } = require('./build_outreach');
+const { readInstallSettings } = require('./install');
 
 const OUTPUT_FOLDER = path.join(__dirname, 'build');
 const WORKFLOW_NAME = `${PRODUCT_NAME} Lead Finder`;
@@ -150,13 +151,15 @@ function buildCityRows() {
 function writeBuildFiles() {
 
   fs.mkdirSync(OUTPUT_FOLDER, { recursive: true });
+  // read once, so a missing install.json warns once
+  const install = readInstallSettings(__dirname);
   const files = {
     'workflow.json': buildWorkflow(),
     'tables.json': { [LEADS_TABLE]: LEAD_COLUMNS, [CITIES_TABLE]: CITY_COLUMNS },
     'cities.json': buildCityRows(),
-    'sheet_sync.json': buildSheetSyncWorkflow(),
-    'sender.json': buildSenderWorkflow(),
-    'reply_checker.json': buildReplyCheckerWorkflow(),
+    'sheet_sync.json': buildSheetSyncWorkflow(install),
+    'sender.json': buildSenderWorkflow(install),
+    'reply_checker.json': buildReplyCheckerWorkflow(install),
   };
   for (const [fileName, content] of Object.entries(files)) {
     fs.writeFileSync(path.join(OUTPUT_FOLDER, fileName), `${JSON.stringify(content, null, 2)}\n`);

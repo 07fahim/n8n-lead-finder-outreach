@@ -3,3 +3,4 @@ research/
 node_modules/
 build/
 exports/
+install.json

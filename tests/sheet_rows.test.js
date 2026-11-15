@@ -30,7 +30,7 @@ test('only leads not yet in the sheet are returned, highest score first', () => 
 });
 
 test('the checkbox request puts checkbox validation on Send email (column H) for rows 2..rowCount', () => {
-  assert.deepEqual(buildCheckboxRequest(89), { requests: [{ setDataValidation: {
+  assert.deepEqual(buildCheckboxRequest(89, 0), { requests: [{ setDataValidation: {
     range: { sheetId: 0, startRowIndex: 1, endRowIndex: 89, startColumnIndex: 7, endColumnIndex: 8 },
     rule: { condition: { type: 'BOOLEAN' }, strict: true },
   } }] });

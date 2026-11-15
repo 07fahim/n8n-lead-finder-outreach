@@ -4,7 +4,10 @@ const { buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow }
 const { connectNodes } = require('../build_nodes');
 const { buildWorkflow } = require('../build');
 const { runNodeLikeN8n } = require('./run_node_like_n8n');
-const { SHEETS_CREDENTIAL } = require('../src/config');
+
+// the same ids as in install.test.js, so the build never reads this PC's install.json
+const INSTALL = { sheetId: 'sheet-123', sheetTabGid: 7, gmailCredential: { id: 'g1', name: 'Gmail' },
+  sheetsCredential: { id: 's1', name: 'Sheets' } };
 
 const AsyncFunction = (async () => {}).constructor;
 
@@ -22,7 +25,7 @@ function checkWiring(workflow) {
 const findNode = (workflow, name) => workflow.nodes.find((node) => node.name === name);
 
 test('sheet sync is wired, has its fixed id, and writes RAW', () => {
-  const workflow = buildSheetSyncWorkflow();
+  const workflow = buildSheetSyncWorkflow(INSTALL);
   checkWiring(workflow);
   assert.equal(workflow.id, 'AcmeBookSheetSyn');
   assert.equal(findNode(workflow, 'Add Rows').parameters.options.cellFormat, 'RAW');
@@ -34,13 +37,13 @@ test('sheet sync is wired, has its fixed id, and writes RAW', () => {
 test('the Find New Rows node returns only leads missing from the sheet, in the sandbox', async () => {
   const leads = [{ osm_key: 'node/1', score: 40 }, { osm_key: 'node/2', score: 80 }].map((json) => ({ json }));
   const sheet = [{ json: { 'Lead ID': 'node/1' } }];
-  const rows = await runNodeLikeN8n(buildSheetSyncWorkflow(), 'Find New Rows', sheet,
+  const rows = await runNodeLikeN8n(buildSheetSyncWorkflow(INSTALL), 'Find New Rows', sheet,
     { nodeOutputs: { 'Read Leads': leads, 'Read Sheet': sheet } });
   assert.deepEqual(rows.map((item) => item.json['Lead ID']), ['node/2']);
 });
 
 test('sheet sync adds checkboxes from Read Sheet, below the Add Rows branch, through the Sheets API', () => {
-  const workflow = buildSheetSyncWorkflow();
+  const workflow = buildSheetSyncWorkflow(INSTALL);
   assert.deepEqual(workflow.connections['Read Sheet'].main[0].map((link) => link.node),
     ['Find New Rows', 'Checkbox Range']);
   assert.equal(workflow.connections['Add Rows'], undefined);
@@ -52,15 +55,13 @@ test('sheet sync adds checkboxes from Read Sheet, below the Add Rows branch, thr
   assert.equal(request.parameters.nodeCredentialType, 'googleSheetsOAuth2Api');
   assert.equal(request.parameters.method, 'POST');
   assert.match(request.parameters.url, /:batchUpdate$/);
-  if (SHEETS_CREDENTIAL.id) {
-    assert.deepEqual(request.credentials, { googleSheetsOAuth2Api: SHEETS_CREDENTIAL });
-  }
+  assert.deepEqual(request.credentials, { googleSheetsOAuth2Api: INSTALL.sheetsCredential });
 });
 
 async function checkboxEndRow(sheetRows, newCount) {
   const sheet = sheetRows.map((json) => ({ json }));
   const added = Array.from({ length: newCount }, () => ({ json: {} }));
-  const result = await runNodeLikeN8n(buildSheetSyncWorkflow(), 'Checkbox Range', sheet,
+  const result = await runNodeLikeN8n(buildSheetSyncWorkflow(INSTALL), 'Checkbox Range', sheet,
     { nodeOutputs: { 'Read Sheet': sheet, 'Find New Rows': added } });
   assert.equal(result.length, 1);
   // the node runs in another vm realm, so compare plain copies
@@ -92,7 +93,7 @@ test('connectNodes puts a numbered output in its own slot', () => {
 });
 
 test('sender claims the row, sends plain text without the n8n credit line, and loops with a random wait', () => {
-  const workflow = buildSenderWorkflow();
+  const workflow = buildSenderWorkflow(INSTALL);
   checkWiring(workflow);
   assert.equal(workflow.id, 'AcmeBookSender01');
   const send = findNode(workflow, 'Send Email');
@@ -137,20 +138,20 @@ test('the Pick Emails node stops with the POSTAL_ADDRESS error while the address
     // picking itself is tested in pick_rows_to_send.test.js
     const rows = [{ 'Name': 'A', 'Lead email': 'a@a.com', 'Opener': 'Hi A', 'Send email': true, 'Sent date': '',
       'Status': 'New', 'Lead ID': 'node/1' }].map((json) => ({ json }));
-    await assert.rejects(runNodeLikeN8n(buildSenderWorkflow(), 'Pick Emails', rows), /POSTAL_ADDRESS/);
+    await assert.rejects(runNodeLikeN8n(buildSenderWorkflow(INSTALL), 'Pick Emails', rows), /POSTAL_ADDRESS/);
   });
 
 test('the Report node counts released rows as failed and the rest as sent, in the sandbox', async () => {
   // Wait passes the Mark Table Sent output on; Release Row returns the values it wrote
   const done = [{ id: 1, status: 'Sent' }, { 'Lead ID': 'node/2', 'Sent date': '', 'Status': 'New' }, {},
     { 'Lead ID': 'node/4', 'Sent date': '', 'Status': 'New' }].map((json) => ({ json }));
-  const report = await runNodeLikeN8n(buildSenderWorkflow(), 'Report', done);
+  const report = await runNodeLikeN8n(buildSenderWorkflow(INSTALL), 'Report', done);
   // the node runs in another vm realm, so compare plain copies
   assert.deepEqual(JSON.parse(JSON.stringify(report[0].json)), { sent: 2, failed: 2 });
 });
 
 test('reply checker polls Gmail every 15 minutes with full messages and writes RAW', () => {
-  const workflow = buildReplyCheckerWorkflow();
+  const workflow = buildReplyCheckerWorkflow(INSTALL);
   checkWiring(workflow);
   assert.equal(workflow.id, 'AcmeBookReplyChk');
   const trigger = findNode(workflow, 'New Email');
@@ -163,7 +164,7 @@ test('the Classify Replies node marks a lead reply, in the sandbox', async () =>
   const sheet = [{ json: { 'Lead email': 'owner@salon.com', 'Lead ID': 'node/1', 'Status': 'Sent',
     'Sent date': '2026-11-16' } }];
   const mail = [{ json: { from: { value: [{ address: 'owner@salon.com' }] }, text: 'stop', headers: {} } }];
-  const results = await runNodeLikeN8n(buildReplyCheckerWorkflow(), 'Classify Replies', sheet,
+  const results = await runNodeLikeN8n(buildReplyCheckerWorkflow(INSTALL), 'Classify Replies', sheet,
     { nodeOutputs: { 'New Email': mail } });
   // the node runs in another vm realm, so compare plain copies
   assert.deepEqual(JSON.parse(JSON.stringify(results.map((item) => item.json))),
@@ -175,7 +176,7 @@ test('the Classify Replies node keeps one result per lead, the strongest, in the
     'Sent date': '2026-11-16' } }];
   const mail = [{ json: { from: { value: [{ address: 'owner@salon.com' }] }, text: 'Tell me more', headers: {} } },
     { json: { from: { value: [{ address: 'owner@salon.com' }] }, text: 'stop', headers: {} } }];
-  const results = await runNodeLikeN8n(buildReplyCheckerWorkflow(), 'Classify Replies', sheet,
+  const results = await runNodeLikeN8n(buildReplyCheckerWorkflow(INSTALL), 'Classify Replies', sheet,
     { nodeOutputs: { 'New Email': mail } });
   // the node runs in another vm realm, so compare plain copies
   assert.deepEqual(JSON.parse(JSON.stringify(results.map((item) => item.json))),

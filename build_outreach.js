@@ -1,17 +1,17 @@
 const { buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
-const { LEADS_TABLE, SHEET_ID, SHEET_TAB, SHEETS_CREDENTIAL, LEAD_STATUS, GMAIL_CREDENTIAL,
-  DAILY_SEND_LIMIT, SEND_WAIT_SECONDS } = require('./src/config');
+const { LEADS_TABLE, SHEET_TAB, LEAD_STATUS, DAILY_SEND_LIMIT, SEND_WAIT_SECONDS } = require('./src/config');
 const { PRODUCT_NAME, SENDER_NAME, SEND_TIMEZONE } = require('./src/product');
+const { readInstallSettings } = require('./install');
 
 const SHEETS = { type: 'n8n-nodes-base.googleSheets', typeVersion: 4.7 };
 const SETTINGS = { executionOrder: 'v1', saveManualExecutions: true };
 // fixed ids, so the Lead Finder can call Sheet Sync and an import replaces the same workflow each time
 const WORKFLOW_IDS = { sheetSync: 'AcmeBookSheetSyn', sender: 'AcmeBookSender01', replyChecker: 'AcmeBookReplyChk' };
 
-function buildSheetReference() {
+function buildSheetReference(sheetId) {
 
   return {
-    documentId: { __rl: true, mode: 'id', value: SHEET_ID },
+    documentId: { __rl: true, mode: 'id', value: sheetId },
     sheetName: { __rl: true, mode: 'name', value: SHEET_TAB },
   };
 }
@@ -34,15 +34,15 @@ function sheetColumns(values, matchingColumns) {
 }
 
 
-function buildSheetNode(name, position, parameters, extra = {}) {
+function buildSheetNode(name, position, parameters, extra, install) {
 
-  const node = buildNode({ name, ...SHEETS, position, parameters: { resource: 'sheet', ...buildSheetReference(),
-    ...parameters }, extra });
-  return withCredential(node, 'googleSheetsOAuth2Api', SHEETS_CREDENTIAL);
+  const node = buildNode({ name, ...SHEETS, position, parameters: { resource: 'sheet',
+    ...buildSheetReference(install.sheetId), ...parameters }, extra });
+  return withCredential(node, 'googleSheetsOAuth2Api', install.sheetsCredential);
 }
 
 
-function buildSheetSyncWorkflow() {
+function buildSheetSyncWorkflow(install = readInstallSettings(__dirname)) {
 
   const nodes = [
     buildNode({ name: 'Run manually', type: 'n8n-nodes-base.manualTrigger', position: [0, 0], parameters: {} }),
@@ -54,7 +54,7 @@ function buildSheetSyncWorkflow() {
 
     // an empty sheet returns no items, which would stop the run; one empty item keeps it going
     buildSheetNode('Read Sheet', [440, 100], { operation: 'read', options: {} },
-      { executeOnce: true, alwaysOutputData: true }),
+      { executeOnce: true, alwaysOutputData: true }, install),
     buildCodeNode({ name: 'Find New Rows', files: ['product.js', 'config.js', 'sheet_rows.js'],
       position: [660, 100], glue: [
       "const leads = $('Read Leads').all().map((item) => item.json);",
@@ -63,7 +63,7 @@ function buildSheetSyncWorkflow() {
     ].join('\n') }),
     buildSheetNode('Add Rows', [880, 100], { operation: 'append',
       columns: { mappingMode: 'autoMapInputData', value: {}, matchingColumns: [], schema: [] },
-      options: { cellFormat: 'RAW' } }),
+      options: { cellFormat: 'RAW' } }, {}, install),
 
     // Insert > Checkbox writes FALSE into every empty cell, so the sheet would read back as full and new rows would
     // land below the boxes; a validation rule on the filled rows writes no values. It hangs off Read Sheet, below
@@ -73,14 +73,14 @@ function buildSheetSyncWorkflow() {
       position: [660, 300], glue: [
       "const lastRow = Math.max(1, ...$('Read Sheet').all().map((item) => item.json.row_number || 0));",
       "const rowCount = lastRow + $('Find New Rows').all().length;",
-      'return [{ json: buildCheckboxRequest(rowCount) }];',
+      `return [{ json: buildCheckboxRequest(rowCount, ${Number(install.sheetTabGid)}) }];`,
     ].join('\n') }),
     withCredential(buildNode({ name: 'Add Checkboxes', type: 'n8n-nodes-base.httpRequest', typeVersion: 4.2,
       position: [880, 300], parameters: { method: 'POST',
-        url: `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}:batchUpdate`,
+        url: `https://sheets.googleapis.com/v4/spreadsheets/${install.sheetId}:batchUpdate`,
         authentication: 'predefinedCredentialType', nodeCredentialType: 'googleSheetsOAuth2Api',
         sendBody: true, specifyBody: 'json', jsonBody: '={{ JSON.stringify($json) }}', options: {} } }),
-    'googleSheetsOAuth2Api', SHEETS_CREDENTIAL),
+    'googleSheetsOAuth2Api', install.sheetsCredential),
   ];
   const connections = connectNodes([
     ['Run manually', 'Read Leads'],
@@ -96,13 +96,13 @@ function buildSheetSyncWorkflow() {
 }
 
 
-function buildSenderWorkflow() {
+function buildSenderWorkflow(install = readInstallSettings(__dirname)) {
 
   const [shortestWait, longestWait] = SEND_WAIT_SECONDS;
   const current = "$('Send One by One').item.json";
   const nodes = [
     buildNode({ name: 'Run manually', type: 'n8n-nodes-base.manualTrigger', position: [0, 0], parameters: {} }),
-    buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }),
+    buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }, {}, install),
     buildCodeNode({ name: 'Pick Emails', files: ['product.js', 'config.js', 'pick_rows_to_send.js', 'build_email.js'],
       position: [440, 0], glue: [
         "const today = new Date().toLocaleDateString('en-CA', { timeZone: SEND_TIMEZONE });",
@@ -120,7 +120,7 @@ function buildSenderWorkflow() {
       'Lead ID': `={{ ${current}.leadId }}`,
       'Sent date': `={{ ${current}.sentDate }}`,
       'Status': LEAD_STATUS.sent,
-    }, ['Lead ID']), options: { cellFormat: 'RAW' } }, { alwaysOutputData: true }),
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } }, { alwaysOutputData: true }, install),
 
     // its input is the Claim Row output, so the email is read from the loop item
     withCredential(buildNode({ name: 'Send Email', type: 'n8n-nodes-base.gmail', typeVersion: 2.2,
@@ -129,7 +129,7 @@ function buildSenderWorkflow() {
         options: { appendAttribution: false, senderName: SENDER_NAME } },
 
       // one failed send must not stop the others; Release Row hands the row back to the next run
-      extra: { onError: 'continueErrorOutput' } }), 'gmailOAuth2', GMAIL_CREDENTIAL),
+      extra: { onError: 'continueErrorOutput' } }), 'gmailOAuth2', install.gmailCredential),
 
     // onError stays at the default: if releasing fails, the row stays claimed, which is the safe direction (the lead is
     // never emailed twice), and the run stops so the problem is seen. Report counts Status New as a failure
@@ -137,7 +137,7 @@ function buildSenderWorkflow() {
       'Lead ID': `={{ ${current}.leadId }}`,
       'Sent date': '',
       'Status': LEAD_STATUS.new,
-    }, ['Lead ID']), options: { cellFormat: 'RAW' } }, { alwaysOutputData: true }),
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } }, { alwaysOutputData: true }, install),
     buildNode({ name: 'Mark Table Sent', type: 'n8n-nodes-base.dataTable', position: [1320, 0], parameters: {
       resource: 'row', operation: 'update', dataTableId: buildTableReference(LEADS_TABLE), matchType: 'allConditions',
       filters: { conditions: [{ keyName: 'osm_key', condition: 'eq', keyValue: `={{ ${current}.leadId }}` }] },
@@ -173,7 +173,7 @@ function buildSenderWorkflow() {
 }
 
 
-function buildReplyCheckerWorkflow() {
+function buildReplyCheckerWorkflow(install = readInstallSettings(__dirname)) {
 
   const nodes = [
     withCredential(buildNode({ name: 'New Email', type: 'n8n-nodes-base.gmailTrigger', typeVersion: 1.4,
@@ -182,8 +182,8 @@ function buildReplyCheckerWorkflow() {
 
         // the full message is needed: the simple form has no body text and no X-Failed-Recipients header
         simple: false, filters: {}, options: {},
-      } }), 'gmailOAuth2', GMAIL_CREDENTIAL),
-    buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }, { executeOnce: true }),
+      } }), 'gmailOAuth2', install.gmailCredential),
+    buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }, { executeOnce: true }, install),
     buildCodeNode({ name: 'Classify Replies', files: ['product.js', 'config.js', 'classify_reply.js'],
       position: [440, 0], glue: [
       'const sheetRows = $input.all().map((item) => item.json);',
@@ -193,7 +193,7 @@ function buildReplyCheckerWorkflow() {
     buildSheetNode('Mark Sheet Status', [660, 0], { operation: 'update', columns: sheetColumns({
       'Lead ID': '={{ $json.leadId }}',
       'Status': '={{ $json.status }}',
-    }, ['Lead ID']), options: { cellFormat: 'RAW' } }),
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } }, {}, install),
     buildNode({ name: 'Mark Table Status', type: 'n8n-nodes-base.dataTable', position: [880, 0], parameters: {
       resource: 'row', operation: 'update', dataTableId: buildTableReference(LEADS_TABLE), matchType: 'allConditions',
       filters: { conditions: [{ keyName: 'osm_key', condition: 'eq',

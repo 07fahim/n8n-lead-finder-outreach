@@ -1,4 +1,4 @@
-const { SHEET_HEADERS, LEAD_STATUS, SHEET_TAB_GID } = require('./config');
+const { SHEET_HEADERS, LEAD_STATUS } = require('./config');
 
 function toSheetRow(lead) {
 
@@ -28,11 +28,11 @@ function findNewSheetRows(leads, sheetRows) {
 }
 
 
-function buildCheckboxRequest(rowCount) {
+function buildCheckboxRequest(rowCount, sheetTabGid) {
 
   const column = Object.values(SHEET_HEADERS).indexOf(SHEET_HEADERS.send);
   return { requests: [{ setDataValidation: {
-    range: { sheetId: SHEET_TAB_GID, startRowIndex: 1, endRowIndex: rowCount, startColumnIndex: column,
+    range: { sheetId: sheetTabGid, startRowIndex: 1, endRowIndex: rowCount, startColumnIndex: column,
       endColumnIndex: column + 1 },
     rule: { condition: { type: 'BOOLEAN' }, strict: true },
   } }] };

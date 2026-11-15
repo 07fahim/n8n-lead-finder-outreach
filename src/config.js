@@ -97,11 +97,7 @@ const SHEET_HEADERS = {
   opener: 'Opener', send: 'Send email', sentDate: 'Sent date', status: 'Status', leadId: 'Lead ID',
 };
 const LEAD_STATUS = { new: 'New', sent: 'Sent', replied: 'Replied', stopped: 'Stopped', bounced: 'Bounced' };
-// the id from the sheet's URL (docs.google.com/spreadsheets/d/<id>/edit), set during setup
-const SHEET_ID = 'YOUR_SHEET_ID';
 const SHEET_TAB = 'Leads';
-// the gid in the sheet URL after #gid= (0 for a new sheet's first tab)
-const SHEET_TAB_GID = 0;
 // a new free Gmail account gets locked for bursts of cold mail; raise after 2-3 weeks without complaints
 const DAILY_SEND_LIMIT = 15;
 // a random pause between two emails, so the mailbox does not send in a machine-like burst
@@ -123,9 +119,6 @@ const SINGLE_ADDRESS = /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/;
 const BOUNCE_SENDER = /mailer-daemon|postmaster/i;
 // where the quoted original starts in a reply from Gmail, Outlook and Apple Mail
 const REPLY_QUOTE_START = /^On .+wrote:\s*$|^-{2,}\s*Original Message|^From: .*@.*$/im;
-// credential ids and names are not secret; set them during setup from the n8n Credentials page
-const GMAIL_CREDENTIAL = { id: 'YOUR_GMAIL_CRED', name: 'Gmail account' };
-const SHEETS_CREDENTIAL = { id: 'YOUR_SHEETS_CRED', name: 'Google Sheets account 2' };
 
 module.exports = {
   CITIES_PER_RUN, SEARCH_RADIUS_METRES, OVERPASS_SERVER_TIMEOUT_SECONDS, OVERPASS_RESULT_LIMIT, OVERPASS_SERVERS,
@@ -133,6 +126,6 @@ module.exports = {
   BROWSER_USER_AGENT, MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY, THIN_CITY_THRESHOLD,
   REDIRECT_DOMAINS, NON_TOOL_DOMAINS, GOOGLE_HOST, RIGHTS_RESERVED, CONTACT_PATH, JUNK_EMAIL_PARTS,
   JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS, SHEET_HEADERS,
-  LEAD_STATUS, SHEET_ID, SHEET_TAB, SHEET_TAB_GID, DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, STOP_WORDS, SINGLE_ADDRESS,
-  BOUNCE_SENDER, REPLY_QUOTE_START, GMAIL_CREDENTIAL, SHEETS_CREDENTIAL,
+  LEAD_STATUS, SHEET_TAB, DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, STOP_WORDS, SINGLE_ADDRESS, BOUNCE_SENDER,
+  REPLY_QUOTE_START,
 };
