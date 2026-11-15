@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { buildSheetSyncWorkflow, buildSenderWorkflow } = require('../build_outreach');
+const { buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow } = require('../build_outreach');
 const { connectNodes } = require('../build_nodes');
 const { buildWorkflow } = require('../build');
 const { runNodeLikeN8n } = require('./run_node_like_n8n');
@@ -71,6 +71,7 @@ test('sender sends plain text without the n8n credit line, marks RAW, and loops 
   assert.match(findNode(workflow, 'Wait').parameters.amount, /Math\.random\(\) \* 121\) \+ 60/);
   assert.deepEqual(workflow.connections['Send Email'].main[1], [{ node: 'Send One by One', type: 'main', index: 0 }]);
   assert.deepEqual(workflow.connections['Wait'].main[0], [{ node: 'Send One by One', type: 'main', index: 0 }]);
+  assert.deepEqual(workflow.connections['Send One by One'].main[0], [{ node: 'Report', type: 'main', index: 0 }]);
 });
 
 test('the Pick Emails node builds emails for ticked rows only, in the sandbox', async () => {
@@ -87,9 +88,32 @@ test('the Pick Emails node builds emails for ticked rows only, in the sandbox', 
 });
 
 test('the Report node counts sent and failed emails from the loop done output, in the sandbox', async () => {
-  const done = [{ leadId: 'node/1' }, { leadId: 'node/2', error: { message: 'quota' } }, { leadId: 'node/3' }]
-    .map((json) => ({ json }));
+  // Gmail's error output carries the error as a plain string, e.g. 'quota (item 0)'
+  const done = [{ leadId: 'node/1' }, { leadId: 'node/2', error: { message: 'quota' } }, { leadId: 'node/3' },
+    { leadId: 'node/4', error: 'quota (item 0)' }].map((json) => ({ json }));
   const report = await runNodeLikeN8n(buildSenderWorkflow(), 'Report', done);
   // the node runs in another vm realm, so compare plain copies
-  assert.deepEqual(JSON.parse(JSON.stringify(report[0].json)), { sent: 2, failed: 1, errors: ['quota'] });
+  assert.deepEqual(JSON.parse(JSON.stringify(report[0].json)),
+    { sent: 2, failed: 2, errors: ['quota', 'quota (item 0)'] });
+});
+
+test('reply checker polls Gmail every 15 minutes with full messages and writes RAW', () => {
+  const workflow = buildReplyCheckerWorkflow();
+  checkWiring(workflow);
+  assert.equal(workflow.id, 'AcmeBookReplyChk');
+  const trigger = findNode(workflow, 'New Email');
+  assert.equal(trigger.parameters.simple, false);
+  assert.deepEqual(trigger.parameters.pollTimes, { item: [{ mode: 'everyX', value: 15, unit: 'minutes' }] });
+  assert.equal(findNode(workflow, 'Mark Sheet Status').parameters.options.cellFormat, 'RAW');
+});
+
+test('the Classify Replies node marks a lead reply, in the sandbox', async () => {
+  const sheet = [{ json: { 'Lead email': 'owner@salon.com', 'Lead ID': 'node/1', 'Status': 'Sent',
+    'Sent date': '2026-11-16' } }];
+  const mail = [{ json: { from: { value: [{ address: 'owner@salon.com' }] }, text: 'stop', headers: {} } }];
+  const results = await runNodeLikeN8n(buildReplyCheckerWorkflow(), 'Classify Replies', sheet,
+    { nodeOutputs: { 'New Email': mail } });
+  // the node runs in another vm realm, so compare plain copies
+  assert.deepEqual(JSON.parse(JSON.stringify(results.map((item) => item.json))),
+    [{ leadId: 'node/1', status: 'Stopped' }]);
 });

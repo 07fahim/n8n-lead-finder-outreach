@@ -136,5 +136,44 @@ function buildSenderWorkflow() {
   return { id: WORKFLOW_IDS.sender, name: 'AcmeBook Sender', nodes, connections, settings: SETTINGS, active: false };
 }
 
-module.exports = { buildSheetSyncWorkflow, buildSenderWorkflow, buildSheetReference, withCredential, sheetColumns,
-  buildSheetNode, SETTINGS };
+
+function buildReplyCheckerWorkflow() {
+
+  const nodes = [
+    withCredential(buildNode({ name: 'New Email', type: 'n8n-nodes-base.gmailTrigger', typeVersion: 1.4,
+      position: [0, 0], parameters: {
+        pollTimes: { item: [{ mode: 'everyX', value: 15, unit: 'minutes' }] },
+
+        // the full message is needed: the simple form has no body text and no X-Failed-Recipients header
+        simple: false, filters: {}, options: {},
+      } }), 'gmailOAuth2', GMAIL_CREDENTIAL),
+    buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }, { executeOnce: true }),
+    buildCodeNode({ name: 'Classify Replies', files: ['config.js', 'classify_reply.js'], position: [440, 0], glue: [
+      'const sheetRows = $input.all().map((item) => item.json);',
+      "return $('New Email').all().map((item) => classifyReply(item.json, sheetRows)).filter(Boolean)",
+      '  .map((json) => ({ json }));',
+    ].join('\n') }),
+    buildSheetNode('Mark Sheet Status', [660, 0], { operation: 'update', columns: sheetColumns({
+      'Lead ID': '={{ $json.leadId }}',
+      'Status': '={{ $json.status }}',
+    }, ['Lead ID']), options: { cellFormat: 'RAW' } }),
+    buildNode({ name: 'Mark Table Status', type: 'n8n-nodes-base.dataTable', position: [880, 0], parameters: {
+      resource: 'row', operation: 'update', dataTableId: buildTableReference(LEADS_TABLE), matchType: 'allConditions',
+      filters: { conditions: [{ keyName: 'osm_key', condition: 'eq',
+        keyValue: "={{ $('Classify Replies').item.json.leadId }}" }] },
+      columns: { mappingMode: 'defineBelow', value: { status: "={{ $('Classify Replies').item.json.status }}" },
+        matchingColumns: [], schema: [] },
+    } }),
+  ];
+  const connections = connectNodes([
+    ['New Email', 'Read Sheet'],
+    ['Read Sheet', 'Classify Replies'],
+    ['Classify Replies', 'Mark Sheet Status'],
+    ['Mark Sheet Status', 'Mark Table Status'],
+  ]);
+  return { id: WORKFLOW_IDS.replyChecker, name: 'AcmeBook Reply Checker', nodes, connections, settings: SETTINGS,
+    active: false };
+}
+
+module.exports = { buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow, buildSheetReference,
+  withCredential, sheetColumns, buildSheetNode, SETTINGS };
