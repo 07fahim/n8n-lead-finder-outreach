@@ -28,10 +28,10 @@ function buildNode({ name, type, typeVersion = 1, position, parameters, extra = 
 }
 
 
-function buildCodeNode({ name, files, glue, position, extra }) {
+function buildCodeNode({ name, files, glue, position }) {
 
   const jsCode = `${SANDBOX_PREAMBLE}\n\n${inlineSources(files)}\n\n${glue}\n`;
-  return buildNode({ name, type: 'n8n-nodes-base.code', typeVersion: 2, position, parameters: { jsCode }, extra });
+  return buildNode({ name, type: 'n8n-nodes-base.code', typeVersion: 2, position, parameters: { jsCode } });
 }
 
 

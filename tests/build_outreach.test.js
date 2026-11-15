@@ -39,12 +39,15 @@ test('the Find New Rows node returns only leads missing from the sheet, in the s
   assert.deepEqual(rows.map((item) => item.json['Lead ID']), ['node/2']);
 });
 
-test('sheet sync adds checkboxes after Add Rows through the Sheets API', () => {
+test('sheet sync adds checkboxes from Read Sheet, below the Add Rows branch, through the Sheets API', () => {
   const workflow = buildSheetSyncWorkflow();
-  assert.deepEqual(workflow.connections['Add Rows'].main[0], [{ node: 'Checkbox Range', type: 'main', index: 0 }]);
+  assert.deepEqual(workflow.connections['Read Sheet'].main[0].map((link) => link.node),
+    ['Find New Rows', 'Checkbox Range']);
+  assert.equal(workflow.connections['Add Rows'], undefined);
   assert.deepEqual(workflow.connections['Checkbox Range'].main[0],
     [{ node: 'Add Checkboxes', type: 'main', index: 0 }]);
-  assert.equal(findNode(workflow, 'Checkbox Range').executeOnce, true);
+  assert.ok(findNode(workflow, 'Checkbox Range').position[1] > findNode(workflow, 'Find New Rows').position[1]);
+  assert.equal(findNode(workflow, 'Checkbox Range').executeOnce, undefined);
   const request = findNode(workflow, 'Add Checkboxes');
   assert.equal(request.parameters.nodeCredentialType, 'googleSheetsOAuth2Api');
   assert.equal(request.parameters.method, 'POST');
@@ -54,15 +57,24 @@ test('sheet sync adds checkboxes after Add Rows through the Sheets API', () => {
   }
 });
 
-test('the Checkbox Range node covers the header, the filled rows and the new rows, in the sandbox', async () => {
-  const sheet = [{ 'Lead ID': 'node/1' }, { 'Lead ID': 'node/2' }, {}].map((json) => ({ json }));
-  const added = [{}, {}, {}].map((json) => ({ json }));
-  const result = await runNodeLikeN8n(buildSheetSyncWorkflow(), 'Checkbox Range', added,
+async function checkboxEndRow(sheetRows, newCount) {
+  const sheet = sheetRows.map((json) => ({ json }));
+  const added = Array.from({ length: newCount }, () => ({ json: {} }));
+  const result = await runNodeLikeN8n(buildSheetSyncWorkflow(), 'Checkbox Range', sheet,
     { nodeOutputs: { 'Read Sheet': sheet, 'Find New Rows': added } });
-  // the node runs in another vm realm, so compare plain copies
-  const range = JSON.parse(JSON.stringify(result[0].json)).requests[0].setDataValidation.range;
   assert.equal(result.length, 1);
-  assert.equal(range.endRowIndex, 6);
+  // the node runs in another vm realm, so compare plain copies
+  return JSON.parse(JSON.stringify(result[0].json)).requests[0].setDataValidation.range.endRowIndex;
+}
+
+test('the Checkbox Range node ends at the last sheet row plus the new rows, in the sandbox', async () => {
+  assert.equal(await checkboxEndRow([{ 'Lead ID': 'node/1', row_number: 2 }, { 'Lead ID': 'node/2', row_number: 3 }],
+    3), 6);
+  // a blank row 3 still counts, since Add Rows appends below the last non-empty row
+  assert.equal(await checkboxEndRow([{ 'Lead ID': 'node/1', row_number: 2 }, { 'Lead ID': 'node/2', row_number: 4 }],
+    3), 7);
+  // an empty sheet gives one empty item, from alwaysOutputData
+  assert.equal(await checkboxEndRow([{}], 3), 4);
 });
 
 test('the Lead Finder calls sheet sync after Check Run and keeps going if it fails', () => {

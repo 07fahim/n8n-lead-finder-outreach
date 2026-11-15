@@ -260,7 +260,7 @@ const LEAD_STATUS = { new: 'New', sent: 'Sent', replied: 'Replied', stopped: 'St
 // the id from the sheet's URL (docs.google.com/spreadsheets/d/<id>/edit), set during setup
 const SHEET_ID = 'YOUR_SHEET_ID';
 const SHEET_TAB = 'Leads';
-// the numeric id of the Leads tab (the gid in the sheet URL); the first tab of a new sheet is always 0
+// the gid in the sheet URL after #gid= (0 for a new sheet's first tab)
 const SHEET_TAB_GID = 0;
 const SENDER_NAME = 'Alex';
 // Alex chose the area without house and road (2026-11-16); the warning that it may not count as a valid postal

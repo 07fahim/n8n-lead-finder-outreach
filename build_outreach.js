@@ -62,14 +62,16 @@ function buildSheetSyncWorkflow() {
       options: { cellFormat: 'RAW' } }),
 
     // Insert > Checkbox writes FALSE into every empty cell, so the sheet would read back as full and new rows would
-    // land below the boxes; a validation rule on the filled rows writes no values
-    buildCodeNode({ name: 'Checkbox Range', files: ['config.js', 'sheet_rows.js'], position: [1100, 100], glue: [
-      "const filledRows = $('Read Sheet').all().filter((item) => item.json['Lead ID']).length;",
-      "const rowCount = 1 + filledRows + $('Find New Rows').all().length;",
+    // land below the boxes; a validation rule on the filled rows writes no values. It hangs off Read Sheet, below
+    // Find New Rows, so it runs on every sync (even one that adds nothing) and, under executionOrder v1, after the
+    // Add Rows branch has finished
+    buildCodeNode({ name: 'Checkbox Range', files: ['config.js', 'sheet_rows.js'], position: [660, 300], glue: [
+      "const lastRow = Math.max(1, ...$('Read Sheet').all().map((item) => item.json.row_number || 0));",
+      "const rowCount = lastRow + $('Find New Rows').all().length;",
       'return [{ json: buildCheckboxRequest(rowCount) }];',
-    ].join('\n'), extra: { executeOnce: true } }),
+    ].join('\n') }),
     withCredential(buildNode({ name: 'Add Checkboxes', type: 'n8n-nodes-base.httpRequest', typeVersion: 4.2,
-      position: [1320, 100], parameters: { method: 'POST',
+      position: [880, 300], parameters: { method: 'POST',
         url: `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}:batchUpdate`,
         authentication: 'predefinedCredentialType', nodeCredentialType: 'googleSheetsOAuth2Api',
         sendBody: true, specifyBody: 'json', jsonBody: '={{ JSON.stringify($json) }}', options: {} } }),
@@ -81,7 +83,7 @@ function buildSheetSyncWorkflow() {
     ['Read Leads', 'Read Sheet'],
     ['Read Sheet', 'Find New Rows'],
     ['Find New Rows', 'Add Rows'],
-    ['Add Rows', 'Checkbox Range'],
+    ['Read Sheet', 'Checkbox Range'],
     ['Checkbox Range', 'Add Checkboxes'],
   ]);
   return { id: WORKFLOW_IDS.sheetSync, name: 'AcmeBook Sheet Sync', nodes, connections, settings: SETTINGS,
