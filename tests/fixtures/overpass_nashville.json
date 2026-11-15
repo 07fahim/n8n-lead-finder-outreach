@@ -1,0 +1,528 @@
+{
+ "version": 0.6,
+ "generator": "Overpass API 0.7.62.11 87bfad18",
+ "osm3s": {
+  "timestamp_osm_base": "2026-11-15T18:05:21Z",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+ },
+ "elements": [
+  {
+   "type": "node",
+   "id": 1961227794,
+   "lat": 36.1454162,
+   "lon": -86.8129228,
+   "tags": {
+    "name": "Family Barbershop",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2728992665,
+   "lat": 36.1641563,
+   "lon": -86.7802189,
+   "tags": {
+    "addr:housenumber": "25",
+    "addr:street": "Arcade Street",
+    "name": "Months Barbershop",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4437390689,
+   "lat": 36.144374,
+   "lon": -86.812215,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "2817",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "West End Avenue",
+    "addr:unit": "109",
+    "name": "True Blue Salon",
+    "phone": "+1 555 0102",
+    "shop": "beauty",
+    "website": "https://truebluesalon.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5525047898,
+   "lat": 36.1497406,
+   "lon": -86.7972584,
+   "tags": {
+    "check_date": "2026-06-18",
+    "name": "Salon Fx",
+    "shop": "beauty",
+    "website": "http://www.salonfxspa.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6312880885,
+   "lat": 36.1368766,
+   "lon": -86.8046757,
+   "tags": {
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Thetford dentistry"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7123633361,
+   "lat": 36.1309881,
+   "lon": -86.7728077,
+   "tags": {
+    "name": "Scout's Barbershop",
+    "operator": "Scout's",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7833015163,
+   "lat": 36.1424677,
+   "lon": -86.7918316,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "1200",
+    "addr:postcode": "37212",
+    "addr:state": "TN",
+    "addr:street": "Villa Place",
+    "addr:unit": "402",
+    "name": "Aesop",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 8211963736,
+   "lat": 36.1839414,
+   "lon": -86.7937783,
+   "tags": {
+    "name": "Scout's Barbershop",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 8320144771,
+   "lat": 36.175308,
+   "lon": -86.788208,
+   "tags": {
+    "addr:postcode": "37208",
+    "check_date": "2026-06-03",
+    "check_date:opening_hours": "2026-06-03",
+    "contact:facebook": "https://facebook.com/business8",
+    "contact:instagram": "business8",
+    "contact:twitter": "business8",
+    "name": "Truman Grey Salon",
+    "opening_hours": "Tu-Th 10:00-19:00; Fr 10:00-17:00; Sa 09:00-16:00",
+    "phone": "+1 555 0108",
+    "shop": "hairdresser",
+    "website": "https://trumangrey.com"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10856035658,
+   "lat": 36.160302,
+   "lon": -86.7796554,
+   "tags": {
+    "level": "1",
+    "name": "Studs",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12926516004,
+   "lat": 36.1441372,
+   "lon": -86.8139974,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "2924",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "West End Avenue",
+    "beauty": "nails",
+    "name": "Venus Nails & Spa",
+    "opening_hours": "Mo-Fr 09:00-19:00; Sa 09:00-18:00; Su 10:00-17:00",
+    "phone": "+1 555 0110",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12926547430,
+   "lat": 36.1441779,
+   "lon": -86.8139505,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "2922",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "West End Avenue",
+    "name": "Hue Hair Studio",
+    "opening_hours": "Tu-Th 11:00-19:00; Fr-Sa 10:00-17:00",
+    "phone": "+1 555 0111",
+    "shop": "hairdresser",
+    "website": "https://www.hairstudio-a.test"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13057211187,
+   "lat": 36.1451921,
+   "lon": -86.8150709,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "124",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "30th Avenue North",
+    "amenity": "dentist",
+    "building": "yes",
+    "healthcare": "dentist",
+    "name": "Gorham & Ammarell Dentistry",
+    "opening_hours": "Mo-Th 07:00-17:00; Fr 07:00-11:00",
+    "phone": "+1 555 0112",
+    "website": "https://www.westendnashvilledentists.com"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13376602802,
+   "lat": 36.1835741,
+   "lon": -86.7500398,
+   "tags": {
+    "addr:housenumber": "1032",
+    "addr:postcode": "37206",
+    "addr:street": "West Eastland Avenue",
+    "name": "O.liv Body Bar",
+    "phone": "+1 555 0113",
+    "shop": "massage",
+    "website": "https://bodybar-g.test"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13535554379,
+   "lat": 36.1432548,
+   "lon": -86.767168,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "438",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "Houston Stree",
+    "addr:unit": "274",
+    "female": "yes",
+    "internet_access": "wlan",
+    "male": "yes",
+    "name": "Nashville Wildfire Hair Salon",
+    "opening_hours": "Mo-Su 11:00-19:00",
+    "operator": "Lauren Coker",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "phone": "+1 555 0114",
+    "shop": "hairdresser",
+    "website": "https://wildfiresalonnashville.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13566381032,
+   "lat": 36.1483296,
+   "lon": -86.8086227,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "210",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "25th Avenue North",
+    "addr:unit": "63",
+    "check_date": "2026-02-15",
+    "contact:email": "contact15@business.test",
+    "currency:XBT": "yes",
+    "name": "Aponte Salon",
+    "opening_hours": "We-Fr 11:00-19:00; Sa 10:00-17:00",
+    "payment:lightning": "yes",
+    "payment:lightning:operator": "square",
+    "payment:lightning_contactless": "no",
+    "payment:onchain": "no",
+    "phone": "+1 555 0115",
+    "shop": "beauty",
+    "website": "https://aponte-salon.square.site/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13641688408,
+   "lat": 36.1799554,
+   "lon": -86.8079914,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "1401",
+    "addr:postcode": "37208-1458",
+    "addr:state": "TN",
+    "addr:street": "Buchanan Street",
+    "check_date": "2026-03-12",
+    "contact:email": "contact16@business.test",
+    "contact:facebook": "https://facebook.com/business16",
+    "contact:instagram": "business16",
+    "currency:XBT": "yes",
+    "hairdresser": "barber",
+    "name": "Kingcameo Nashville Barbershop",
+    "opening_hours": "Tu 13:00-19:00; We-Sa 09:00-19:00",
+    "payment:lightning": "yes",
+    "payment:lightning:operator": "square",
+    "payment:lightning_contactless": "no",
+    "payment:onchain": "no",
+    "phone": "+1 555 0116",
+    "shop": "hairdresser",
+    "website": "https://www.kingcameonashvillebarber.com"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13795219401,
+   "lat": 36.1541499,
+   "lon": -86.7842492,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "224",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "11th Avenue South",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Gulch Dental Studio",
+    "opening_hours": "Mo-Th 07:00-15:00; Fr 07:00-12:00",
+    "phone": "+1 555 0117"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13796160769,
+   "lat": 36.1804907,
+   "lon": -86.7859763,
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "100",
+    "addr:postcode": "37208",
+    "addr:state": "TN",
+    "addr:street": "Taylor Street",
+    "addr:unit": "A2",
+    "check_date": "2026-05-04",
+    "contact:email": "contact18@business.test",
+    "contact:facebook": "https://facebook.com/business18",
+    "contact:instagram": "business18",
+    "currency:XBT": "yes",
+    "name": "Sunrise Tattoo",
+    "opening_hours": "Tu-Sa 10:00-18:00",
+    "payment:lightning": "yes",
+    "payment:lightning:operator": "square",
+    "payment:lightning_contactless": "no",
+    "payment:onchain": "no",
+    "phone": "+1 555 0118",
+    "shop": "tattoo",
+    "website": "https://www.tattoosunrise.com"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13905858802,
+   "lat": 36.1628692,
+   "lon": -86.7759858,
+   "tags": {
+    "addr:housenumber": "137",
+    "addr:postcode": "37201",
+    "addr:street": "2nd Avenue North",
+    "check_date": "2026-06-02",
+    "check_date:opening_hours": "2026-06-02",
+    "contact:facebook": "https://facebook.com/business19",
+    "contact:instagram": "business19",
+    "contact:twitter": "business19",
+    "name": "Hart & Huntington Tattoo Co.",
+    "opening_hours": "Mo-Su 10:00-22:00",
+    "phone": "+1 555 0119",
+    "shop": "tattoo",
+    "website": "https://hhtattoonashville.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13910954901,
+   "lat": 36.1723907,
+   "lon": -86.7957033,
+   "tags": {
+    "addr:housenumber": "1016",
+    "addr:postcode": "37208",
+    "addr:street": "Jefferson Street",
+    "amenity": "veterinary",
+    "check_date": "2026-06-04",
+    "check_date:opening_hours": "2026-06-04",
+    "contact:instagram": "business20",
+    "email": "contact20@business.test",
+    "name": "City Pets Animal Care",
+    "opening_hours": "Mo-Fr 07:30-17:30",
+    "phone": "+1 555 0120",
+    "website": "https://citypetsanimalcare.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13910989301,
+   "lat": 36.1494714,
+   "lon": -86.8064337,
+   "tags": {
+    "addr:housenumber": "2316",
+    "addr:postcode": "37203",
+    "addr:street": "Elliston Place",
+    "beauty": "nails",
+    "check_date": "2026-06-04",
+    "check_date:opening_hours": "2026-06-04",
+    "contact:instagram": "business21",
+    "email": "contact21@business.test",
+    "name": "West End Nail Bar",
+    "opening_hours": "Mo-Sa 10:00-19:30; Su 12:00-18:00",
+    "phone": "+1 555 0121",
+    "shop": "beauty",
+    "website": "https://nailbar-e.test/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13923201301,
+   "lat": 36.1488065,
+   "lon": -86.7950341,
+   "tags": {
+    "addr:postcode": "37203",
+    "addr:street": "Chet Atkins Place",
+    "name": "Rodney Mitchell Salon",
+    "shop": "hairdresser",
+    "website": "https://salon-f.test/"
+   }
+  },
+  {
+   "type": "way",
+   "id": 544575765,
+   "center": {
+    "lat": 36.1320348,
+    "lon": -86.7958015
+   },
+   "tags": {
+    "building": "yes",
+    "name": "Local Honey",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "way",
+   "id": 573984100,
+   "center": {
+    "lat": 36.1508199,
+    "lon": -86.7945651
+   },
+   "tags": {
+    "building": "yes",
+    "name": "The Wax Pot Studio",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "way",
+   "id": 573984112,
+   "center": {
+    "lat": 36.1510704,
+    "lon": -86.794055
+   },
+   "tags": {
+    "building": "yes",
+    "name": "The Lotus Room",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "way",
+   "id": 583290709,
+   "center": {
+    "lat": 36.1415795,
+    "lon": -86.7697217
+   },
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "1229",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "Martin Street",
+    "building": "yes",
+    "name": "Fruits Hair Lab",
+    "shop": "hairdresser",
+    "website": "https://fruitshairlab.com/"
+   }
+  },
+  {
+   "type": "way",
+   "id": 746061416,
+   "center": {
+    "lat": 36.1431259,
+    "lon": -86.7934016
+   },
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "1203",
+    "addr:postcode": "37212",
+    "addr:street": "16th Avenue South",
+    "building": "yes",
+    "name": "The Moose Nashville",
+    "phone": "+1 555 0127",
+    "shop": "hairdresser",
+    "website": "https://salon-h.test/"
+   }
+  },
+  {
+   "type": "way",
+   "id": 847836005,
+   "center": {
+    "lat": 36.1481495,
+    "lon": -86.7684142
+   },
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "1022",
+    "addr:postcode": "37210",
+    "addr:state": "TN",
+    "addr:street": "4th Avenue South",
+    "building:part": "yes",
+    "name": "Rebel Yell Tattoo & Social Club",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1013858851,
+   "center": {
+    "lat": 36.1438405,
+    "lon": -86.7870425
+   },
+   "tags": {
+    "addr:city": "Nashville",
+    "addr:housenumber": "1113",
+    "addr:postcode": "37203",
+    "addr:state": "TN",
+    "addr:street": "12th Avenue South",
+    "building": "yes",
+    "name": "Green Pea Salon",
+    "shop": "hairdresser",
+    "source": "microsoft/BuildingFootprints",
+    "website": "https://www.greenpeasalon.com/"
+   }
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "acmebook-lead-finder",
+  "private": true,
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\""
+  }
+}

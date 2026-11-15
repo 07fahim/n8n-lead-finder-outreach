@@ -1,0 +1,5076 @@
+{
+ "version": 0.6,
+ "generator": "Overpass API 0.7.62.11 87bfad18",
+ "osm3s": {
+  "timestamp_osm_base": "2026-11-15T18:07:21Z",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+ },
+ "elements": [
+  {
+   "type": "node",
+   "id": 324665112,
+   "lat": 53.4823983,
+   "lon": -2.2467529,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "69",
+    "addr:postcode": "M3 2BW",
+    "addr:street": "Deansgate",
+    "brand": "Rush Hair",
+    "brand:wikidata": "Q132737191",
+    "name": "Rush Hair",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 324674340,
+   "lat": 53.4823004,
+   "lon": -2.2472401,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "88",
+    "addr:postcode": "M3 2ER",
+    "addr:street": "Deansgate",
+    "brand": "Toni & Guy",
+    "brand:wikidata": "Q324784",
+    "name": "Toni & Guy",
+    "shop": "hairdresser",
+    "wheelchair": "limited"
+   }
+  },
+  {
+   "type": "node",
+   "id": 331411591,
+   "lat": 53.4805763,
+   "lon": -2.2451507,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "74",
+    "addr:postcode": "M2 4JG",
+    "addr:street": "Cross Street",
+    "beauty": "tanning",
+    "name": "The Tanning Shop",
+    "opening_hours": "Mo-Fr 08:00-20:00; Sa 09:00-18:00; Su 11:00-18:00",
+    "operator": "The Tanning Shop",
+    "phone": "+1 555 0102",
+    "shop": "beauty",
+    "website": "https://thetanningshop.co.uk/manchester/",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 357287951,
+   "lat": 53.4849164,
+   "lon": -2.2362037,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "110",
+    "addr:postcode": "M4 1HQ",
+    "addr:street": "High Street",
+    "name": "Reubenwood Hair & Beauty",
+    "opening_hours": "Tu,We,Fr 10:00-19:00; Th 10:00-20:00; Sa 09:00-17:00",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 413363131,
+   "lat": 53.4821306,
+   "lon": -2.2346353,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housename": "Sevendale House",
+    "addr:housenumber": "7",
+    "addr:postcode": "M1 1JA",
+    "addr:street": "Dale Street",
+    "check_date": "2026-04-18",
+    "check_date:opening_hours": "2026-04-18",
+    "name": "The Real Camera Co",
+    "opening_hours": "Mo-Sa 09:30-17:00; Su off",
+    "shop": "photo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 413520783,
+   "lat": 53.4794398,
+   "lon": -2.2470493,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Queens House",
+    "addr:postcode": "M2 5HT",
+    "addr:street": "Queen Street",
+    "brand": "Toni & Guy",
+    "brand:wikidata": "Q324784",
+    "name": "Toni & Guy Academy",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 1268133299,
+   "lat": 53.4641212,
+   "lon": -2.2261363,
+   "tags": {
+    "male": "yes",
+    "name": "Team Barbers Barber Shop",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 1313559525,
+   "lat": 53.4554807,
+   "lon": -2.2841235,
+   "tags": {
+    "amenity": "veterinary",
+    "name": "PDSA PetAid Hospital"
+   }
+  },
+  {
+   "type": "node",
+   "id": 1321013472,
+   "lat": 53.4601133,
+   "lon": -2.2627161,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "116",
+    "addr:postcode": "M16 9LR",
+    "addr:street": "Stamford Street",
+    "name": "Shalimar Hair Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 1322976401,
+   "lat": 53.4585777,
+   "lon": -2.2700412,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "21",
+    "addr:postcode": "M16 9GB",
+    "addr:street": "Walter Street",
+    "name": "Solitaire Hair Design",
+    "phone": "+1 555 0109",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 1492117009,
+   "lat": 53.456132,
+   "lon": -2.2438341,
+   "tags": {
+    "name": "Riches",
+    "shop": "hairdresser",
+    "source": "Local knowledge"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2683693092,
+   "lat": 53.4846339,
+   "lon": -2.2400156,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "7",
+    "addr:postcode": "M4 2AF",
+    "addr:street": "Shudehill",
+    "beauty": "nails",
+    "name": "M1 Nails",
+    "shop": "beauty",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2683748147,
+   "lat": 53.4840106,
+   "lon": -2.2345277,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "37",
+    "addr:postcode": "M4 1LX",
+    "addr:street": "Tib Street",
+    "name": "K.A.1 Hair By Raimi",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2687665809,
+   "lat": 53.4613411,
+   "lon": -2.2766001,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "16",
+    "addr:postcode": "M16 0LH",
+    "addr:street": "Seymour Grove",
+    "email": "contact13@business.test",
+    "name": "Elite Hair",
+    "phone": "+1 555 0113",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2692887710,
+   "lat": 53.4779135,
+   "lon": -2.2403002,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "93A",
+    "addr:postcode": "M1 4HT",
+    "addr:street": "Princess Street",
+    "name": "Red Moon",
+    "shop": "massage",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2694576607,
+   "lat": 53.4782561,
+   "lon": -2.2391875,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "56",
+    "addr:postcode": "M1 4QU",
+    "addr:street": "Portland Street",
+    "name": "Fujz",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2767554147,
+   "lat": 53.4779804,
+   "lon": -2.2460215,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "61",
+    "addr:postcode": "M2 5PB",
+    "addr:street": "Peter Street",
+    "name": "Peter Marcus",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2781884696,
+   "lat": 53.4796885,
+   "lon": -2.2439103,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "33",
+    "addr:postcode": "M2 4EW",
+    "addr:street": "Princess Street",
+    "check_date": "2026-04-03",
+    "female": "yes",
+    "male": "yes",
+    "name": "Claritys",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2788569335,
+   "lat": 53.4795322,
+   "lon": -2.2328908,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housename": "Rodwell Tower",
+    "addr:housenumber": "111",
+    "addr:postcode": "M1 2HY",
+    "addr:street": "Piccadilly",
+    "check_date:opening_hours": "2026-07-10",
+    "male": "yes",
+    "name": "Mancunian Barbers",
+    "old_office": "travel_agent",
+    "opening_hours": "Mo-Fr 09:00-19:30; Sa 09:00-18:30; Su,PH 10:00-18:00",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2791915506,
+   "lat": 53.4736579,
+   "lon": -2.2399808,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "3-5",
+    "addr:postcode": "M1 6EY",
+    "addr:street": "Oxford Road",
+    "check_date:opening_hours": "2024-08-29",
+    "female": "yes",
+    "name": "Brazilian Waxing Company",
+    "opening_hours:signed": "no",
+    "shop": "beauty",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2799102501,
+   "lat": 53.4821223,
+   "lon": -2.2360585,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "14",
+    "addr:postcode": "M1 1JQ",
+    "addr:street": "Oldham Street",
+    "name": "Eva's",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2819600260,
+   "lat": 53.4815319,
+   "lon": -2.2338736,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "28",
+    "addr:postcode": "M1 1FY",
+    "addr:street": "Dale Street",
+    "name": "Mufti",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 2868820730,
+   "lat": 53.4527669,
+   "lon": -2.2290943,
+   "tags": {
+    "name": "Sunset Hair and Design",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3050435735,
+   "lat": 53.484051,
+   "lon": -2.231929,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "22",
+    "addr:postcode": "M4 5AZ",
+    "addr:street": "Great Ancoats Street",
+    "name": "Close",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3050523433,
+   "lat": 53.4814714,
+   "lon": -2.2351192,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "8",
+    "addr:postcode": "M1 1LN",
+    "addr:street": "Lever Street",
+    "male": "yes",
+    "name": "City Barbers",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3129216029,
+   "lat": 53.4828538,
+   "lon": -2.2335814,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "43",
+    "addr:postcode": "M1 1FN",
+    "addr:street": "Lever Street",
+    "amenity": "dentist",
+    "brand": "mydentist",
+    "brand:wikidata": "Q65118035",
+    "contact:website": "https://www.mydentist.co.uk/dentists/practices/england/north-west-england/manchester/stevenson-square",
+    "healthcare": "dentist",
+    "name": "mydentist"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3129217129,
+   "lat": 53.4829379,
+   "lon": -2.234748,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "10-14",
+    "addr:postcode": "M1 1JF",
+    "addr:street": "Hilton Street",
+    "name": "RCNQ",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3129219029,
+   "lat": 53.4828601,
+   "lon": -2.2350332,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "30",
+    "addr:postcode": "M1 1JN",
+    "addr:street": "Oldham Street",
+    "name": "Nicky Oliver",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3470376721,
+   "lat": 53.4797172,
+   "lon": -2.2538061,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "1",
+    "addr:postcode": "M3 3AQ",
+    "addr:street": "Hardman Boulevard",
+    "name": "Mr",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3616038717,
+   "lat": 53.4828198,
+   "lon": -2.2463735,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "3",
+    "addr:postcode": "M3 2BH",
+    "addr:street": "Barton Arcade",
+    "hairdresser": "barber",
+    "name": "Barber Barber Manchester",
+    "opening_hours": "Mo-We 09:00-18:00; Th-Fr 09:00-19:00; Sa 08:00-17:00; Su 09:00-16:00",
+    "phone": "+1 555 0129",
+    "shop": "hairdresser",
+    "website": "https://www.barberbarber.com/",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3635450506,
+   "lat": 53.4787283,
+   "lon": -2.2391912,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "41",
+    "addr:postcode": "M1 4EE",
+    "addr:street": "Faulkner Street",
+    "check_date": "2026-08-14",
+    "massage": "thai",
+    "name": "Napa Beauty & Skin Care",
+    "shop": "massage",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3638783095,
+   "lat": 53.4740607,
+   "lon": -2.2438645,
+   "tags": {
+    "name": "Jamie's Salon",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3638798296,
+   "lat": 53.4741019,
+   "lon": -2.2436541,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "41",
+    "addr:postcode": "M1 5BD",
+    "addr:street": "Whitworth Street West",
+    "name": "Close Male Grooming",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3638920893,
+   "lat": 53.4742077,
+   "lon": -2.2433139,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "41",
+    "addr:postcode": "M1 5BD",
+    "addr:street": "Whitworth Street West",
+    "name": "The Nail",
+    "shop": "beauty",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675001455,
+   "lat": 53.477958,
+   "lon": -2.23967,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "74",
+    "addr:postcode": "M1 4GU",
+    "addr:street": "Portland Street",
+    "name": "Beauty By Sue",
+    "shop": "tattoo",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675002427,
+   "lat": 53.4792037,
+   "lon": -2.2401901,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housename": "2nd Floor",
+    "addr:housenumber": "44",
+    "addr:postcode": "M1 4HF",
+    "addr:street": "George Street",
+    "name": "Ratree Thai Massage",
+    "shop": "massage",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675012825,
+   "lat": 53.4778336,
+   "lon": -2.2398808,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "82",
+    "addr:postcode": "M1 4QX",
+    "addr:street": "Portland Street",
+    "name": "Salon 2001",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675013425,
+   "lat": 53.4778221,
+   "lon": -2.2399467,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "84",
+    "addr:postcode": "M1 4GX",
+    "addr:street": "Portland Street",
+    "name": "Top Thai Massage",
+    "shop": "beauty",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675020425,
+   "lat": 53.4778964,
+   "lon": -2.2403267,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "93A",
+    "addr:postcode": "M1 4HT",
+    "addr:street": "Princess Street",
+    "name": "Jun Salon",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675020427,
+   "lat": 53.4781234,
+   "lon": -2.2400501,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "57A",
+    "addr:postcode": "M1 4FF",
+    "addr:street": "Faulkner Street",
+    "name": "City Beauty & Spa",
+    "shop": "beauty",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675022127,
+   "lat": 53.4781715,
+   "lon": -2.241049,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "83",
+    "addr:postcode": "M1 4HH",
+    "addr:street": "Princess Street",
+    "female:signed": "no",
+    "male:signed": "no",
+    "name": "ChriSalon",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3675037327,
+   "lat": 53.4780198,
+   "lon": -2.2407668,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "85",
+    "addr:postcode": "M1 4HT",
+    "addr:street": "Princess Street",
+    "name": "Moss Hair Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3678736585,
+   "lat": 53.4779421,
+   "lon": -2.2397545,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "76",
+    "addr:postcode": "M1 4GU",
+    "addr:street": "Portland Street",
+    "name": "Budhsarakam Thai Massage",
+    "shop": "massage",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3680675930,
+   "lat": 53.4805293,
+   "lon": -2.2439327,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "82",
+    "addr:postcode": "M2 4WQ",
+    "addr:street": "King Street",
+    "name": "Wella Studio Manchester",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3693276991,
+   "lat": 53.47609,
+   "lon": -2.2506584,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "285",
+    "addr:postcode": "M3 4EW",
+    "addr:street": "Deansgate",
+    "name": "Z-E Skin & Wellbeing Clinic",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3706608125,
+   "lat": 53.4519631,
+   "lon": -2.2578337,
+   "tags": {
+    "amenity": "dentist",
+    "name": "Dental Practice"
+   }
+  },
+  {
+   "type": "node",
+   "id": 3706609825,
+   "lat": 53.4520546,
+   "lon": -2.2578283,
+   "tags": {
+    "name": "Pamela Jean",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4169291850,
+   "lat": 53.4756114,
+   "lon": -2.2417669,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "75",
+    "addr:postcode": "M1 6EQ",
+    "addr:street": "Oxford Street",
+    "check_date": "2024-12-22",
+    "level": "0",
+    "name": "Fretwell Bennett",
+    "phone": "+1 555 0147",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4300054182,
+   "lat": 53.4739167,
+   "lon": -2.2803596,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:street": "Phoebe Street",
+    "name": "SkinLuxe",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4300054184,
+   "lat": 53.4738217,
+   "lon": -2.2797411,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:street": "Phoebe Street",
+    "hairdresser": "barber",
+    "name": "House of Handsome",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4301828640,
+   "lat": 53.4764913,
+   "lon": -2.2504034,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "273",
+    "addr:postcode": "M3 4EW",
+    "addr:street": "Deansgate",
+    "check_date": "2024-12-21",
+    "name": "The Tanning Lounge",
+    "shop": "beauty",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4301989947,
+   "lat": 53.4786952,
+   "lon": -2.251089,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:street": "Quay Street",
+    "name": "Bannatyne's Hair & Nails",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302617019,
+   "lat": 53.4808177,
+   "lon": -2.2484938,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "76",
+    "addr:postcode": "M3 2RJ",
+    "addr:street": "Bridge Street",
+    "name": "Nails Icon",
+    "phone": "+1 555 0152",
+    "shop": "beauty",
+    "wheelchair": "limited"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302638090,
+   "lat": 53.4814276,
+   "lon": -2.2496991,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "38",
+    "addr:postcode": "M3 2WZ",
+    "addr:street": "King Street West",
+    "name": "Pierre Alexandre",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302674072,
+   "lat": 53.4811976,
+   "lon": -2.2497346,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "59",
+    "addr:postcode": "M3 3BQ",
+    "addr:street": "Bridge Street",
+    "name": "Denny",
+    "phone": "+1 555 0154",
+    "shop": "hairdresser",
+    "website": "http://www.dennyhairdressing.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302674075,
+   "lat": 53.4811678,
+   "lon": -2.2495277,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "65",
+    "addr:postcode": "M3 3BQ",
+    "addr:street": "Bridge Street",
+    "female:signed": "no",
+    "male:signed": "no",
+    "name": "MCR Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302674078,
+   "lat": 53.4811433,
+   "lon": -2.249362,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "69",
+    "addr:postcode": "M3 3BQ",
+    "addr:street": "Bridge Street",
+    "male": "yes",
+    "name": "Close Male Grooming",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302674081,
+   "lat": 53.4810578,
+   "lon": -2.2488336,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "85",
+    "addr:postcode": "M3 2RE",
+    "addr:street": "Bridge Street",
+    "name": "Swoon",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302674083,
+   "lat": 53.4810411,
+   "lon": -2.2487107,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "89",
+    "addr:postcode": "M3 2RE",
+    "addr:street": "Bridge Street",
+    "name": "M3 Hair & Beauty",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302809417,
+   "lat": 53.4812973,
+   "lon": -2.2494889,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "15",
+    "addr:postcode": "M3 2PB",
+    "addr:street": "Back Bridge Street",
+    "name": "Urban Gent",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302809425,
+   "lat": 53.4816653,
+   "lon": -2.2490982,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "41",
+    "addr:postcode": "M3 2PW",
+    "addr:street": "King Street West",
+    "name": "Flanagans",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4302831067,
+   "lat": 53.4822898,
+   "lon": -2.2479273,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "14",
+    "addr:postcode": "M3 2LB",
+    "addr:street": "St. Mary's Street",
+    "name": "James Roberts Hair & Beauty",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4310498047,
+   "lat": 53.4706155,
+   "lon": -2.2934314,
+   "tags": {
+    "name": "J Crystal Beauty",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4310498049,
+   "lat": 53.4704654,
+   "lon": -2.2934454,
+   "tags": {
+    "addr:city": "Salford Quays",
+    "addr:street": "The Lowry Outlet Mall",
+    "name": "Fibre Hairdressing At The Lowry",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 4625756770,
+   "lat": 53.4846851,
+   "lon": -2.2395443,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "19",
+    "addr:postcode": "M4 2AF",
+    "addr:street": "Shudehill",
+    "alt_name": "Fresh Cuts",
+    "name": "Fresh Kutz",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5066959567,
+   "lat": 53.484333,
+   "lon": -2.2384415,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "7",
+    "addr:postcode": "M4 1EY",
+    "addr:street": "Nicholas Croft",
+    "name": "Manchester Tattoo Studio",
+    "shop": "tattoo",
+    "website": "http://www.manchestertattooemporium.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5074993888,
+   "lat": 53.4836584,
+   "lon": -2.2371545,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "35",
+    "addr:postcode": "M4 1DW",
+    "addr:street": "Turner Street",
+    "name": "MG Barber",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5245307046,
+   "lat": 53.4831603,
+   "lon": -2.2629145,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housename": "Vimto Gardens",
+    "addr:postcode": "M3 5JF",
+    "addr:street": "Chapel Street",
+    "addr:unit": "3",
+    "check_date:opening_hours": "2023-07-29",
+    "name": "Salford Tattoos",
+    "opening_hours:signed": "no",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5390755736,
+   "lat": 53.4575877,
+   "lon": -2.2268262,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "4",
+    "addr:postcode": "M14 5TP",
+    "addr:street": "Wilmslow Road",
+    "name": "H&D Hair Designers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5630756223,
+   "lat": 53.4868893,
+   "lon": -2.2421686,
+   "tags": {
+    "level": "0",
+    "male": "yes",
+    "name": "Joseph Lanzante",
+    "opening_hours": "Mo-Fr 08:00-19:00; Sa 09:00-19:00",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5816689421,
+   "lat": 53.4827523,
+   "lon": -2.23298,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "12",
+    "addr:postcode": "M1 1BE",
+    "addr:street": "Faraday Street",
+    "beauty": "nails",
+    "name": "Bella Spa",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5846135441,
+   "lat": 53.4643619,
+   "lon": -2.2753012,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "22",
+    "addr:postcode": "M16 9HQ",
+    "addr:street": "Brindley Road",
+    "healthcare": "physiotherapist",
+    "name": "RehabWorks"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5860841593,
+   "lat": 53.4589106,
+   "lon": -2.2664596,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "108",
+    "addr:postcode": "M16 7QT",
+    "addr:street": "Ayres Road",
+    "description": "Ladies only",
+    "female": "yes",
+    "name": "1st Impressions",
+    "phone": "+1 555 0172",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 5923977936,
+   "lat": 53.4607541,
+   "lon": -2.2621712,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "120",
+    "addr:postcode": "M16 7NY",
+    "addr:street": "Shrewsbury Street",
+    "name": "J J V's",
+    "phone": "+1 555 0173",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6018218491,
+   "lat": 53.4654758,
+   "lon": -2.2584529,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "369C",
+    "addr:postcode": "M15 4AW",
+    "addr:street": "Stretford Road",
+    "name": "Sunshine Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6027714157,
+   "lat": 53.4807418,
+   "lon": -2.2409043,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "42-44",
+    "addr:postcode": "M2 2BE",
+    "addr:street": "Fountain Street",
+    "check_date:opening_hours": "2018-10-31",
+    "contact:phone": "+1 555 0175",
+    "education": "college",
+    "education_profile:professional": "yes",
+    "education_programme:barber": "yes",
+    "education_programme:hairdresser": "yes",
+    "education_system:uk_standard": "yes",
+    "name": "London School of Barbering",
+    "opening_hours": "Mo,Tu 10:45-21:00; We-Fr 10:45-17:00; Sa,Su off",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6088961874,
+   "lat": 53.4671143,
+   "lon": -2.2498985,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "321",
+    "addr:postcode": "M15 4UW",
+    "addr:street": "Stretford Road",
+    "beauty": "tanning",
+    "name": "Fake It",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6128810185,
+   "lat": 53.4566713,
+   "lon": -2.253414,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "Unit 21",
+    "name": "Magis Supplies Ltd",
+    "shop": "beauty",
+    "website": "https://magissupplies.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6168313091,
+   "lat": 53.4618472,
+   "lon": -2.2484191,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "32",
+    "addr:postcode": "M15 5JS",
+    "addr:street": "Hulme High Street",
+    "name": "Amie's Hair Tech",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6168313094,
+   "lat": 53.4616145,
+   "lon": -2.2484345,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "38",
+    "addr:postcode": "M15 5JS",
+    "addr:street": "Hulme High Street",
+    "check_date": "2024-05-11",
+    "name": "Mahrosh Beauty",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6169478709,
+   "lat": 53.4608992,
+   "lon": -2.2511115,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "1a",
+    "addr:postcode": "M15 5WD",
+    "addr:street": "Parsonage Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Parsonage Dental Practice"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6170351741,
+   "lat": 53.4605243,
+   "lon": -2.2485052,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "144",
+    "addr:postcode": "M15 5JP",
+    "addr:street": "Hulme High Street",
+    "name": "Shaks and Steve High Street Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6202260031,
+   "lat": 53.4602506,
+   "lon": -2.2469265,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "2",
+    "addr:postcode": "M15 5NR",
+    "addr:street": "Denhill Road",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Clinica MCR"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6202260032,
+   "lat": 53.460245,
+   "lon": -2.2467325,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "2",
+    "addr:postcode": "M15 5NR",
+    "addr:street": "Denhill Road",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "healthcare:speciality": "cosm",
+    "name": "Windsor Dental"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6202260033,
+   "lat": 53.460245,
+   "lon": -2.2465368,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "2",
+    "addr:postcode": "M15 5NR",
+    "addr:street": "Denhill Road",
+    "healthcare": "physiotherapist",
+    "name": "MLH Physio"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6202369888,
+   "lat": 53.4614828,
+   "lon": -2.2480934,
+   "tags": {
+    "check_date": "2024-05-11",
+    "name": "Fairy Nails & Waxing + Barbers",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6202369906,
+   "lat": 53.462328,
+   "lon": -2.2480996,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "5",
+    "addr:postcode": "M15 5JR",
+    "addr:street": "Hulme High Street",
+    "name": "Tasha's Hair Studio",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6285147914,
+   "lat": 53.4615548,
+   "lon": -2.2766892,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "6",
+    "addr:postcode": "M16 0LH",
+    "addr:street": "Seymour Grove",
+    "beauty": "hair;skin_care",
+    "name": "White Hair & Skincare",
+    "shop": "beauty",
+    "website": "http://www.whiteskincare.co.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6285147916,
+   "lat": 53.4614699,
+   "lon": -2.2766562,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "10",
+    "addr:postcode": "M16 0LH",
+    "addr:street": "Seymour Grove",
+    "name": "Master Kutz Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6285147922,
+   "lat": 53.4612196,
+   "lon": -2.2765603,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "22",
+    "addr:postcode": "M16 0LH",
+    "addr:street": "Seymour Grove",
+    "name": "Trendy Cut Barbers",
+    "phone": "+1 555 0189",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6309013784,
+   "lat": 53.4572493,
+   "lon": -2.2762741,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "117",
+    "addr:postcode": "M16 0NG",
+    "addr:street": "Skerton Road",
+    "name": "Shalimar Hair Cutz",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6310715425,
+   "lat": 53.4590417,
+   "lon": -2.2577965,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "1",
+    "addr:postcode": "M15 5PQ",
+    "addr:street": "Moss Lane West",
+    "name": "Chris Kross Barbershop",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6313063605,
+   "lat": 53.4590817,
+   "lon": -2.2584612,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "176",
+    "addr:postcode": "M16 7WW",
+    "addr:street": "Chorlton Road",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Brooks Bar Dental Practice",
+    "operator": "NHS"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6313096525,
+   "lat": 53.4587773,
+   "lon": -2.2587932,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "2A",
+    "addr:postcode": "M16 7RN",
+    "addr:street": "Shrewsbury Street",
+    "name": "New Century Barber",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6314042194,
+   "lat": 53.4592469,
+   "lon": -2.2632084,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "33A",
+    "addr:postcode": "M16 9WA",
+    "addr:street": "Ayres Road",
+    "male": "yes",
+    "name": "Safs Hair Cutz",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6322874327,
+   "lat": 53.4591868,
+   "lon": -2.2636232,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "41",
+    "addr:postcode": "M16 9NH",
+    "addr:street": "Ayres Road",
+    "name": "Butterfly Hair & Beauty Studio",
+    "phone": "+1 555 0195",
+    "shop": "hairdresser",
+    "website": "http://www.butterflystudio.com.pl"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6323255793,
+   "lat": 53.4589197,
+   "lon": -2.2643017,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "2A",
+    "addr:postcode": "M16 9NF",
+    "addr:street": "Darnley Street",
+    "name": "Nadia's Beauty Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6323255794,
+   "lat": 53.4589704,
+   "lon": -2.2643218,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "55A",
+    "addr:postcode": "M16 9NH",
+    "addr:street": "Ayres Road",
+    "name": "Hussain Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6323255798,
+   "lat": 53.459016,
+   "lon": -2.264589,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "61",
+    "addr:postcode": "M16 9NH",
+    "addr:street": "Ayres Road",
+    "name": "Nadia's Beauty Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6329231731,
+   "lat": 53.4584687,
+   "lon": -2.267774,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "95",
+    "addr:postcode": "M16 7GS",
+    "addr:street": "Ayres Road",
+    "name": "S&S Hair & Beauty",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6343248496,
+   "lat": 53.4576325,
+   "lon": -2.272376,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "151",
+    "addr:postcode": "M16 9WR",
+    "addr:street": "Ayres Road",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Ayres Road Dental Practice"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6343468251,
+   "lat": 53.481114,
+   "lon": -2.2491836,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "75",
+    "addr:postcode": "M3 2RH",
+    "addr:street": "Bridge Street",
+    "name": "The One Thai Massage",
+    "phone": "+1 555 0101",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6357899809,
+   "lat": 53.4836805,
+   "lon": -2.2311094,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "46",
+    "addr:postcode": "M4 5AB",
+    "addr:street": "Great Ancoats Street",
+    "male": "yes",
+    "name": "Ancoats Barber Shop",
+    "opening_hours": "Mo-Fr 09:30-19:00; Sa 09:00-18:30; Su 10:00-17:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6358775781,
+   "lat": 53.4837762,
+   "lon": -2.2323065,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "79",
+    "addr:postcode": "M1 1FL",
+    "addr:street": "Lever Street",
+    "healthcare": "physiotherapist",
+    "name": "City Therapy"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6358776585,
+   "lat": 53.4836038,
+   "lon": -2.2325459,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "71",
+    "addr:postcode": "M1 1FL",
+    "addr:street": "Lever Street",
+    "name": "Delucia Holistics",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6358776586,
+   "lat": 53.4835675,
+   "lon": -2.2326022,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "69",
+    "addr:postcode": "M1 1FL",
+    "addr:street": "Lever Street",
+    "name": "Zensational",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6358776588,
+   "lat": 53.4836401,
+   "lon": -2.2327418,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "4",
+    "addr:postcode": "M1 1EH",
+    "addr:street": "Bradley Street",
+    "name": "Sarasin Massage & Spa",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6358776659,
+   "lat": 53.483648,
+   "lon": -2.2339512,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "62A",
+    "addr:postcode": "M4 1LE",
+    "addr:street": "Oldham Street",
+    "check_date:opening_hours": "2024-09-13",
+    "name": "Paloma's Beauty",
+    "opening_hours:signed": "no",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6358776664,
+   "lat": 53.4835726,
+   "lon": -2.2340444,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "60A",
+    "addr:postcode": "M4 1LE",
+    "addr:street": "Oldham Street",
+    "branch": "Academy",
+    "brand": "Toni & Guy",
+    "brand:wikidata": "Q324784",
+    "name": "Toni & Guy",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6363510992,
+   "lat": 53.4831846,
+   "lon": -2.2352381,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "6",
+    "addr:postcode": "M4 1NB",
+    "addr:street": "Hilton Street",
+    "name": "Maclure Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6369083727,
+   "lat": 53.4813357,
+   "lon": -2.2338533,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "17",
+    "addr:postcode": "M1 1FZ",
+    "addr:street": "Newton Street",
+    "female": "yes",
+    "male": "yes",
+    "name": "Ross Parlane Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6369083761,
+   "lat": 53.4810814,
+   "lon": -2.2342192,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "9",
+    "addr:postcode": "M1 1HF",
+    "addr:street": "Newton Street",
+    "name": "Made In Manchester Tattoo Studio",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6369083762,
+   "lat": 53.4810542,
+   "lon": -2.2342678,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "7",
+    "addr:postcode": "M1 1HF",
+    "addr:street": "Newton Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "healthcare:speciality": "denturist",
+    "name": "Denture Repairs"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6369083771,
+   "lat": 53.4815687,
+   "lon": -2.2349772,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "10",
+    "addr:postcode": "M1 1LN",
+    "addr:street": "Lever Street",
+    "name": "Zen Beauty Spa",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6369083794,
+   "lat": 53.4814311,
+   "lon": -2.2345349,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "14",
+    "addr:postcode": "M1 1HR",
+    "addr:street": "Little Lever Street",
+    "beauty": "nails",
+    "name": "Paint NQ Nail Bar",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6369083795,
+   "lat": 53.481467,
+   "lon": -2.2344933,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "16",
+    "addr:postcode": "M1 1HR",
+    "addr:street": "Little Lever Street",
+    "name": "Cherrys Massage",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6391875946,
+   "lat": 53.4808943,
+   "lon": -2.2344966,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "63",
+    "addr:postcode": "M1 2AG",
+    "addr:street": "Piccadilly",
+    "brand": "Max Spielmann",
+    "brand:wikidata": "Q76221051",
+    "check_date": "2026-07-13",
+    "check_date:opening_hours": "2026-07-13",
+    "name": "Max Spielmann",
+    "opening_hours": "Mo-Fr 08:30-17:30; Sa 09:00-17:30; Su 11:00-17:00",
+    "shop": "photo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6391876509,
+   "lat": 53.4821718,
+   "lon": -2.2359885,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "16A",
+    "addr:postcode": "M1 1JQ",
+    "addr:street": "Oldham Street",
+    "name": "Paris Beautique",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6391876533,
+   "lat": 53.4822004,
+   "lon": -2.235961,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Central Buildings",
+    "addr:postcode": "M1 1JQ",
+    "addr:street": "Oldham Street",
+    "name": "Barber Shop",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6391876534,
+   "lat": 53.4822109,
+   "lon": -2.2359443,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Central Buildings",
+    "addr:postcode": "M1 1JQ",
+    "addr:street": "Oldham Street",
+    "name": "Tattoostudio 81",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6391876539,
+   "lat": 53.4822855,
+   "lon": -2.2354427,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "2",
+    "addr:postcode": "M1 1JW",
+    "addr:street": "Dale Street",
+    "name": "Mr Beardmore Barber Shop",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6394799971,
+   "lat": 53.4796276,
+   "lon": -2.2464032,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "42",
+    "addr:postcode": "M2 5EB",
+    "addr:street": "Brazennose Street",
+    "female": "yes",
+    "male": "yes",
+    "name": "Maclure Hairdressing",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6404929570,
+   "lat": 53.4821014,
+   "lon": -2.2376941,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "8a",
+    "addr:postcode": "M4 1PQ",
+    "addr:street": "Tib Street",
+    "name": "Carrington's",
+    "opening_hours": "Mo-Sa 10:00-18:00; Su 11:00-15:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6405139589,
+   "lat": 53.4818836,
+   "lon": -2.2319094,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "56",
+    "addr:postcode": "M1 2EQ",
+    "addr:street": "Port Street",
+    "name": "Tatiana Karelina",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6405139592,
+   "lat": 53.4818056,
+   "lon": -2.2320836,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "50",
+    "addr:postcode": "M1 2EQ",
+    "addr:street": "Port Street",
+    "name": "Vox Hairdressing",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6405139643,
+   "lat": 53.4810981,
+   "lon": -2.2337152,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "10a",
+    "addr:postcode": "M1 2AN",
+    "addr:street": "Newton Street",
+    "name": "Roger + Grahame Hairdressing",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6407654107,
+   "lat": 53.4804566,
+   "lon": -2.2338062,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "81",
+    "addr:postcode": "M1 2BZ",
+    "addr:street": "Piccadilly",
+    "beauty": "tanning",
+    "check_date": "2025-04-13",
+    "name": "The Tanning Lounge",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6410068952,
+   "lat": 53.4809323,
+   "lon": -2.2328091,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "47",
+    "addr:postcode": "M1 2HF",
+    "addr:street": "Dale Street",
+    "check_date": "2026-04-18",
+    "check_date:opening_hours": "2026-04-18",
+    "name": "Beauty & Bubbles",
+    "opening_hours": "Mo,Fr 10:00-19:00; Tu-Th 10:00-20:00; Sa 10:00-17:00; Su 11:00-16:00; PH off",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6449270288,
+   "lat": 53.4788238,
+   "lon": -2.2361374,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "6",
+    "addr:postcode": "M1 3ED",
+    "addr:street": "Minshull Street",
+    "check_date": "2025-01-11",
+    "healthcare": "physiotherapist",
+    "name": "physio.co.uk"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6459634106,
+   "lat": 53.4790523,
+   "lon": -2.2493311,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "186",
+    "addr:postcode": "M3 3WB",
+    "addr:street": "Deansgate",
+    "name": "One Eight Six",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6503901742,
+   "lat": 53.4772269,
+   "lon": -2.2328349,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "14-16",
+    "addr:postcode": "M1 3BS",
+    "addr:street": "Whitworth Street",
+    "beauty": "nails",
+    "check_date": "2024-11-22",
+    "name": "Lilly Nail & Beauty",
+    "phone": "+1 555 0130",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6535193764,
+   "lat": 53.4790669,
+   "lon": -2.2403062,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housename": "1st Floor",
+    "addr:housenumber": "48",
+    "addr:postcode": "M1 4HF",
+    "addr:street": "George Street",
+    "name": "Bali Health Lounge",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6565132929,
+   "lat": 53.4780422,
+   "lon": -2.2408128,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "85",
+    "addr:postcode": "M1 4HT",
+    "addr:street": "Princess Street",
+    "beauty": "nails",
+    "name": "Tiara Nails",
+    "opening_hours": "Mo-Sa 10:00-19:00",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6565132934,
+   "lat": 53.4781898,
+   "lon": -2.2402544,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "48",
+    "addr:postcode": "M1 4FH",
+    "addr:street": "Faulkner Street",
+    "name": "Siamease Thai Massage & Spa",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6565132936,
+   "lat": 53.4783599,
+   "lon": -2.2401574,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "16",
+    "addr:postcode": "M1 4EJ",
+    "addr:street": "Nicholas Street",
+    "name": "Chinese Hair Studio",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6566056696,
+   "lat": 53.478132,
+   "lon": -2.240038,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "57A",
+    "addr:postcode": "M1 4FF",
+    "addr:street": "Faulkner Street",
+    "name": "Lily Hair Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6566056735,
+   "lat": 53.4779969,
+   "lon": -2.2398438,
+   "tags": {
+    "name": "Tropical Palms",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6629599192,
+   "lat": 53.4741268,
+   "lon": -2.2456103,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "21",
+    "addr:postcode": "M1 5ND",
+    "addr:street": "Whitworth Street West",
+    "name": "Hive MCR",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6898045945,
+   "lat": 53.4762306,
+   "lon": -2.2360935,
+   "tags": {
+    "name": "The Whitworth Street Creative Studio",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 6953822876,
+   "lat": 53.4839226,
+   "lon": -2.2456369,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "City Cutz",
+    "addr:housenumber": "1",
+    "addr:postcode": "M3 1AZ",
+    "addr:street": "Deansgate",
+    "male": "yes",
+    "name": "City Cut",
+    "opening_hours": "Mo-Su 09:00-20:00",
+    "phone": "+1 555 0139",
+    "shop": "hairdresser",
+    "website": "https://citycut.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7435637141,
+   "lat": 53.4839154,
+   "lon": -2.2982715,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "515",
+    "addr:postcode": "M6 5QQ",
+    "addr:street": "Liverpool Road",
+    "name": "Beauty Life Salon",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7441356624,
+   "lat": 53.4468548,
+   "lon": -2.2383007,
+   "tags": {
+    "name": "The Styling Room",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7441356633,
+   "lat": 53.4470641,
+   "lon": -2.2376664,
+   "tags": {
+    "amenity": "dentist",
+    "brand": "mydentist",
+    "brand:wikidata": "Q65118035",
+    "healthcare": "dentist",
+    "name": "mydentist"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7441356637,
+   "lat": 53.4472023,
+   "lon": -2.2373338,
+   "tags": {
+    "name": "Hair Studio",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7441356639,
+   "lat": 53.447251,
+   "lon": -2.2371823,
+   "tags": {
+    "amenity": "driving_school",
+    "name": "Almutlaq"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7441356641,
+   "lat": 53.4473037,
+   "lon": -2.2370186,
+   "tags": {
+    "name": "Shaz",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7441388559,
+   "lat": 53.4475289,
+   "lon": -2.2374384,
+   "tags": {
+    "name": "Shalimar Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7442560414,
+   "lat": 53.4472366,
+   "lon": -2.2392704,
+   "tags": {
+    "name": "Hair Fairy Boutique",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7442560454,
+   "lat": 53.4466332,
+   "lon": -2.2389391,
+   "tags": {
+    "name": "Martin's",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7442560455,
+   "lat": 53.4466531,
+   "lon": -2.2388774,
+   "tags": {
+    "name": "Glamour Bods",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 7500764171,
+   "lat": 53.4657449,
+   "lon": -2.2570628,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "361",
+    "addr:postcode": "M15 4AY",
+    "addr:street": "Stretford Road",
+    "craft": "photographer",
+    "name": "One North Studio",
+    "opening_hours": "24/7",
+    "website": "https://www.onenorthstudio.co.uk"
+   }
+  },
+  {
+   "type": "node",
+   "id": 8367784100,
+   "lat": 53.4830207,
+   "lon": -2.238772,
+   "tags": {
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Manchester Dental Practice"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9063279209,
+   "lat": 53.4807514,
+   "lon": -2.2473184,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "9",
+    "addr:postcode": "M2 6FW",
+    "addr:street": "John Dalton Street",
+    "male": "yes",
+    "name": "Barbers of Istanbul",
+    "phone": "+1 555 0152",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9063279213,
+   "lat": 53.4806616,
+   "lon": -2.2448152,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:housenumber": "43",
+    "addr:postcode": "M2 4JF",
+    "addr:street": "Cross Street",
+    "male": "yes",
+    "name": "The Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9131753073,
+   "lat": 53.4827468,
+   "lon": -2.2299869,
+   "tags": {
+    "check_date:opening_hours": "2025-11-20",
+    "male": "yes",
+    "name": "NotJust",
+    "opening_hours:signed": "no",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9503694253,
+   "lat": 53.4859006,
+   "lon": -2.2298301,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "68",
+    "addr:postcode": "M4 5EE",
+    "addr:street": "Oldham Road",
+    "female": "yes",
+    "male": "yes",
+    "name": "Kutters Unisex Hair Salon",
+    "phone": "+1 555 0155",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9600975148,
+   "lat": 53.48161,
+   "lon": -2.243229,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "One Marsden Street",
+    "addr:housenumber": "1",
+    "addr:postcode": "M2 1HW",
+    "addr:street": "Marsden Street",
+    "name": "Vidal Sassoon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9601824482,
+   "lat": 53.4819226,
+   "lon": -2.243897,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "3",
+    "addr:postcode": "M2 1HB",
+    "addr:street": "Back Pool Fold",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "The Fold"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9601930942,
+   "lat": 53.4815097,
+   "lon": -2.2412624,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Tootal House",
+    "addr:housenumber": "19",
+    "addr:postcode": "M2 1FB",
+    "addr:street": "Spring Gardens",
+    "name": "Trevor Sorbie",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9602612595,
+   "lat": 53.481125,
+   "lon": -2.2444198,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "53",
+    "addr:postcode": "M2 4LQ",
+    "addr:street": "King Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Smile Stylist"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9602612600,
+   "lat": 53.4811877,
+   "lon": -2.243462,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "55",
+    "addr:postcode": "M2 4LQ",
+    "addr:street": "King Street",
+    "name": "The Red Angel Hair Company",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9604226216,
+   "lat": 53.4804313,
+   "lon": -2.2435398,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:postcode": "M2 4DL",
+    "addr:street": "Pall Mall",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "The Mall"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9604296175,
+   "lat": 53.4801948,
+   "lon": -2.2449987,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "61",
+    "addr:postcode": "M2 4JW",
+    "addr:street": "Cross Street",
+    "brand": "Max Spielmann",
+    "brand:wikidata": "Q76221051",
+    "check_date": "2024-12-21",
+    "name": "Max Spielmann",
+    "shop": "photo",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9606253307,
+   "lat": 53.4796571,
+   "lon": -2.2423685,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "31",
+    "addr:postcode": "M2 4AF",
+    "addr:street": "Booth Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "City Centre Dental & Implant Centre",
+    "opening_hours": "Mo 08:00-20:00; Tu-Th 08:00-19:00; Fr 08:00-17:00; Sa 10:00-16:00; Su,PH off",
+    "phone": "+1 555 0163",
+    "website": "https://www.citycentredentist.co.uk"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9606529732,
+   "lat": 53.4808184,
+   "lon": -2.2394177,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "16",
+    "addr:postcode": "M2 3AG",
+    "addr:street": "Mosley Street",
+    "name": "Neo Skin",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9608416957,
+   "lat": 53.4793055,
+   "lon": -2.2421126,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "32",
+    "addr:postcode": "M2 4AB",
+    "addr:street": "Booth Street",
+    "female:signed": "no",
+    "male:signed": "no",
+    "name": "Mai Salon",
+    "opening_hours": "Mo-We 10:00-19:00; Th,Fr 10:00-20:00; Sa 10:00-16:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9608497685,
+   "lat": 53.4805196,
+   "lon": -2.2451722,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "76",
+    "addr:postcode": "M2 4JG",
+    "addr:street": "Cross Street",
+    "check_date": "2024-12-21",
+    "male": "yes",
+    "name": "Times the Barber",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9608497701,
+   "lat": 53.4803501,
+   "lon": -2.2456234,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "11",
+    "addr:postcode": "M2 6DN",
+    "addr:street": "St James Square",
+    "name": "The Dalton Street Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609050736,
+   "lat": 53.4801977,
+   "lon": -2.2457075,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "44-46",
+    "addr:postcode": "M2 6LE",
+    "addr:street": "John Dalton Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Malmin Dental Care",
+    "ref:GB:cqc_location": "1-8691603154"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609050739,
+   "lat": 53.4802529,
+   "lon": -2.2459396,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "38",
+    "addr:postcode": "M2 6LE",
+    "addr:street": "John Dalton Street",
+    "name": "James & Peter",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609050798,
+   "lat": 53.4807803,
+   "lon": -2.2474554,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "7",
+    "addr:postcode": "M2 6FW",
+    "addr:street": "John Dalton Street",
+    "female": "yes",
+    "name": "House of Vanity",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609282400,
+   "lat": 53.4811307,
+   "lon": -2.2474617,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "1",
+    "addr:postcode": "M2 6EX",
+    "addr:street": "South King Street",
+    "name": "Lux Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609319728,
+   "lat": 53.4811626,
+   "lon": -2.2461044,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "44",
+    "addr:postcode": "M2 6BA",
+    "addr:street": "King Street",
+    "description": "King Street Grooming is a traditional barbershop with a fully equipped treatment floor including; massage, wax and face & body treatments for men, all based on Manchester’s historic King Street.",
+    "email": "contact72@business.test",
+    "facebook": "https://facebook.com/business72",
+    "image": "https://kingstreetgrooming.com/wp-content/uploads/2021/11/KSG-Logo.png",
+    "name": "King Street Grooming",
+    "opening_hours": "Mo-Su 09:00-19:00",
+    "payment:contactless": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "phone": "+1 555 0172",
+    "shop": "hairdresser",
+    "website": "https://kingstreetgrooming.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609319737,
+   "lat": 53.4809405,
+   "lon": -2.2456922,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "41",
+    "addr:postcode": "M2 6DE",
+    "addr:street": "South King Street",
+    "name": "D'Image",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609777003,
+   "lat": 53.4816726,
+   "lon": -2.2467873,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "7",
+    "addr:postcode": "M2 7LQ",
+    "addr:street": "Police Street",
+    "beauty": "nails",
+    "name": "Nailista Nail Bar",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9609881641,
+   "lat": 53.4814005,
+   "lon": -2.2448743,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "46",
+    "addr:postcode": "M2 7AR",
+    "addr:street": "Cross Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "healthcare:speciality": "orthodontics",
+    "name": "Smile Direct Club"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9611734342,
+   "lat": 53.4823104,
+   "lon": -2.2458157,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "14",
+    "addr:postcode": "M2 7HW",
+    "addr:street": "St. Ann's Square",
+    "amenity": "dentist",
+    "brand": "Bupa",
+    "brand:wikidata": "Q931628",
+    "healthcare": "dentist",
+    "name": "Bupa Dental Care",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9618771781,
+   "lat": 53.479498,
+   "lon": -2.2472963,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Alexandra Buildings",
+    "addr:housenumber": "28",
+    "addr:postcode": "M2 5HX",
+    "addr:street": "Queen Street",
+    "name": "David Rozman Hair Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9621057550,
+   "lat": 53.4791231,
+   "lon": -2.2471828,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "16",
+    "addr:postcode": "M2 5WA",
+    "addr:street": "Lloyd Street",
+    "name": "ROX Mens Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9621350884,
+   "lat": 53.4779619,
+   "lon": -2.2458721,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "65",
+    "addr:postcode": "M2 5PB",
+    "addr:street": "Peter Street",
+    "name": "The Waxing Studio",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9621583594,
+   "lat": 53.4846568,
+   "lon": -2.2449625,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "42-46",
+    "addr:postcode": "M3 1ST",
+    "addr:street": "Victoria Street",
+    "male": "yes",
+    "name": "Barbers Triangle",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9630524120,
+   "lat": 53.4915988,
+   "lon": -2.2431944,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "21-23",
+    "addr:postcode": "M3 1EZ",
+    "addr:street": "Carnarvon Street",
+    "name": "Town Girls Massage Parlour",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9637725093,
+   "lat": 53.4907353,
+   "lon": -2.2420653,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "6",
+    "addr:postcode": "M4 4EY",
+    "addr:street": "Park Place",
+    "name": "Chok Dee Thai",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9650351249,
+   "lat": 53.4808275,
+   "lon": -2.2485644,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "74",
+    "addr:postcode": "M3 2RJ",
+    "addr:street": "Bridge Street",
+    "male": "yes",
+    "name": "The Gents Emporium",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9650351251,
+   "lat": 53.4808481,
+   "lon": -2.2486803,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "70",
+    "addr:postcode": "M3 2RJ",
+    "addr:street": "Bridge Street",
+    "name": "Salvation Hair",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9651895056,
+   "lat": 53.4566647,
+   "lon": -2.2257027,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "37-39",
+    "addr:postcode": "M14 5TB",
+    "addr:street": "Wilmslow Road",
+    "name": "Superb Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9651895058,
+   "lat": 53.4565846,
+   "lon": -2.2256491,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "43",
+    "addr:postcode": "M14 5TB",
+    "addr:street": "Wilmslow Road",
+    "name": "Scissor Cut",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9651895062,
+   "lat": 53.4564458,
+   "lon": -2.2255411,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "49",
+    "addr:postcode": "M14 5TB",
+    "addr:street": "Wilmslow Road",
+    "name": "Sumer Hairdresser",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9651895069,
+   "lat": 53.4561584,
+   "lon": -2.2253463,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "69",
+    "addr:postcode": "M14 5TB",
+    "addr:street": "Wilmslow Road",
+    "name": "Photo Studio",
+    "shop": "photo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9656666448,
+   "lat": 53.4571626,
+   "lon": -2.2264855,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "6",
+    "addr:postcode": "M14 5TP",
+    "addr:street": "Wilmslow Road",
+    "name": "Friends Gents Hairdressers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9661334438,
+   "lat": 53.453965,
+   "lon": -2.2239055,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "163",
+    "addr:postcode": "M14 5AP",
+    "addr:street": "Wilmslow Road",
+    "name": "Top Barbers Hairstyle",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9661334461,
+   "lat": 53.4532978,
+   "lon": -2.2235353,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "112",
+    "addr:postcode": "M14 5AJ",
+    "addr:street": "Wilmslow Road",
+    "name": "Cutz Gents Hair Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9666265795,
+   "lat": 53.4839878,
+   "lon": -2.2483877,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housename": "Guardian Chambers",
+    "addr:housenumber": "28",
+    "addr:postcode": "M3 5BQ",
+    "addr:street": "Blackfriars Street",
+    "name": "Oliver's Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9666265801,
+   "lat": 53.4841297,
+   "lon": -2.2485945,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "24",
+    "addr:postcode": "M3 5BQ",
+    "addr:street": "Blackfriars Street",
+    "name": "Tasha Health Massage",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9666265802,
+   "lat": 53.4841624,
+   "lon": -2.2486454,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "24",
+    "addr:postcode": "M3 5BQ",
+    "addr:street": "Blackfriars Street",
+    "beauty": "nails",
+    "name": "Cillian Nails",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9666265809,
+   "lat": 53.4842125,
+   "lon": -2.2487083,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "22",
+    "addr:postcode": "M3 5BQ",
+    "addr:street": "Blackfriars Street",
+    "name": "MTN Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9706637030,
+   "lat": 53.4872012,
+   "lon": -2.2545146,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "63",
+    "addr:postcode": "M3 7DB",
+    "addr:street": "Blackfriars Road",
+    "name": "Gentz Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9770118422,
+   "lat": 53.4614878,
+   "lon": -2.2292418,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "340",
+    "addr:postcode": "M13 9NG",
+    "addr:street": "Oxford Road",
+    "name": "McCrory Hair",
+    "phone": "+1 555 0197",
+    "shop": "hairdresser",
+    "website": "http://www.mccroryhair.co.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9810695654,
+   "lat": 53.4854342,
+   "lon": -2.257098,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housename": "Salisbury House",
+    "addr:postcode": "M3 6AX",
+    "addr:street": "St Stephen Street",
+    "addr:unit": "5",
+    "female": "yes",
+    "male": "yes",
+    "name": "KC Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9810695655,
+   "lat": 53.4854855,
+   "lon": -2.257088,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housename": "Salisbury House",
+    "addr:postcode": "M3 6AX",
+    "addr:street": "St Stephen Street",
+    "addr:unit": "4",
+    "female": "yes",
+    "male": "yes",
+    "name": "Scissorshand",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9833951589,
+   "lat": 53.4725864,
+   "lon": -2.2395802,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "14A",
+    "addr:postcode": "M1 5QA",
+    "addr:street": "Oxford Road",
+    "beauty": "nails",
+    "name": "Ivy Nails",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9837077092,
+   "lat": 53.4735272,
+   "lon": -2.2398647,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "13",
+    "addr:postcode": "M1 6EY",
+    "addr:street": "Oxford Road",
+    "female:signed": "no",
+    "male:signed": "no",
+    "name": "C.H. Barber",
+    "opening_hours": "Mo-Fr 10:00-19:00; Sa 10:30-18:00",
+    "shop": "hairdresser",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9842468701,
+   "lat": 53.4835583,
+   "lon": -2.2588768,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "2",
+    "addr:postcode": "M3 6BZ",
+    "addr:street": "Bexley Square",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Revive Dental Care"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9866926752,
+   "lat": 53.4760214,
+   "lon": -2.2513014,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "4",
+    "addr:postcode": "M3 4FN",
+    "addr:street": "Campfield Avenue Arcade",
+    "name": "Crown Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9870858053,
+   "lat": 53.4756582,
+   "lon": -2.2519286,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "6",
+    "addr:postcode": "M3 4NJ",
+    "addr:street": "Southern Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "360 Dental Care"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9873158807,
+   "lat": 53.4830718,
+   "lon": -2.263575,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housename": "Zenith",
+    "addr:housenumber": "365",
+    "addr:postcode": "M3 5JT",
+    "addr:street": "Chapel Street",
+    "check_date:opening_hours": "2026-08-22",
+    "male": "yes",
+    "name": "Gents Salon",
+    "opening_hours": "Mo-Sa 09:00-19:00; Su 10:00-18:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9873327431,
+   "lat": 53.4827208,
+   "lon": -2.2641339,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "15",
+    "addr:postcode": "M5 4NE",
+    "addr:street": "Oldfield Road",
+    "female": "yes",
+    "name": "La Femme Hair & Beauty",
+    "opening_hours": "Mo,Tu 11:00-19:00; We,Th 11:00-20:00; Fr 10:00-19:00; Sa 09:00-17:00; Su 11:00-17:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9877667651,
+   "lat": 53.4933699,
+   "lon": -2.2496976,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "28D",
+    "addr:postcode": "M8 8EL",
+    "addr:street": "Bury New Road",
+    "name": "The Hair Office",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9879437502,
+   "lat": 53.4940903,
+   "lon": -2.2502209,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "2",
+    "addr:postcode": "M8 8EU",
+    "addr:street": "Sagar Street",
+    "name": "Face Aesthetics",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9884064152,
+   "lat": 53.4956322,
+   "lon": -2.2472777,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "5",
+    "addr:postcode": "M8 8HH",
+    "addr:street": "Premier Road",
+    "craft": "photographer",
+    "name": "Le Firament Pro Studio"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9888006345,
+   "lat": 53.4706241,
+   "lon": -2.2373091,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "127",
+    "addr:postcode": "M1 7DY",
+    "addr:street": "Oxford Road",
+    "check_date": "2026-04-03",
+    "name": "Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9888006346,
+   "lat": 53.4706302,
+   "lon": -2.2372892,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "127",
+    "addr:postcode": "M1 7DY",
+    "addr:street": "Oxford Road",
+    "name": "Thai Spa Massage",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9893269878,
+   "lat": 53.4929595,
+   "lon": -2.2397798,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "120",
+    "addr:postcode": "M4 4FG",
+    "addr:street": "Cheetham Hill Road",
+    "amenity": "brothel",
+    "name": "Diamond Dollz",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9894045401,
+   "lat": 53.4938541,
+   "lon": -2.2392417,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "142C",
+    "addr:postcode": "M8 8PZ",
+    "addr:street": "Cheetham Hill Road",
+    "name": "Fresh Look Hair & Beauty",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9894045404,
+   "lat": 53.4940186,
+   "lon": -2.2391485,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "146",
+    "addr:postcode": "M8 8PZ",
+    "addr:street": "Cheetham Hill Road",
+    "name": "Raddaran Thai Massage & Spa",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9917528925,
+   "lat": 53.4942075,
+   "lon": -2.2370397,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "13",
+    "addr:postcode": "M8 8SH",
+    "addr:street": "Stanley Street",
+    "amenity": "dentist",
+    "contact:website": "https://www.kissdental.co.uk/kissdental-manchester/",
+    "healthcare": "dentist",
+    "name": "Kissdental",
+    "website": "https://www.kissdental.co.uk"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9930103807,
+   "lat": 53.4976574,
+   "lon": -2.2479691,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "102-104",
+    "addr:postcode": "M8 8AF",
+    "addr:street": "Waterloo Road",
+    "craft": "photographer",
+    "name": "OZ Photography Studio"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9978496931,
+   "lat": 53.4995029,
+   "lon": -2.2465043,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "123A",
+    "addr:postcode": "M8 8BT",
+    "addr:street": "Waterloo Road",
+    "name": "V.I.P's Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9978496934,
+   "lat": 53.4996919,
+   "lon": -2.2463998,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "129",
+    "addr:postcode": "M8 8BT",
+    "addr:street": "Waterloo Road",
+    "name": "Marrakech Beauty",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9982539326,
+   "lat": 53.4841066,
+   "lon": -2.2369321,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "40",
+    "addr:postcode": "M4 1ER",
+    "addr:street": "Thomas Street",
+    "name": "Thomas Street Ink",
+    "shop": "tattoo",
+    "wheelchair": "no"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9982539327,
+   "lat": 53.4840932,
+   "lon": -2.2369133,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "40",
+    "addr:postcode": "M4 1ER",
+    "addr:street": "Thomas Street",
+    "name": "Sanae Thai",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10291400571,
+   "lat": 53.4816477,
+   "lon": -2.2005904,
+   "tags": {
+    "entrance": "yes",
+    "name": "Danny's Hair Design",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10538029884,
+   "lat": 53.4862477,
+   "lon": -2.228838,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "92",
+    "addr:postcode": "M4 5EB",
+    "addr:street": "Oldham Road",
+    "name": "DN Hair Design",
+    "phone": "+1 555 0122",
+    "shop": "hairdresser",
+    "source:addr:postcode": "NSUL postcode overlay",
+    "website": "https://dnhairdesign.co.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10538029886,
+   "lat": 53.4856676,
+   "lon": -2.23048,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "50-52",
+    "addr:postcode": "M4 5EE",
+    "addr:street": "Oldham Road",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "New Cross Dental Surgery",
+    "phone": "+1 555 0123",
+    "source:addr:postcode": "NSUL postcode overlay"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10593087175,
+   "lat": 53.4770487,
+   "lon": -2.2377888,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "37",
+    "addr:postcode": "M1 3LY",
+    "addr:street": "Bloom Street",
+    "email": "contact24@business.test",
+    "female": "yes",
+    "male": "yes",
+    "name": "Village Hair & Barbers",
+    "phone": "+1 555 0124",
+    "shop": "hairdresser",
+    "website": "https://village-hair-manchester.mytreatwell.co.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10614080705,
+   "lat": 53.4858387,
+   "lon": -2.2300087,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "64",
+    "addr:postcode": "M4 5EE",
+    "addr:street": "Oldham Road",
+    "name": "Mango Aesthetics & Beauty",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10614080706,
+   "lat": 53.4858096,
+   "lon": -2.2300915,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "62",
+    "addr:postcode": "M4 5EE",
+    "addr:street": "Oldham Road",
+    "name": "Fung Choi Hair and Beauty Salon",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10614080707,
+   "lat": 53.4857835,
+   "lon": -2.2301648,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "60",
+    "addr:postcode": "M4 5EE",
+    "addr:street": "Oldham Road",
+    "male": "yes",
+    "name": "Headmaster Guru Barber Shop",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 10897747061,
+   "lat": 53.4834926,
+   "lon": -2.2292726,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "1A",
+    "addr:postcode": "M4 6JA",
+    "addr:street": "Jersey Street",
+    "name": "Jersey Street Social Club",
+    "phone": "+1 555 0128",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11073191704,
+   "lat": 53.4830695,
+   "lon": -2.233935,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "38",
+    "addr:postcode": "M1 1AS",
+    "addr:street": "Spear Street",
+    "name": "Jefe's Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081086887,
+   "lat": 53.4849167,
+   "lon": -2.2133753,
+   "tags": {
+    "name": "Carter Creative Hair Studio",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081086888,
+   "lat": 53.4850546,
+   "lon": -2.2133978,
+   "tags": {
+    "name": "Makeupbyjen x",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081086889,
+   "lat": 53.4851025,
+   "lon": -2.2133141,
+   "tags": {
+    "name": "Faded Lines Aesthetics",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081086890,
+   "lat": 53.4848794,
+   "lon": -2.2136537,
+   "tags": {
+    "name": "Oh Beaut Lash Bar",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081086896,
+   "lat": 53.4850469,
+   "lon": -2.2132196,
+   "tags": {
+    "name": "Gold Rain Tattoo",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081086897,
+   "lat": 53.4849847,
+   "lon": -2.2134771,
+   "tags": {
+    "craft": "photographer",
+    "name": "Claire Angel"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081086902,
+   "lat": 53.4853285,
+   "lon": -2.2126451,
+   "tags": {
+    "beauty": "nails",
+    "name": "Nails By Ya Gal Studio",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11081119149,
+   "lat": 53.4775883,
+   "lon": -2.2349407,
+   "tags": {
+    "name": "Barkside",
+    "pet": "dog",
+    "shop": "pet_grooming",
+    "website": "https://www.thebarksidemcr.co.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11093004027,
+   "lat": 53.4830043,
+   "lon": -2.2414376,
+   "tags": {
+    "level": "1",
+    "name": "Laser Clinics UK",
+    "shop": "beauty",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11093004037,
+   "lat": 53.4826345,
+   "lon": -2.2431015,
+   "tags": {
+    "level": "1",
+    "name": "JJ's Creative",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11093004038,
+   "lat": 53.4825885,
+   "lon": -2.243134,
+   "tags": {
+    "level": "1",
+    "name": "Star Nails & Beauty",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11093004039,
+   "lat": 53.4824664,
+   "lon": -2.243195,
+   "tags": {
+    "level": "1",
+    "name": "Decent Cut",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11093004075,
+   "lat": 53.4836447,
+   "lon": -2.2421608,
+   "tags": {
+    "brand": "Supercuts",
+    "brand:wikidata": "Q7643239",
+    "level": "1",
+    "name": "Supercuts",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11207220020,
+   "lat": 53.4850408,
+   "lon": -2.238034,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "42",
+    "addr:postcode": "M4 4AA",
+    "addr:street": "Shudehill",
+    "fixme": "opening_hours",
+    "name": "Rambos",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11207220021,
+   "lat": 53.4849338,
+   "lon": -2.2379209,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "7",
+    "addr:postcode": "M4 1EU",
+    "addr:street": "Thomas Street",
+    "name": "Cut In Time",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11207220036,
+   "lat": 53.4855332,
+   "lon": -2.2370942,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "64",
+    "addr:postcode": "M4 4AA",
+    "addr:street": "Shudehill",
+    "beauty": "nails",
+    "name": "Studio 64",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11207226437,
+   "lat": 53.4854963,
+   "lon": -2.2367556,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "2",
+    "addr:postcode": "M4 4AE",
+    "addr:street": "New George Street",
+    "name": "Evolve",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11207286037,
+   "lat": 53.5002647,
+   "lon": -2.215599,
+   "tags": {
+    "check_date": "2023-09-21",
+    "name": "Master Cut Barbers",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11211153534,
+   "lat": 53.4846657,
+   "lon": -2.2397791,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "13",
+    "addr:postcode": "M4 2AF",
+    "addr:street": "Shudehill",
+    "name": "Top Crew Barber",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11238417872,
+   "lat": 53.4860673,
+   "lon": -2.2352666,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "62-64",
+    "addr:postcode": "M4 5JU",
+    "addr:street": "Swan Street",
+    "check_date": "2025-05-07",
+    "name": "Thai Orchid Massage & Spa",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11238417874,
+   "lat": 53.4859923,
+   "lon": -2.2351237,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "58",
+    "addr:postcode": "M4 5JU",
+    "addr:street": "Swan Street",
+    "check_date": "2025-05-07",
+    "name": "Lotus Thai Spa",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11238858163,
+   "lat": 53.4842527,
+   "lon": -2.2334808,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "121",
+    "addr:street": "Oldham Street",
+    "male": "yes",
+    "name": "Northern Quarter Barber",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11246924335,
+   "lat": 53.4838476,
+   "lon": -2.2969883,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "489",
+    "addr:street": "Liverpool Street",
+    "name": "Tatu",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11260258625,
+   "lat": 53.4854067,
+   "lon": -2.2339836,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "28A",
+    "addr:postcode": "M4 5JQ",
+    "addr:street": "Swan Street",
+    "name": "Manchester Massage",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11260274642,
+   "lat": 53.4852631,
+   "lon": -2.2337081,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "18A",
+    "addr:postcode": "M4 5JN",
+    "addr:street": "Swan Street",
+    "name": "HQ Hair By Design",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11260274651,
+   "lat": 53.4852338,
+   "lon": -2.2336382,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "18",
+    "addr:postcode": "M4 5JN",
+    "addr:street": "Swan Street",
+    "name": "HQ Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11260274661,
+   "lat": 53.4851075,
+   "lon": -2.2333689,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "10",
+    "addr:postcode": "M4 5JN",
+    "addr:street": "Swan Street",
+    "name": "The Old Volt",
+    "shop": "tattoo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11261846905,
+   "lat": 53.4834066,
+   "lon": -2.2945117,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "68",
+    "addr:street": "Langworthy Road",
+    "name": "Fab Barber",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11281268398,
+   "lat": 53.4802765,
+   "lon": -2.2235464,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "149",
+    "addr:street": "Great Ancoats Street",
+    "contact:facebook": "https://facebook.com/business58",
+    "male": "yes",
+    "name": "Bee Barber",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11329174706,
+   "lat": 53.4735941,
+   "lon": -2.2286065,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:parentstreet": "Charlton Place",
+    "addr:postcode": "M12 6HH",
+    "addr:street": "Downing Street Industrial Estate",
+    "addr:suburb": "Ardwick",
+    "addr:unit": "4",
+    "name": "Wex Photo Video",
+    "shop": "photo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11574528104,
+   "lat": 53.5135139,
+   "lon": -2.2464788,
+   "tags": {
+    "addr:street": "Cheetham Hill Road",
+    "name": "Choices Base",
+    "shop": "hairdresser",
+    "survey:date": "2020-03-04"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11574528125,
+   "lat": 53.5124711,
+   "lon": -2.2456816,
+   "tags": {
+    "addr:street": "Cheetham Hill Road",
+    "name": "Gentle Barber",
+    "shop": "hairdresser",
+    "survey:date": "2020-03-04"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11574528127,
+   "lat": 53.5124106,
+   "lon": -2.2456363,
+   "tags": {
+    "addr:street": "Cheetham Hill Road",
+    "name": "Marshal's Salon",
+    "shop": "hairdresser",
+    "survey:date": "2020-03-04"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11608828013,
+   "lat": 53.4880352,
+   "lon": -2.2398732,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "109",
+    "addr:postcode": "M4 4DX",
+    "addr:street": "Corporation Street",
+    "amenity": "dentist",
+    "email": "contact63@business.test",
+    "healthcare": "dentist",
+    "name": "Victoria Clinic",
+    "opening_hours": "Mo-Tu 11:00-18:00; We 11:00-22:00; Th 11:00-21:00; Fr 11:00-22:00; Sa 09:00-22:00; Su 11:00-22:00",
+    "phone": "+1 555 0163",
+    "website": "https://victoriaclinic.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11704208173,
+   "lat": 53.4880407,
+   "lon": -2.2327933,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "67",
+    "addr:postcode": "M4 4HU",
+    "addr:street": "Rochdale Road",
+    "name": "Barbers Boutique",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11704208174,
+   "lat": 53.4880905,
+   "lon": -2.2326617,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "69-71",
+    "addr:postcode": "M4 4HU",
+    "addr:street": "Rochdale Road",
+    "name": "iFace Aesthetics",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11704208175,
+   "lat": 53.4881196,
+   "lon": -2.2325894,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "69-71",
+    "addr:postcode": "M4 4HU",
+    "addr:street": "Rochdale Road",
+    "name": "iLash MCR",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11704208176,
+   "lat": 53.488147,
+   "lon": -2.2325142,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "69-71",
+    "addr:postcode": "M4 4HU",
+    "addr:street": "Rochdale Road",
+    "name": "iLaser",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11738745113,
+   "lat": 53.4900394,
+   "lon": -2.2365139,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:parentstreet": "Dantzic Street",
+    "addr:postcode": "M4 4DW",
+    "addr:street": "Millgate",
+    "addr:unit": "1-2",
+    "amenity": "driving_school",
+    "license_classes": "motorcycle",
+    "name": "Moto-Technique",
+    "source": "aerial imagery;code-point_open"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11780567570,
+   "lat": 53.4805454,
+   "lon": -2.2392486,
+   "tags": {
+    "name": "Magic Mirror",
+    "shop": "hairdresser",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11806889537,
+   "lat": 53.4719939,
+   "lon": -2.2518204,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "11",
+    "addr:postcode": "M15 4YB",
+    "addr:street": "Owen Street",
+    "name": "CLNQ",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11806889540,
+   "lat": 53.4718262,
+   "lon": -2.2516602,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:postcode": "M15 4YB",
+    "addr:street": "Owen Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "Deansgate Dental Studio"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11811330104,
+   "lat": 53.4834985,
+   "lon": -2.2355009,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "77",
+    "addr:postcode": "M4 1LQ",
+    "addr:street": "Thomas Street",
+    "healthcare": "physiotherapist",
+    "name": "Total Sports Rehabilitation"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11818249563,
+   "lat": 53.4728288,
+   "lon": -2.2506396,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Hill Quays",
+    "addr:housenumber": "10",
+    "addr:postcode": "M15 4PZ",
+    "addr:street": "Commercial Street",
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "name": "MCR Implant Centre"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11897156371,
+   "lat": 53.4635278,
+   "lon": -2.2394589,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "10",
+    "addr:postcode": "M15 6NQ",
+    "addr:street": "Greenheys Lane",
+    "name": "Elegant Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11937815885,
+   "lat": 53.4829023,
+   "lon": -2.2680951,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "30",
+    "addr:postcode": "M5 4PF",
+    "addr:street": "Crescent",
+    "healthcare": "physiotherapist",
+    "name": "Metro Physio",
+    "source": "local knowledge;aerial imagery;code-point_open"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11939867811,
+   "lat": 53.4877087,
+   "lon": -2.2248058,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "208",
+    "addr:postcode": "M4 6BQ",
+    "addr:street": "Oldham Road",
+    "name": "LNBS Nail Supply",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11939867823,
+   "lat": 53.4872225,
+   "lon": -2.2261782,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "162",
+    "addr:postcode": "M4 6BQ",
+    "addr:street": "Oldham Road",
+    "name": "Georgie MC Aesthetics",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11939867824,
+   "lat": 53.4873095,
+   "lon": -2.2259073,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "166",
+    "addr:postcode": "M4 6BQ",
+    "addr:street": "Oldham Road",
+    "name": "New Islington Spa",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11947367016,
+   "lat": 53.4685346,
+   "lon": -2.2219747,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "58",
+    "addr:postcode": "M12 6AL",
+    "addr:street": "Stockport Road",
+    "name": "In Cut Barbershop",
+    "shop": "hairdresser",
+    "source": "aerial imagery;code-point_open"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11947367025,
+   "lat": 53.4680938,
+   "lon": -2.2213473,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "80",
+    "addr:postcode": "M12 6AL",
+    "addr:street": "Stockport Road",
+    "name": "Supreme",
+    "shop": "hairdresser",
+    "source": "aerial imagery;code-point_open"
+   }
+  },
+  {
+   "type": "node",
+   "id": 11993312625,
+   "lat": 53.4851101,
+   "lon": -2.2358383,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "116",
+    "addr:postcode": "M4 1HQ",
+    "addr:street": "High Street",
+    "name": "Smile Thai Massage",
+    "opening_hours": "Mo-Su 10:00-22:00",
+    "shop": "massage"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12001023876,
+   "lat": 53.4839663,
+   "lon": -2.2345892,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "35",
+    "addr:postcode": "M4 1LX",
+    "addr:street": "Tib Street",
+    "name": "RPB",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12001023889,
+   "lat": 53.484198,
+   "lon": -2.2344928,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "16",
+    "addr:postcode": "M4 1LT",
+    "addr:street": "Whittle Street",
+    "name": "RCNQ",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12001023891,
+   "lat": 53.4841948,
+   "lon": -2.2343158,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "1",
+    "addr:postcode": "M4 1LT",
+    "addr:street": "Whittle Street",
+    "beauty": "nails",
+    "name": "Classy Nails & Beauty",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12001023892,
+   "lat": 53.4842271,
+   "lon": -2.2342387,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "47",
+    "addr:postcode": "M4 1LS",
+    "addr:street": "Tib Street",
+    "name": "P & D Hair Cutters NQ",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12001023897,
+   "lat": 53.48461,
+   "lon": -2.2336985,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "67",
+    "addr:postcode": "M4 1LS",
+    "addr:street": "Tib Street",
+    "name": "Melissa Timperley",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12003623362,
+   "lat": 53.4849138,
+   "lon": -2.2322185,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "6",
+    "addr:postcode": "M4 5DB",
+    "addr:street": "Oldham Road",
+    "beauty": "tanning",
+    "name": "Savannah",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12006526519,
+   "lat": 53.4855364,
+   "lon": -2.2308189,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "44",
+    "addr:postcode": "M4 5EE",
+    "addr:street": "Oldham Road",
+    "name": "Charcoal Male Grooming",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12015051366,
+   "lat": 53.4869629,
+   "lon": -2.2269091,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "142",
+    "addr:postcode": "M4 6BG",
+    "addr:street": "Oldham Road",
+    "name": "Boss Lady's Hair Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12015051367,
+   "lat": 53.4869849,
+   "lon": -2.2268544,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "144",
+    "addr:postcode": "M4 6BG",
+    "addr:street": "Oldham Road",
+    "name": "Royal Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12036666018,
+   "lat": 53.4860855,
+   "lon": -2.215964,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "79",
+    "addr:postcode": "M40 7HB",
+    "addr:street": "Bollington Road",
+    "name": "Blush Hair & Beauty",
+    "shop": "hairdresser",
+    "source": "aerial imagery;code-point_open"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12041615731,
+   "lat": 53.4728193,
+   "lon": -2.2157377,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "2-2A",
+    "addr:postcode": "M12 6LB",
+    "addr:street": "Midland Street",
+    "craft": "photographer",
+    "name": "Rig2",
+    "source": "aerial imagery;code-point_open"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12059902306,
+   "lat": 53.4860421,
+   "lon": -2.2258124,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:country": "GB",
+    "addr:postcode": "M4 6BD",
+    "addr:street": "George Leigh Street",
+    "addr:unit": "114",
+    "craft": "photographer",
+    "name": "Des Fildes"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12207590391,
+   "lat": 53.4818894,
+   "lon": -2.2477643,
+   "tags": {
+    "addr:postcode": "M3 2QG",
+    "name": "Clinique",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12207590392,
+   "lat": 53.4818894,
+   "lon": -2.2480031,
+   "tags": {
+    "addr:postcode": "M3 2QG",
+    "name": "Estee Lauder",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12207675410,
+   "lat": 53.4773051,
+   "lon": -2.245452,
+   "tags": {
+    "addr:postcode": "M60 2DS",
+    "female": "yes",
+    "male": "yes",
+    "name": "Joseph Elliot Hairdressing",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12296987432,
+   "lat": 53.4832597,
+   "lon": -2.2239623,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "Unit 1, Mansion House",
+    "addr:postcode": "M4 6GL",
+    "addr:street": "3–5 Keepers Quay",
+    "contact:tiktok": "business97",
+    "facebook": "https://facebook.com/business97",
+    "female": "yes",
+    "instagram": "business97",
+    "name": "Salon by FKZ",
+    "opening_hours": "Mo-Su 10:00-19:00",
+    "phone": "+1 555 0197",
+    "shop": "hairdresser",
+    "website": "https://salonbyfkz.co.uk/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12529880941,
+   "lat": 53.4839964,
+   "lon": -2.2273734,
+   "tags": {
+    "hairdresser": "barber",
+    "name": "Duffy's Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12668645032,
+   "lat": 53.4508076,
+   "lon": -2.2720152,
+   "tags": {
+    "check_date": "2020-08-30",
+    "hairdresser": "barber",
+    "name": "Chorlton Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12668665833,
+   "lat": 53.4503499,
+   "lon": -2.2722251,
+   "tags": {
+    "amenity": "veterinary",
+    "name": "Ashleigh Veterinary Centre"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12738894701,
+   "lat": 53.464621,
+   "lon": -2.2325749,
+   "tags": {
+    "name": "Union Hair",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12752536583,
+   "lat": 53.4654533,
+   "lon": -2.2151398,
+   "tags": {
+    "hairdresser": "barber",
+    "name": "Keren Afro",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 12752584298,
+   "lat": 53.4660248,
+   "lon": -2.2160646,
+   "tags": {
+    "female": "yes",
+    "male": "yes",
+    "name": "Vicky's Hair and Beauty Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13140415201,
+   "lat": 53.4729341,
+   "lon": -2.3007064,
+   "tags": {
+    "addr:city": "Salford",
+    "addr:postcode": "M50 2ST",
+    "addr:street": "Blue",
+    "contact:facebook": "https://facebook.com/business4",
+    "contact:instagram": "business4",
+    "name": "The Beauty Guru",
+    "opening_hours": "Mo-We 10:00-19:00; Th 10:00-20:00; Fr 09:00-19:00; Sa 09:30-15:00",
+    "shop": "beauty",
+    "website": "https://thebeautyguru.me"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13153297992,
+   "lat": 53.4561879,
+   "lon": -2.2445912,
+   "tags": {
+    "name": "Sevan Unisex Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13365827637,
+   "lat": 53.4824025,
+   "lon": -2.2361051,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Afflecks",
+    "addr:housenumber": "35-39",
+    "addr:street": "Oldham Street",
+    "check_date": "2026-09-08",
+    "level": "0",
+    "name": "Il Barbiere",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13365827640,
+   "lat": 53.4824037,
+   "lon": -2.2361983,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Afflecks",
+    "addr:housenumber": "35-39",
+    "addr:street": "Oldham Street",
+    "check_date": "2026-09-08",
+    "level": "1",
+    "name": "The Studio",
+    "shop": "tattoo",
+    "website": "https://www.instagram.com/thestudioafflecks/?hl=en"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13365827673,
+   "lat": 53.4826075,
+   "lon": -2.2361462,
+   "tags": {
+    "addr:housename": "Afflecks",
+    "addr:street": "Church Street",
+    "check_date": "2026-09-08",
+    "female": "yes",
+    "level": "2",
+    "male": "yes",
+    "name": "Palace Barbers",
+    "payment:cash": "yes",
+    "shop": "hairdresser",
+    "website": "https://www.instagram.com/palacebarbersafflecks/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13623190478,
+   "lat": 53.4747524,
+   "lon": -2.2380415,
+   "tags": {
+    "name": "Shade",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13656938328,
+   "lat": 53.4793015,
+   "lon": -2.2424111,
+   "tags": {
+    "hairdresser": "barber",
+    "name": "Goodheart Barbers",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13656955098,
+   "lat": 53.4780633,
+   "lon": -2.2414136,
+   "tags": {
+    "beauty": "nails",
+    "name": "Bella Nail Lash",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13670019585,
+   "lat": 53.4770807,
+   "lon": -2.2377334,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "37",
+    "addr:postcode": "M1 3LY",
+    "addr:street": "Bloom Street",
+    "male": "yes",
+    "name": "Barbers Boutique",
+    "phone": "+1 555 0112",
+    "shop": "hairdresser",
+    "website": "https://barbersboutique.com/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13906583320,
+   "lat": 53.4758617,
+   "lon": -2.2547478,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housename": "Duke Street",
+    "addr:postcode": "M3 4JL",
+    "contact:facebook": "https://facebook.com/business13",
+    "contact:instagram": "business13",
+    "email": "contact13@business.test",
+    "name": "The Story of Us MCR",
+    "opening_hours": "Mo-Su 10:00-18:00",
+    "payment:apple_pay": "yes",
+    "payment:cards": "yes",
+    "payment:credit_cards": "yes",
+    "payment:cryptocurrencies": "yes",
+    "payment:debit_cards": "yes",
+    "phone": "+1 555 0113",
+    "piercing": "yes",
+    "shop": "tattoo",
+    "toilets:wheelchair": "yes",
+    "website": "https://www.salon-two.test/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13910194671,
+   "lat": 53.4731331,
+   "lon": -2.2681327,
+   "tags": {
+    "male": "yes",
+    "name": "Neofade Studio",
+    "opening_hours": "Mo-Sa 09:00-19:00; Su 10:00-17:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13910219488,
+   "lat": 53.472198,
+   "lon": -2.2679317,
+   "tags": {
+    "craft": "photographer",
+    "name": "Studio MQ",
+    "opening_hours": "Mo-Sa 08:00-20:00; Su 09:00-17:00"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13910244565,
+   "lat": 53.4740996,
+   "lon": -2.2674465,
+   "tags": {
+    "male": "yes",
+    "name": "Ordsall Ln Barbers",
+    "opening_hours": "Mo-Sa 09:00-19:00; Su 10:00-18:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 13972311893,
+   "lat": 53.4684084,
+   "lon": -2.2770264,
+   "tags": {
+    "amenity": "dentist",
+    "healthcare": "dentist",
+    "healthcare:speciality": "orthodontics",
+    "name": "Dentechnica Limited"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14006275940,
+   "lat": 53.4765183,
+   "lon": -2.2656151,
+   "tags": {
+    "amenity": "veterinary",
+    "brand": "Vets4Pets",
+    "brand:wikidata": "Q16960196",
+    "name": "Vets4Pets",
+    "opening_hours": "Mo-Fr 09:00-19:00; Sa 09:00-17:00; Su 11:00-16:30"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14082016077,
+   "lat": 53.4739437,
+   "lon": -2.2804685,
+   "tags": {
+    "beauty": "tanning",
+    "name": "Onlytan's",
+    "opening_hours": "Mo-Fr 09:00-20:00; Sa 10:00-18:00; Su 10:00-16:00",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14082016267,
+   "lat": 53.474137,
+   "lon": -2.2815134,
+   "tags": {
+    "female": "yes",
+    "male": "yes",
+    "name": "Avesta",
+    "opening_hours": "Mo-We 09:00-19:00; Th,Fr 09:00-20:00; Sa 09:00-18:00; Su,PH off",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14112229108,
+   "lat": 53.4820453,
+   "lon": -2.2645201,
+   "tags": {
+    "male": "yes",
+    "name": "Fade Barbers",
+    "opening_hours": "Mo-Sa 09:00-19:00; Su 10:00-18:00",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14270548193,
+   "lat": 53.4759367,
+   "lon": -2.2524048,
+   "tags": {
+    "name": "MonaCo Medical",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14290771879,
+   "lat": 53.4796258,
+   "lon": -2.243757,
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "39",
+    "addr:street": "Princess Street",
+    "craft": "photographer",
+    "name": "Hope Studios",
+    "website": "https://www.studio-i.test/"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14377462732,
+   "lat": 53.4719636,
+   "lon": -2.2613931,
+   "tags": {
+    "name": "Rojelle",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14377499786,
+   "lat": 53.4731294,
+   "lon": -2.2600877,
+   "tags": {
+    "name": "Kara Makeup",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14377564584,
+   "lat": 53.4730408,
+   "lon": -2.2606526,
+   "tags": {
+    "male": "yes",
+    "name": "White Box",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "node",
+   "id": 14377735502,
+   "lat": 53.4730632,
+   "lon": -2.2605782,
+   "tags": {
+    "name": "Hair Slayed",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "way",
+   "id": 136843994,
+   "center": {
+    "lat": 53.4729653,
+    "lon": -2.2829697
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "24",
+    "addr:postcode": "M50 3XZ",
+    "addr:street": "Furness Quay",
+    "amenity": "dentist",
+    "building": "hospital",
+    "email": "contact28@business.test",
+    "healthcare": "dentist",
+    "name": "Implant Centres of Excellence (ICE) Hospital",
+    "opening_hours": "Mo-Fr 09:00-17:30; Sa 09:00-15:00; Su off",
+    "operator": "ICE Dental Implants",
+    "phone": "+1 555 0128",
+    "ref:GB:uprn": "100012714826",
+    "website": "https://icedentalimplants.co.uk/"
+   }
+  },
+  {
+   "type": "way",
+   "id": 211031153,
+   "center": {
+    "lat": 53.4862923,
+    "lon": -2.2785642
+   },
+   "tags": {
+    "amenity": "dentist",
+    "brand": "Rodericks Dental Partners",
+    "building": "yes",
+    "contact:facebook": "https://facebook.com/business29",
+    "contact:instagram": "business29",
+    "email": "contact29@business.test",
+    "healthcare": "dentist",
+    "name": "Windsor Dental Practice",
+    "phone": "+1 555 0129",
+    "ref:GB:uprn": "10007898275;10004678724",
+    "website": "https://rodericksdentalpartners.co.uk/our-practices/windsor-salford-dental-practice",
+    "wheelchair": "yes"
+   }
+  },
+  {
+   "type": "way",
+   "id": 288540564,
+   "center": {
+    "lat": 53.4866116,
+    "lon": -2.242374
+   },
+   "tags": {
+    "building": "commercial",
+    "building:levels": "2",
+    "building:material": "glass",
+    "name": "Snippers 2",
+    "old_name": "BRSA Club",
+    "roof:levels": "0",
+    "roof:shape": "round",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "way",
+   "id": 334783122,
+   "center": {
+    "lat": 53.4738071,
+    "lon": -2.2401779
+   },
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "105",
+    "addr:postcode": "M1 6EX",
+    "addr:street": "Oxford Road",
+    "building": "yes",
+    "female:signed": "no",
+    "male:signed": "no",
+    "name": "Oxford Road Barbers",
+    "opening_hours": "Mo-Fr 09:00-19:30; Sa 09:00-19:00; Su 11:00-18:00",
+    "ref:GB:uprn": "10092037992;77243102",
+    "shop": "hairdresser",
+    "wheelchair": "limited"
+   }
+  },
+  {
+   "type": "way",
+   "id": 581465769,
+   "center": {
+    "lat": 53.4839308,
+    "lon": -2.2166486
+   },
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "5",
+    "addr:postcode": "M4 7HY",
+    "addr:street": "Piercy Street",
+    "building": "yes",
+    "name": "Glamour",
+    "shop": "hairdresser",
+    "source:addr:postcode": "NSUL postcode overlay"
+   }
+  },
+  {
+   "type": "way",
+   "id": 610329313,
+   "center": {
+    "lat": 53.4697965,
+    "lon": -2.2645483
+   },
+   "tags": {
+    "addr:city": "Manchester",
+    "addr:housenumber": "301",
+    "addr:postcode": "M15 4EY",
+    "addr:street": "Chester Road",
+    "building": "yes",
+    "name": "Creativity Hair Salon",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "way",
+   "id": 644956504,
+   "center": {
+    "lat": 53.495694,
+    "lon": -2.2589903
+   },
+   "tags": {
+    "amenity": "dentist",
+    "building": "yes",
+    "healthcare": "dentist",
+    "name": "The Dental Sanctuary",
+    "ref:GB:uprn": "100012720542;10024417177;10024416921;10070743911;10070743910;10024416918;10024416919;10024416916;10024416917"
+   }
+  },
+  {
+   "type": "way",
+   "id": 962063413,
+   "center": {
+    "lat": 53.4837875,
+    "lon": -2.2967715
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "483",
+    "addr:street": "Liverpool Street",
+    "amenity": "dentist",
+    "building": "yes",
+    "building:levels": "2",
+    "healthcare": "dentist",
+    "name": "Salford Dental Practice",
+    "ref:GB:uprn": "10004672353",
+    "roof:orientation": "across",
+    "roof:shape": "gabled",
+    "website": "https://www.dental-d.test/"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1047750963,
+   "center": {
+    "lat": 53.4839691,
+    "lon": -2.295057
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "103",
+    "addr:postcode": "M6 5PH",
+    "addr:street": "Langworthy Road",
+    "beauty": "tanning",
+    "building": "yes",
+    "name": "Tan Spa",
+    "opening_hours": "Mo-Fr 09:00-20:00; Sa 10:00-18:00",
+    "ref:GB:uprn": "100012717893",
+    "shop": "beauty",
+    "website": "https://tanspa.co.uk"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1047750964,
+   "center": {
+    "lat": 53.4839949,
+    "lon": -2.2949827
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "105",
+    "addr:postcode": "M6 5PH",
+    "addr:street": "Langworthy Road",
+    "building": "yes",
+    "name": "Cutting Corner",
+    "ref:GB:uprn": "100012717894;10007898690",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1047750965,
+   "center": {
+    "lat": 53.4840344,
+    "lon": -2.2949307
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "107",
+    "addr:postcode": "M6 5PH",
+    "addr:street": "Langworthy Road",
+    "building": "yes",
+    "name": "Hair & Nails",
+    "shop": "hairdresser"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1052440894,
+   "center": {
+    "lat": 53.4853267,
+    "lon": -2.3015651
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "104",
+    "addr:postcode": "M5 5LJ",
+    "addr:street": "Chandos Grove",
+    "building": "yes",
+    "name": "Whispers",
+    "ref:GB:uprn": "10090620935;10004687644;100011402838",
+    "shop": "hairdresser",
+    "unisex": "yes"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1053155501,
+   "center": {
+    "lat": 53.4870145,
+    "lon": -2.2950829
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "217",
+    "addr:postcode": "M6 5PP",
+    "addr:street": "Langworthy Road",
+    "building": "yes",
+    "name": "TwoStars Beauty Care",
+    "opening_hours": "Mo-Fr 10:00-20:00",
+    "phone": "+1 555 0140",
+    "ref:GB:uprn": "100012717946",
+    "shop": "beauty",
+    "website": "https://twostars-events-agency-os-mais-brutos-1.ueniweb.com/"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1053155504,
+   "center": {
+    "lat": 53.4868882,
+    "lon": -2.2950761
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "211",
+    "addr:postcode": "M6 5PW",
+    "addr:street": "Langworthy Road",
+    "building": "yes",
+    "name": "Vintage Nail & Beauty Boutique",
+    "phone": "+1 555 0141",
+    "ref:GB:uprn": "100012717944;100011412384",
+    "shop": "beauty"
+   }
+  },
+  {
+   "type": "way",
+   "id": 1053155509,
+   "center": {
+    "lat": 53.4866746,
+    "lon": -2.2950638
+   },
+   "tags": {
+    "addr:city": "Salford",
+    "addr:housenumber": "201",
+    "addr:postcode": "M6 5PW",
+    "addr:street": "Langworthy Road",
+    "building": "yes",
+    "male": "yes",
+    "name": "Deniz Barber Shop",
+    "opening_hours": "Mo-Sa 09:00-19:00",
+    "ref:GB:uprn": "100012717941",
+    "shop": "hairdresser",
+    "website": "https://deniz-turkish-barber.business.site/"
+   }
+  }
+ ]
+}
