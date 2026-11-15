@@ -2,11 +2,16 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { checkWebsite, checkBusinesses } = require('../src/check_websites');
 
+const TODAY = '2026-11-16T00:00:00.000Z';
+
 function makeError(code) {
+
   return Object.assign(new Error(code), { code });
 }
 
+
 function makeHttpRequest(pages) {
+
   const requested = [];
   const httpRequest = async (options) => {
     requested.push(options.url);
@@ -17,7 +22,9 @@ function makeHttpRequest(pages) {
   return { httpRequest, requested };
 }
 
+
 function makeBusiness(website, extra = {}) {
+
   return { osm_key: `node/${website}`, name: 'Salon', category: 'Hair Salon', country: 'UK', city: 'Leeds',
     phone: '1', email: '', website, instagram: '', address: 'Leeds', maps_link: 'm', ...extra };
 }
@@ -30,17 +37,37 @@ test('no website is not fetched', async () => {
 });
 
 test('fetch failures are sorted into site_down and site_blocked', async () => {
-  const network = makeHttpRequest({
+  const pages = {
     'https://dead.com': makeError('ENOTFOUND'),
+    'https://refused.com': makeError('ECONNREFUSED'),
     'https://gone.com': { statusCode: 404, body: '' },
+    'https://removed.com': { statusCode: 410, body: '' },
     'https://guarded.com': { statusCode: 403, body: 'denied' },
     'https://slow.com': makeError('ECONNABORTED'),
-  });
-  const statuses = [];
-  for (const website of ['https://dead.com', 'https://gone.com', 'https://guarded.com', 'https://slow.com']) {
-    statuses.push((await checkWebsite(makeBusiness(website), network.httpRequest)).booking_status);
+    'https://moved.com': { statusCode: 301, body: '' },
+    'https://busy.com': { statusCode: 429, body: '' },
+    'https://unavailable.com': { statusCode: 503, body: '' },
+    'https://hidden.com': { statusCode: 200, body: '<a href="/booking">Book</a>' },
+    'https://hidden.com/booking': { statusCode: 404, body: '' },
+  };
+  const expected = {
+    'https://dead.com': 'site_down',
+    'https://refused.com': 'site_down',
+    'https://gone.com': 'site_down',
+    'https://removed.com': 'site_down',
+    'https://guarded.com': 'site_blocked',
+    'https://slow.com': 'site_blocked',
+    'https://moved.com': 'site_blocked',
+    'https://busy.com': 'site_blocked',
+    'https://unavailable.com': 'site_blocked',
+    'https://hidden.com': 'site_blocked',
+  };
+  const network = makeHttpRequest(pages);
+  const statuses = {};
+  for (const website of Object.keys(expected)) {
+    statuses[website] = (await checkWebsite(makeBusiness(website), network.httpRequest)).booking_status;
   }
-  assert.deepEqual(statuses, ['site_down', 'site_down', 'site_blocked', 'site_blocked']);
+  assert.deepEqual(statuses, expected);
 });
 
 test('an own booking page is fetched and checked; contacts come from the homepage', async () => {
@@ -66,17 +93,53 @@ test('a booking page that cannot be fetched is checked by hand, not called none_
   assert.equal(check.booking_status, 'site_blocked');
 });
 
-test('the run keeps 200 leads at most, drops AcmeBook customers and sorts by score', async () => {
+test('the run keeps exactly 200 leads and sorts them by score', async () => {
   const businesses = Array.from({ length: 250 }, (_, index) => makeBusiness('', { osm_key: `node/${index}` }));
-  businesses.push(makeBusiness('https://customer.com', { osm_key: 'node/customer' }));
-  businesses.push(makeBusiness('https://plain.com', { osm_key: 'node/plain' }));
+  const network = makeHttpRequest({});
+  const leads = await checkBusinesses(businesses, network.httpRequest, TODAY, () => 0);
+  assert.equal(leads.length, 200);
+  for (let index = 1; index < leads.length; index++) assert.ok(leads[index - 1].score >= leads[index].score);
+});
+
+test('AcmeBook customers are dropped from the leads', async () => {
+  const businesses = [
+    makeBusiness('https://customer.com', { osm_key: 'node/customer' }),
+    makeBusiness('https://plain.com', { osm_key: 'node/plain' }),
+  ];
   const network = makeHttpRequest({
     'https://customer.com': { statusCode: 200,
       body: '<script src="https://lumenstudio.acmebook.example/widget.js"></script>' },
     'https://plain.com': { statusCode: 200, body: '<p>call us</p>' },
   });
-  const leads = await checkBusinesses(businesses, network.httpRequest, '2026-11-16T00:00:00.000Z');
-  assert.ok(leads.length <= 200);
-  assert.ok(!leads.some((lead) => lead.osm_key === 'node/customer'));
-  for (let index = 1; index < leads.length; index++) assert.ok(leads[index - 1].score >= leads[index].score);
+  const leads = await checkBusinesses(businesses, network.httpRequest, TODAY, () => 0);
+  assert.deepEqual(leads.map((lead) => lead.osm_key), ['node/plain']);
+});
+
+test('businesses are shuffled before the cap', async () => {
+  const businesses = ['a', 'b', 'c'].map((key) => makeBusiness('', { osm_key: `node/${key}` }));
+  const network = makeHttpRequest({});
+  const orderFor = async (random) => (await checkBusinesses(businesses, network.httpRequest, TODAY, random))
+    .map((lead) => lead.osm_key);
+  assert.deepEqual(await orderFor(() => 0), ['node/b', 'node/c', 'node/a']);
+  assert.deepEqual(await orderFor(() => 0.999), ['node/a', 'node/b', 'node/c']);
+});
+
+test('a check that throws is kept for a person, with the error in its reasons', async (context) => {
+  const warn = context.mock.method(console, 'warn', () => {});
+  let websiteReads = 0;
+  const business = makeBusiness('', { osm_key: 'node/broken' });
+
+  // the second read is checkWebsite's own, outside fetchPage's catch, so only the per-business catch can take it
+  Object.defineProperty(business, 'website', {
+    get() {
+      websiteReads++;
+      if (websiteReads === 2) throw new Error('boom');
+      return 'https://broken.com';
+    },
+  });
+  const network = makeHttpRequest({ 'https://broken.com': { statusCode: 200, body: '<p>hi</p>' } });
+  const leads = await checkBusinesses([business], network.httpRequest, TODAY, () => 0);
+  assert.equal(leads[0].booking_status, 'site_blocked');
+  assert.match(leads[0].reasons, /check failed: boom/);
+  assert.deepEqual(warn.mock.calls[0].arguments, ["'node/broken': check failed, boom"]);
 });

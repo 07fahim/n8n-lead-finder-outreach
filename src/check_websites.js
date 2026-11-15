@@ -13,7 +13,9 @@ function classifyFetchError(error) {
 function classifyStatus(statusCode) {
 
   if ([404, 410].includes(statusCode)) return 'site_down';
-  return statusCode >= 200 && statusCode < 400 ? 'loaded' : 'site_blocked';
+
+  // the helper follows redirects, so a 3xx here means the page was never reached and none_found would be a false claim
+  return statusCode >= 200 && statusCode < 300 ? 'loaded' : 'site_blocked';
 }
 
 
@@ -96,8 +98,13 @@ async function checkBusinesses(businesses, httpRequest, today, random = Math.ran
     try {
       return buildLead(business, await checkWebsite(business, httpRequest), today);
     } catch (error) {
+
+      // a bug must not look like a site that refused us, so the error stays on the lead and in the log
       const check = { booking_status: 'site_blocked', booking_tool: '', emails: [], whatsapp: '', instagram: '' };
-      return buildLead(business, check, today);
+      const lead = buildLead(business, check, today);
+      if (lead) lead.reasons += `; check failed: ${error.message}`;
+      console.warn(`'${business.osm_key}': check failed, ${error.message}`);
+      return lead;
     }
   });
   return leads.filter(Boolean).sort((first, second) => second.score - first.score);
