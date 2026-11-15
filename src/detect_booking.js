@@ -1,5 +1,6 @@
 const {
-  BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, NON_BOOKING_DOMAINS,
+  BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS, ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, REDIRECT_DOMAINS,
+  NON_BOOKING_DOMAINS,
   GOOGLE_HOST,
   BOOKING_WORDS, RIGHTS_RESERVED, CONTACT_PATH,
 } = require('./config');
@@ -110,7 +111,8 @@ function detectBooking(html, pageUrl) {
       continue;
     }
     if (!host || isNonBookingHost(host)) continue;
-    return { booking_status: 'competitor', booking_tool: host, booking_page_url: '' };
+    const viaRedirect = REDIRECT_DOMAINS.some((domain) => isDomainOrSubdomain(host, domain));
+    return { booking_status: 'competitor', booking_tool: viaRedirect ? '' : host, booking_page_url: '' };
   }
   return { booking_status: bookingPageUrl ? 'booking_page' : 'none_found', booking_tool: '',
     booking_page_url: bookingPageUrl };

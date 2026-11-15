@@ -91,6 +91,24 @@ test('a AcmeBook site on its own domain is found by its footer or default descri
   assert.equal(detectBooking(description, 'https://lumenstudio.com').booking_status, 'acmebook');
 });
 
+test('wix bookings is found by its app id, not by the seo strings every wix site loads', () => {
+  const bookings = '<script>{"appDefinitionId":"13d21c63-b5ec-5912-8397-c3a5ddb27a97"}</script>';
+  assert.equal(detectBooking(bookings, 'https://hue.com').booking_tool, 'Wix Bookings');
+  const plainWix = '<script>{"788":"wix-seo-bookings-service-index"}</script>';
+  assert.equal(detectBooking(plainWix, 'https://slice.com').booking_status, 'none_found');
+});
+
+test('meevo is a known tool', () => {
+  const html = '<a href="https://na0.meevo.com/CustomerPortal/x">Book now</a>';
+  assert.equal(detectBooking(html, 'https://salon.com').booking_tool, 'Meevo');
+});
+
+test('a booking link through a redirect service is booking with the tool left unnamed', () => {
+  const html = '<a href="http://qrfy.com/p/r19V2YJsiD">Book Your Appointment Now!</a>';
+  assert.deepEqual(detectBooking(html, 'https://nails-c.test'),
+    { booking_status: 'competitor', booking_tool: '', booking_page_url: '' });
+});
+
 test('a page with no booking signs is none_found', () => {
   assert.equal(detectBooking('<a href="/about">About us</a>', 'https://a.com').booking_status, 'none_found');
 });

@@ -159,9 +159,15 @@ const BOOKING_TOOLS = [
   { name: 'Setster', domains: ['setster.com'] },
   { name: 'BookingBug', domains: ['bookingbug.com', 'jrni.com'] },
   { name: 'Uala', domains: ['uala.com', 'uala.it'] },
+  { name: 'Meevo', domains: ['meevo.com'] },
 ];
-// Wix Bookings runs on the business's own domain, so it is found by its widget name instead of a host
-const BOOKING_TEXT_MARKERS = [{ name: 'Wix Bookings', marker: 'wix-bookings' }];
+// Wix Bookings runs on the business's own domain, so it is found by its app id; every Wix site loads
+// "wix-seo-bookings-*" strings, so those prove nothing (seen on hairstudio-a.test vs studio-b.test)
+const BOOKING_TEXT_MARKERS = [{ name: 'Wix Bookings', marker: '13d21c63-b5ec-5912-8397-c3a5ddb27a97' }];
+// a booking button can point at a redirect or link-in-bio service; the business books online, but the service
+// is not their booking tool (seen: qrfy.com on nails-c.test, 2026-11-16)
+const REDIRECT_DOMAINS = ['qrfy.com', 'bit.ly', 'tinyurl.com', 'linktr.ee', 'linkin.bio', 'beacons.ai', 'paa.ge',
+  'qr-code-generator.com', 'rebrand.ly', 't.co'];
 // customer pages live on <business>.acmebook.example (seen on acmebook.example, 2026-11-16)
 const ACMEBOOK_DOMAINS = ['acmebook.example'];
 // the bare word "acmebook" appears in unrelated text; customer pages are on acmebook.example (the embed snippet itself
@@ -200,6 +206,8 @@ const WARM_MIN_SCORE = 40;
 
 const FEEDBACK_ASK = "Would you give 10 minutes of honest feedback on AcmeBook, a simple booking tool we're building?";
 const OPENERS = {
+  competitor_unnamed: 'Hi {name}, saw you take bookings online... would love to hear what you like or wish was ' +
+    'better about it.',
   competitor: 'Hi {name}, saw you take bookings through {tool}... would love to hear what you like or wish was ' +
     'better about it.',
   no_website: `Hi {name}, I couldn't find a way to book with you online... ${FEEDBACK_ASK}`,
@@ -248,7 +256,8 @@ module.exports = {
   OVERPASS_SERVERS, OVERPASS_WAITS_SECONDS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_CITY_BUDGET_SECONDS,
   OVERPASS_USER_AGENT, BROWSER_USER_AGENT, MAX_LEADS_PER_RUN, WEBSITE_TIMEOUT_SECONDS, WEBSITE_CONCURRENCY,
   THIN_CITY_THRESHOLD, CATEGORY_RULES, BARBERSHOP_CATEGORY, BOOKING_TOOLS, BOOKING_TEXT_MARKERS, ACMEBOOK_DOMAINS,
-  ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, NON_BOOKING_DOMAINS, GOOGLE_HOST, BOOKING_WORDS, RIGHTS_RESERVED, CONTACT_PATH,
+  ACMEBOOK_TEXT_MARKER, ACMEBOOK_FOOTER, REDIRECT_DOMAINS, NON_BOOKING_DOMAINS, GOOGLE_HOST, BOOKING_WORDS,
+  RIGHTS_RESERVED, CONTACT_PATH,
   JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS,
   LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS,
 };

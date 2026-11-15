@@ -53,6 +53,13 @@ test('a $ in a business name is written as it is', () => {
   assert.ok(lead.opener.startsWith("Hi $$ Cuts & Fade$`s, noticed"));
 });
 
+test('a competitor whose tool is unknown gets an opener without a tool name', () => {
+  const lead = buildLead(BUSINESS, makeCheck('competitor'), TODAY);
+  assert.equal(lead.opener,
+    'Hi Cut Co, saw you take bookings online... would love to hear what you like or wish was better about it.');
+  assert.match(lead.reasons, /^uses an online booking tool/);
+});
+
 test('tier edges', () => {
   assert.deepEqual([39, 40, 59, 60].map(findTier), ['Cold', 'Warm', 'Warm', 'Hot']);
 });

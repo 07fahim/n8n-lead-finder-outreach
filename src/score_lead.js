@@ -10,7 +10,8 @@ function findTier(score) {
 function writeOpener(bookingStatus, name, tool) {
 
   // a function replacement keeps a '$' in a business name literal instead of reading it as a pattern
-  return (OPENERS[bookingStatus] || '').replaceAll('{name}', () => name).replaceAll('{tool}', () => tool);
+  const opener = bookingStatus === 'competitor' && !tool ? OPENERS.competitor_unnamed : OPENERS[bookingStatus];
+  return (opener || '').replaceAll('{name}', () => name).replaceAll('{tool}', () => tool);
 }
 
 
@@ -25,7 +26,7 @@ function buildLead(business, check, today) {
     score += points;
     reasons.push(`${reason} (+${points})`);
   };
-  if (check.booking_status === 'competitor') reasons.push(`uses ${check.booking_tool}`);
+  if (check.booking_status === 'competitor') reasons.push(`uses ${check.booking_tool || 'an online booking tool'}`);
   if (['none_found', 'no_website'].includes(check.booking_status)) {
     addSignal(POINTS.noOnlineBooking, 'no online booking found');
   }
