@@ -55,3 +55,37 @@ test('a signature line starting with From: does not hide an opt-out below it', (
   assert.equal(classifyReply(makeMessage('owner@salon.com', 'Thanks\nFrom: the team\nunsubscribe'), ROWS).status,
     'Stopped');
 });
+
+test('natural opt-outs in the new text are Stopped', () => {
+  const texts = ['Please stop.', 'Hi,\nstop', 'Hi Alex,\n\nStop\n\nThanks', 'Please don’t email me again',
+    'Not interested, please do not contact me', 'No thanks, take us off your list'];
+  for (const text of texts) {
+    assert.equal(classifyReply(makeMessage('owner@salon.com', text), ROWS).status, 'Stopped', text);
+  }
+});
+
+test('a bounce marks only the row whose email it names exactly', () => {
+  const rows = [
+    { 'Lead email': 'spa@x.com', 'Lead ID': 'node/a', 'Status': 'Sent', 'Sent date': '2026-11-16' },
+    { 'Lead email': 'dayspa@x.com', 'Lead ID': 'node/b', 'Status': 'Sent', 'Sent date': '2026-11-16' },
+  ];
+  assert.deepEqual(classifyReply(makeMessage('mailer-daemon@googlemail.com', 'Delivery to dayspa@x.com failed'), rows),
+    { leadId: 'node/b', status: 'Bounced' });
+});
+
+test('a reply from an address on two rows marks the sent row', () => {
+  const rows = [
+    { 'Lead email': 'twice@x.com', 'Lead ID': 'node/unsent', 'Status': 'New', 'Sent date': '' },
+    { 'Lead email': 'twice@x.com', 'Lead ID': 'node/sent', 'Status': 'Sent', 'Sent date': '2026-11-16' },
+  ];
+  assert.equal(classifyReply(makeMessage('twice@x.com', 'Tell me more'), rows).leadId, 'node/sent');
+});
+
+test('auto-replies are skipped, but not bounces or Auto-Submitted: no', () => {
+  const auto = { 'auto-submitted': 'Auto-Submitted: auto-replied' };
+  assert.equal(classifyReply(makeMessage('owner@salon.com', 'I am out of the office', auto), ROWS), null);
+  assert.equal(classifyReply(makeMessage('owner@salon.com', 'Sounds good',
+    { 'auto-submitted': 'Auto-Submitted: no' }), ROWS).status, 'Replied');
+  assert.deepEqual(classifyReply(makeMessage('mailer-daemon@googlemail.com', 'owner@salon.com failed', auto), ROWS),
+    { leadId: 'node/1', status: 'Bounced' });
+});
