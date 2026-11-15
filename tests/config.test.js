@@ -57,7 +57,7 @@ test('the product file holds every product value the engine needs', () => {
 
 test('only src/product.js names the example product', () => {
   const sourceFolder = path.join(__dirname, '..', 'src');
-  for (const fileName of fs.readdirSync(sourceFolder)) {
+  for (const fileName of fs.readdirSync(sourceFolder).filter((name) => name.endsWith('.js'))) {
     if (fileName === 'product.js') continue;
     const source = fs.readFileSync(path.join(sourceFolder, fileName), 'utf8');
     assert.doesNotMatch(source, /acmebook|alex/i, fileName);

@@ -172,6 +172,9 @@ An import leaves the workflow inactive. Reload the n8n editor, then switch AcmeB
 
 Leads without an email have a Contact number for a call or WhatsApp.
 
+To see at a glance which emailed leads have not replied after 7 days, add the yellow highlight in SETUP.md
+step 11 ("Highlight leads with no reply yet").
+
 ## Replies
 
 AcmeBook Reply Checker must be Active. Switch it on before the first send: it only sees mail that arrives after it
@@ -189,7 +192,8 @@ business shows on its homepage: online booking, online ordering, live chat, revi
 sign-ups. It does not fit products that leave no mark on the homepage, such as SEO, web design or accounting: the
 check cannot tell who already has them.
 
-1. Edit `src/product.js`. Every value about what you sell is there, and nowhere else (a test checks this):
+1. Edit `src/product.js`. Every value about what you sell is there. A test checks that it exports each one and
+   that no other `src` file names the example product (AcmeBook or Alex).
    - `PRODUCT_NAME`: your product's name, shown in the workflow names and the Overpass user agent.
    - `TABLE_PREFIX`: the start of the Data table names (`<prefix>_leads`, `<prefix>_cities`).
    - `CITIES`: the cities to search, with country and centre coordinates, in run order.
@@ -205,18 +209,27 @@ check cannot tell who already has them.
    - `REASON_TEXTS`: how the reasons in the sheet name your signal.
    - `HOT_MIN_SCORE`, `WARM_MIN_SCORE`: the lowest score for Hot and for Warm.
    - `FEEDBACK_ASK`: the question the openers end with.
-   - `OPENERS`: the first line of the email for each `tool_status`; `{name}` and `{tool}` are filled in.
+   - `OPENERS`: the first line of the email for each result of the website check (`tool_status`), with
+     `competitor_unnamed` used when the competitor's tool has no name. `already_customer` leads are dropped and need
+     none. `{name}` and `{tool}` are filled in.
    - `SENDER_NAME`: the name the emails are signed with.
    - `POSTAL_ADDRESS`: your real postal address; the Sender refuses to run while it is empty.
    - `SEND_TIMEZONE`: the time zone whose calendar day the daily limit counts.
    - `EMAIL_SUBJECT`, `EMAIL_BODY`: the email; `{name}` (subject), `{opener}`, `{sender}` and `{address}` are filled
      in.
+
+   In `POINTS`, `OPENERS` and `REASON_TEXTS` keep the keys and change only the values. A renamed `POINTS` key
+   gives NaN scores. A missing `OPENERS` key gives an empty opener, and that lead is never emailed.
 2. After the n8n credentials exist (SETUP.md step 4), copy `install.example.json` to `install.json` and fill in the
    sheet id, the tab gid and both credentials (SETUP.md step 6).
 3. Run `npm test` and `node build.js`, then deploy (SETUP.md step 7, or "Deploy a change" above).
 4. The law. US law (CAN-SPAM) requires a real postal address in every sales email. Other countries may forbid cold
    email to some businesses altogether: PECR in the UK, CASL in Canada and the Spam Act in Australia. It is the
    sender's job to check the law for each country before sending.
+
+One product per n8n: the workflow ids are fixed (`WORKFLOW_IDS` in `build_outreach.js` and the Lead Finder id in
+"Deploy a change"). For a second product on the same n8n, change those ids, or it replaces the first product's
+workflows.
 
 The website check is in `src/check_websites.js` and `src/detect_tool.js`. It writes `tool_status`
 (`already_customer`, `competitor`, `none_found`, `no_website`, `site_down` or `site_blocked`) and `tool_name` into
