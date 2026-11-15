@@ -284,10 +284,11 @@ const EMAIL_BODY = [
   '{address}',
   'Not interested? Reply "stop" and I won\'t email again.',
 ].join('\n');
-const STOP_WORDS = /\b(stop|unsubscribe|remove me|remove us)\b/i;
+// "stop" counts only as the first word of the reply; elsewhere only clear phrases count ("I'll stop by" is a reply)
+const STOP_WORDS = /^\W*stop\b|\b(unsubscribe|remove me|remove us|take me off|stop emailing|stop sending|stop contacting|do not email|don't email)\b/i;
 const BOUNCE_SENDER = /mailer-daemon|postmaster/i;
 // where the quoted original starts in a reply from Gmail, Outlook and Apple Mail
-const REPLY_QUOTE_START = /^On .+wrote:\s*$|^-{2,}\s*Original Message|^From: .+$/im;
+const REPLY_QUOTE_START = /^On .+wrote:\s*$|^-{2,}\s*Original Message|^From: .*@.*$/im;
 // credential ids and names are not secret; set them during setup from the n8n Credentials page
 const GMAIL_CREDENTIAL = { id: '', name: '' };
 const SHEETS_CREDENTIAL = { id: '', name: '' };
