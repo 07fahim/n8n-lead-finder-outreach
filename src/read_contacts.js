@@ -28,7 +28,7 @@ function findEmails(html) {
 
 function findWhatsapp(html) {
 
-  const match = html.match(/(?:wa\.me\/|api\.whatsapp\.com\/send\/?\?phone=)\+?(\d{7,15})/i);
+  const match = html.match(/(?:wa\.me\/|api\.whatsapp\.com\/send\/?\?phone=)(?:\+|%2B)?(\d{7,15})/i);
   return match ? `https://wa.me/${match[1]}` : '';
 }
 

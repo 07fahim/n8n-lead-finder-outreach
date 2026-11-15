@@ -55,7 +55,9 @@ function normalizeCities(cityResults, seenKeys) {
         continue;
       }
       const website = addScheme(readTag(tags, ['website', 'contact:website', 'url']));
-      const phone = readTag(tags, ['phone', 'contact:phone']);
+
+      // osm keeps several numbers in one tag separated by ';', and one number is enough to call
+      const phone = readTag(tags, ['phone', 'contact:phone']).split(';')[0].trim();
       const email = readTag(tags, ['email', 'contact:email']);
       if (!website && !phone && !email) {
         stats.no_contact++;

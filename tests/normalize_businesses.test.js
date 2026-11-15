@@ -5,6 +5,7 @@ const manchester = require('./fixtures/overpass_manchester.json');
 const { normalizeCities } = require('../src/normalize_businesses');
 
 function makeCityResult(city, elements, overpassStatus = 'ok') {
+
   return { id: 1, city, country: 'UK', last_run: null, overpass_status: overpassStatus, overpass_error: '', elements };
 }
 
@@ -32,6 +33,12 @@ test('same name and phone mapped twice is one lead; same name without phone stay
   const [result] = normalizeCities([makeCityResult('Leeds', elements)], []);
   assert.equal(result.stats.duplicates, 1);
   assert.deepEqual(result.businesses.map((business) => business.osm_key), ['node/1', 'node/3', 'node/4']);
+});
+
+test('a phone tag with several numbers keeps the first one', () => {
+  const elements = [{ type: 'node', id: 1, tags: { name: 'A', shop: 'tattoo', phone: '+44 161 1;+44 161 2' } }];
+  const [result] = normalizeCities([makeCityResult('Leeds', elements)], []);
+  assert.equal(result.businesses[0].phone, '+44 161 1');
 });
 
 test('already-seen businesses are counted and left out', () => {

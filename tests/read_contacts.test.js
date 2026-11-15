@@ -11,6 +11,7 @@ test('emails: junk, image names and escaped JSON prefixes are dropped', () => {
 test('whatsapp links from wa.me and api.whatsapp.com', () => {
   assert.equal(findWhatsapp('<a href="https://wa.me/447700900123">'), 'https://wa.me/447700900123');
   assert.equal(findWhatsapp('https://api.whatsapp.com/send?phone=+15551234567'), 'https://wa.me/15551234567');
+  assert.equal(findWhatsapp('https://api.whatsapp.com/send/?phone=%2B447700900123'), 'https://wa.me/447700900123');
   assert.equal(findWhatsapp('no chat here'), '');
 });
 
