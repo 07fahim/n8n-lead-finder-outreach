@@ -60,6 +60,20 @@ function buildSheetSyncWorkflow() {
     buildSheetNode('Add Rows', [880, 100], { operation: 'append',
       columns: { mappingMode: 'autoMapInputData', value: {}, matchingColumns: [], schema: [] },
       options: { cellFormat: 'RAW' } }),
+
+    // Insert > Checkbox writes FALSE into every empty cell, so the sheet would read back as full and new rows would
+    // land below the boxes; a validation rule on the filled rows writes no values
+    buildCodeNode({ name: 'Checkbox Range', files: ['config.js', 'sheet_rows.js'], position: [1100, 100], glue: [
+      "const filledRows = $('Read Sheet').all().filter((item) => item.json['Lead ID']).length;",
+      "const rowCount = 1 + filledRows + $('Find New Rows').all().length;",
+      'return [{ json: buildCheckboxRequest(rowCount) }];',
+    ].join('\n'), extra: { executeOnce: true } }),
+    withCredential(buildNode({ name: 'Add Checkboxes', type: 'n8n-nodes-base.httpRequest', typeVersion: 4.2,
+      position: [1320, 100], parameters: { method: 'POST',
+        url: `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}:batchUpdate`,
+        authentication: 'predefinedCredentialType', nodeCredentialType: 'googleSheetsOAuth2Api',
+        sendBody: true, specifyBody: 'json', jsonBody: '={{ JSON.stringify($json) }}', options: {} } }),
+    'googleSheetsOAuth2Api', SHEETS_CREDENTIAL),
   ];
   const connections = connectNodes([
     ['Run manually', 'Read Leads'],
@@ -67,6 +81,8 @@ function buildSheetSyncWorkflow() {
     ['Read Leads', 'Read Sheet'],
     ['Read Sheet', 'Find New Rows'],
     ['Find New Rows', 'Add Rows'],
+    ['Add Rows', 'Checkbox Range'],
+    ['Checkbox Range', 'Add Checkboxes'],
   ]);
   return { id: WORKFLOW_IDS.sheetSync, name: 'AcmeBook Sheet Sync', nodes, connections, settings: SETTINGS,
     active: false };

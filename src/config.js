@@ -260,6 +260,8 @@ const LEAD_STATUS = { new: 'New', sent: 'Sent', replied: 'Replied', stopped: 'St
 // the id from the sheet's URL (docs.google.com/spreadsheets/d/<id>/edit), set during setup
 const SHEET_ID = 'YOUR_SHEET_ID';
 const SHEET_TAB = 'Leads';
+// the numeric id of the Leads tab (the gid in the sheet URL); the first tab of a new sheet is always 0
+const SHEET_TAB_GID = 0;
 const SENDER_NAME = 'Alex';
 // Alex chose the area without house and road (2026-11-16); the warning that it may not count as a valid postal
 // address under CAN-SPAM is recorded in the spec
@@ -314,7 +316,7 @@ module.exports = {
   RIGHTS_RESERVED, CONTACT_PATH,
   JUNK_EMAIL_PARTS, JUNK_EMAIL_LOCAL_PARTS, INSTAGRAM_NON_HANDLES, POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS,
   LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS,
-  SHEET_HEADERS, LEAD_STATUS, SHEET_ID, SHEET_TAB, SENDER_NAME, POSTAL_ADDRESS,
+  SHEET_HEADERS, LEAD_STATUS, SHEET_ID, SHEET_TAB, SHEET_TAB_GID, SENDER_NAME, POSTAL_ADDRESS,
   DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, SEND_TIMEZONE, EMAIL_SUBJECT, EMAIL_BODY, STOP_WORDS, BOUNCE_SENDER,
   REPLY_QUOTE_START, GMAIL_CREDENTIAL, SHEETS_CREDENTIAL, WORKFLOW_IDS,
 };

@@ -4,6 +4,7 @@ const { buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow }
 const { connectNodes } = require('../build_nodes');
 const { buildWorkflow } = require('../build');
 const { runNodeLikeN8n } = require('./run_node_like_n8n');
+const { SHEETS_CREDENTIAL } = require('../src/config');
 
 const AsyncFunction = (async () => {}).constructor;
 
@@ -36,6 +37,32 @@ test('the Find New Rows node returns only leads missing from the sheet, in the s
   const rows = await runNodeLikeN8n(buildSheetSyncWorkflow(), 'Find New Rows', sheet,
     { nodeOutputs: { 'Read Leads': leads, 'Read Sheet': sheet } });
   assert.deepEqual(rows.map((item) => item.json['Lead ID']), ['node/2']);
+});
+
+test('sheet sync adds checkboxes after Add Rows through the Sheets API', () => {
+  const workflow = buildSheetSyncWorkflow();
+  assert.deepEqual(workflow.connections['Add Rows'].main[0], [{ node: 'Checkbox Range', type: 'main', index: 0 }]);
+  assert.deepEqual(workflow.connections['Checkbox Range'].main[0],
+    [{ node: 'Add Checkboxes', type: 'main', index: 0 }]);
+  assert.equal(findNode(workflow, 'Checkbox Range').executeOnce, true);
+  const request = findNode(workflow, 'Add Checkboxes');
+  assert.equal(request.parameters.nodeCredentialType, 'googleSheetsOAuth2Api');
+  assert.equal(request.parameters.method, 'POST');
+  assert.match(request.parameters.url, /:batchUpdate$/);
+  if (SHEETS_CREDENTIAL.id) {
+    assert.deepEqual(request.credentials, { googleSheetsOAuth2Api: SHEETS_CREDENTIAL });
+  }
+});
+
+test('the Checkbox Range node covers the header, the filled rows and the new rows, in the sandbox', async () => {
+  const sheet = [{ 'Lead ID': 'node/1' }, { 'Lead ID': 'node/2' }, {}].map((json) => ({ json }));
+  const added = [{}, {}, {}].map((json) => ({ json }));
+  const result = await runNodeLikeN8n(buildSheetSyncWorkflow(), 'Checkbox Range', added,
+    { nodeOutputs: { 'Read Sheet': sheet, 'Find New Rows': added } });
+  // the node runs in another vm realm, so compare plain copies
+  const range = JSON.parse(JSON.stringify(result[0].json)).requests[0].setDataValidation.range;
+  assert.equal(result.length, 1);
+  assert.equal(range.endRowIndex, 6);
 });
 
 test('the Lead Finder calls sheet sync after Check Run and keeps going if it fails', () => {

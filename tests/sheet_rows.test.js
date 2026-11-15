@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { toSheetRow, findNewSheetRows } = require('../src/sheet_rows');
+const { toSheetRow, findNewSheetRows, buildCheckboxRequest } = require('../src/sheet_rows');
 
 function makeLead(osmKey, score, extra = {}) {
   return { osm_key: osmKey, name: `Salon ${osmKey}`, city: 'Tampa', tier: 'Hot', score, email: 'a@b.com',
@@ -27,4 +27,11 @@ test('only leads not yet in the sheet are returned, highest score first', () => 
   const leads = [makeLead('node/1', 40), makeLead('node/2', 90), makeLead('node/3', 60), {}];
   const sheetRows = [{ 'Lead ID': 'node/3' }, {}];
   assert.deepEqual(findNewSheetRows(leads, sheetRows).map((row) => row['Lead ID']), ['node/2', 'node/1']);
+});
+
+test('the checkbox request puts checkbox validation on Send email (column H) for rows 2..rowCount', () => {
+  assert.deepEqual(buildCheckboxRequest(89), { requests: [{ setDataValidation: {
+    range: { sheetId: 0, startRowIndex: 1, endRowIndex: 89, startColumnIndex: 7, endColumnIndex: 8 },
+    rule: { condition: { type: 'BOOLEAN' }, strict: true },
+  } }] });
 });
