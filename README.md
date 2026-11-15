@@ -156,7 +156,7 @@ An import leaves the workflow inactive. Reload the n8n editor, then switch AcmeB
    so the next run tries it again. If no Report node runs, nothing was ready to send.
 
 - Never start the Sender while an earlier Sender run is still running or waiting (check n8n → Executions).
-- If the Sender stopped with an error, look in Gmail → Sent before running it again.
+- If the Sender stopped with an error, or its Report shows `failed` above 0, look in Gmail → Sent before running it again: a lead may already have the email.
 - To stop a lead, change its Status to `Stopped`; never delete rows. A deleted row comes back from the leads table
   as New.
 - Replies that Gmail files in Spam are not checked: look in Spam now and then.
