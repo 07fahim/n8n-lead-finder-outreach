@@ -32,7 +32,8 @@ const OK_BODY = JSON.stringify({ elements: [{ type: 'node', id: 1, tags: { name:
 test('the query covers every category around the centre with the document limits', () => {
   const query = buildOverpassQuery(36.1627, -86.7816);
   assert.ok(query.startsWith('[out:json][timeout:170];'));
-  assert.ok(query.includes('nwr(around:4000,36.1627,-86.7816)["shop"~"^(hairdresser|beauty|pet_grooming|massage|tattoo|photo)$"]["name"];'));
+  assert.ok(query.includes('nwr(around:4000,36.1627,-86.7816)' +
+    '["shop"~"^(hairdresser|beauty|pet_grooming|massage|tattoo|photo)$"]["name"];'));
   assert.ok(query.includes('["amenity"~"^(dentist|veterinary|driving_school)$"]["name"];'));
   assert.ok(query.includes('["healthcare"~"^(dentist|physiotherapist|chiropractor|psychotherapist)$"]["name"];'));
   assert.ok(query.includes('["leisure"~"^(spa)$"]["name"];'));
@@ -67,6 +68,8 @@ test('an HTML error page with status 200 and a timeout remark both count as fail
   assert.deepEqual(result.elements, []);
   assert.match(result.overpass_error, /not JSON/);
   assert.match(result.overpass_error, /timed out/);
+  assert.match(result.overpass_error, /HTTP 504/);
+  assert.equal(network.calls.length, 4);
 });
 
 test('retries stop before the city budget of 420 s is passed', async () => {
