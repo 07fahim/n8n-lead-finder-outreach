@@ -1,10 +1,10 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { buildCreateTableRequest, buildInsertRowsRequest, buildFindTableRequest } = require('../scripts/setup_n8n');
+const { buildCreateTableRequest, buildInsertRowsRequest, buildFindTableRequest, readInsertedCount } = require('../scripts/setup_n8n');
 const { buildCityRows } = require('../build');
 const { LEAD_COLUMNS, CITY_COLUMNS } = require('../src/config');
 
-test('the create-table request carries the table name and its columns from build/tables.json', () => {
+test('the create-table request carries the table name and the lead columns', () => {
   const tables = { acmebook_leads: LEAD_COLUMNS, acmebook_cities: CITY_COLUMNS };
   const request = buildCreateTableRequest('acmebook_leads', tables.acmebook_leads);
   assert.equal(request.method, 'POST');
@@ -28,4 +28,9 @@ test('the find-table request filters by the exact name', () => {
   const request = buildFindTableRequest('acmebook_cities');
   assert.equal(request.method, 'GET');
   assert.equal(request.path, `/api/v1/data-tables?filter=${encodeURIComponent('{"name":"acmebook_cities"}')}`);
+});
+
+test('the inserted count is read from n8n 2.41.5 (insertedRows) and from the documented shape (count)', () => {
+  assert.equal(readInsertedCount({ success: true, insertedRows: 43 }), 43);
+  assert.equal(readInsertedCount({ count: 43 }), 43);
 });

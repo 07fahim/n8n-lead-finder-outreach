@@ -137,9 +137,9 @@ Build, then import each file with the same command as "Deploy a change":
 
 ```bash
 node build.js
-cmd //c "set N8N_USER_FOLDER=D:\Tools\n8n\data&& D:\Tools\n8n\node_modules\.bin\n8n.cmd import:workflow --input=build\sheet_sync.json"
-cmd //c "set N8N_USER_FOLDER=D:\Tools\n8n\data&& D:\Tools\n8n\node_modules\.bin\n8n.cmd import:workflow --input=build\sender.json"
-cmd //c "set N8N_USER_FOLDER=D:\Tools\n8n\data&& D:\Tools\n8n\node_modules\.bin\n8n.cmd import:workflow --input=build\reply_checker.json"
+cmd //c "set N8N_USER_FOLDER=D:\\Tools\\n8n\\data&& D:\\Tools\\n8n\\node_modules\\.bin\\n8n.cmd import:workflow --input=build\\sheet_sync.json"
+cmd //c "set N8N_USER_FOLDER=D:\\Tools\\n8n\\data&& D:\\Tools\\n8n\\node_modules\\.bin\\n8n.cmd import:workflow --input=build\\sender.json"
+cmd //c "set N8N_USER_FOLDER=D:\\Tools\\n8n\\data&& D:\\Tools\\n8n\\node_modules\\.bin\\n8n.cmd import:workflow --input=build\\reply_checker.json"
 ```
 
 An import leaves the workflow inactive. Reload the n8n editor, then switch AcmeBook Reply Checker back to Active.
@@ -147,7 +147,8 @@ An import leaves the workflow inactive. Reload the n8n editor, then switch AcmeB
 ## Send emails
 
 1. Run the Lead Finder. Its last node fills the sheet.
-2. In the sheet, tick "Send email" for the leads to contact (Hot and Warm first).
+2. In the sheet, tick "Send email" for the leads to contact (Hot and Warm first). A ticked row is sent only when it
+   has a Lead email, an Opener, a Lead ID, Status `New` and no Sent date.
 3. In n8n, open AcmeBook Sender and click **Execute workflow**. It sends at most `DAILY_SEND_LIMIT` emails a day,
    1 to 3 minutes apart, so a run can take a while.
 4. Check the Report node: it shows `sent` and `failed`. A failed row keeps no Sent date, so the next run tries it

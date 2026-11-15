@@ -27,6 +27,13 @@ function buildInsertRowsRequest(tableId, rows) {
 }
 
 
+function readInsertedCount(insertResult) {
+
+  // n8n 2.41.5 answers { success, insertedRows } (insertRowsBulk); its OpenAPI file documents { count }
+  return insertResult.insertedRows ?? insertResult.count;
+}
+
+
 async function sendRequest(n8nUrl, apiKey, request) {
 
   const response = await fetch(`${n8nUrl}${request.path}`, {
@@ -69,6 +76,9 @@ async function setupTables(n8nUrl, apiKey, dryRun) {
     const found = await sendRequest(n8nUrl, apiKey, buildFindTableRequest(tableName));
     if (found.data.some((table) => table.name === tableName)) {
       console.log(`'${tableName}': already exists, skipped (its rows are left as they are)`);
+      if (tableName === CITIES_TABLE) {
+        console.log(`'${tableName}': cities were NOT loaded; if this table is empty (for example after a failed first run), delete it in n8n (Data tables) and run this script again`);
+      }
       skippedCount += 1;
       continue;
     }
@@ -79,7 +89,7 @@ async function setupTables(n8nUrl, apiKey, dryRun) {
     // cities go in only when the table is new, so a second run does not double them
     if (tableName === CITIES_TABLE) {
       const inserted = await sendRequest(n8nUrl, apiKey, buildInsertRowsRequest(table.id, cities));
-      cityCount = inserted.count;
+      cityCount = readInsertedCount(inserted);
       console.log(`'${tableName}': inserted [${cityCount}] cities`);
     }
   }
@@ -111,4 +121,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { buildFindTableRequest, buildCreateTableRequest, buildInsertRowsRequest };
+module.exports = { buildFindTableRequest, buildCreateTableRequest, buildInsertRowsRequest, readInsertedCount };
