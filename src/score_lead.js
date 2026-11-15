@@ -1,4 +1,4 @@
-const { POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS } = require('./config');
+const { POINTS, HOT_MIN_SCORE, WARM_MIN_SCORE, OPENERS } = require('./product');
 
 function findTier(score) {
 

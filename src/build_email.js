@@ -1,4 +1,5 @@
-const { EMAIL_SUBJECT, EMAIL_BODY, SENDER_NAME, POSTAL_ADDRESS, SHEET_HEADERS } = require('./config');
+const { SHEET_HEADERS } = require('./config');
+const { EMAIL_SUBJECT, EMAIL_BODY, SENDER_NAME, POSTAL_ADDRESS } = require('./product');
 
 function fillTemplate(template, values) {
 

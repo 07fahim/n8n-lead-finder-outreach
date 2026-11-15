@@ -1,9 +1,10 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const {
-  CITIES, CATEGORY_RULES, BOOKING_TOOLS, LEAD_COLUMNS, CITY_COLUMNS, OVERPASS_REQUEST_TIMEOUT_SECONDS,
-  OVERPASS_SERVER_TIMEOUT_SECONDS,
+  LEAD_COLUMNS, CITY_COLUMNS, OVERPASS_REQUEST_TIMEOUT_SECONDS, OVERPASS_SERVER_TIMEOUT_SECONDS,
 } = require('../src/config');
+const { CITIES, CATEGORY_RULES, BOOKING_TOOLS } = require('../src/product');
+const product = require('../src/product');
 
 test('43 unique cities in the five markets, document order first', () => {
   assert.equal(CITIES.length, 43);
@@ -38,4 +39,16 @@ test('table columns have names and n8n types', () => {
 
 test('the overpass client waits longer than the server may run', () => {
   assert.ok(OVERPASS_REQUEST_TIMEOUT_SECONDS > OVERPASS_SERVER_TIMEOUT_SECONDS);
+});
+
+test('the product file holds every product value the engine needs', () => {
+  const needed = ['PRODUCT_NAME', 'TABLE_PREFIX', 'CITIES', 'CATEGORY_RULES', 'BARBERSHOP_CATEGORY', 'BOOKING_TOOLS',
+    'BOOKING_TEXT_MARKERS', 'BOOKING_WORDS', 'ACMEBOOK_DOMAINS', 'ACMEBOOK_TEXT_MARKER', 'ACMEBOOK_FOOTER', 'POINTS',
+    'HOT_MIN_SCORE', 'WARM_MIN_SCORE', 'FEEDBACK_ASK', 'OPENERS', 'SENDER_NAME', 'POSTAL_ADDRESS', 'SEND_TIMEZONE',
+    'EMAIL_SUBJECT', 'EMAIL_BODY'];
+  for (const name of needed) assert.ok(name in product, name);
+  const config = require('../src/config');
+  for (const name of needed) assert.ok(!(name in config), `${name} is still in config.js`);
+  assert.equal(config.LEADS_TABLE, `${product.TABLE_PREFIX}_leads`);
+  assert.equal(config.CITIES_TABLE, `${product.TABLE_PREFIX}_cities`);
 });

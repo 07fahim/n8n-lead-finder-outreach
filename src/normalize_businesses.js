@@ -1,4 +1,4 @@
-const { CATEGORY_RULES, BARBERSHOP_CATEGORY } = require('./config');
+const { CATEGORY_RULES, BARBERSHOP_CATEGORY } = require('./product');
 const { readInstagramHandle } = require('./read_contacts');
 
 function readTag(tags, keys) {

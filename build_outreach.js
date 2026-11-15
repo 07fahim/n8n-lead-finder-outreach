@@ -1,6 +1,7 @@
 const { buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
-const { LEADS_TABLE, SHEET_ID, SHEET_TAB, SHEETS_CREDENTIAL, WORKFLOW_IDS, LEAD_STATUS, GMAIL_CREDENTIAL, SENDER_NAME,
-  DAILY_SEND_LIMIT, SEND_WAIT_SECONDS, SEND_TIMEZONE } = require('./src/config');
+const { LEADS_TABLE, SHEET_ID, SHEET_TAB, SHEETS_CREDENTIAL, WORKFLOW_IDS, LEAD_STATUS, GMAIL_CREDENTIAL,
+  DAILY_SEND_LIMIT, SEND_WAIT_SECONDS } = require('./src/config');
+const { PRODUCT_NAME, SENDER_NAME, SEND_TIMEZONE } = require('./src/product');
 
 const SHEETS = { type: 'n8n-nodes-base.googleSheets', typeVersion: 4.7 };
 const SETTINGS = { executionOrder: 'v1', saveManualExecutions: true };
@@ -52,7 +53,8 @@ function buildSheetSyncWorkflow() {
     // an empty sheet returns no items, which would stop the run; one empty item keeps it going
     buildSheetNode('Read Sheet', [440, 100], { operation: 'read', options: {} },
       { executeOnce: true, alwaysOutputData: true }),
-    buildCodeNode({ name: 'Find New Rows', files: ['config.js', 'sheet_rows.js'], position: [660, 100], glue: [
+    buildCodeNode({ name: 'Find New Rows', files: ['product.js', 'config.js', 'sheet_rows.js'],
+      position: [660, 100], glue: [
       "const leads = $('Read Leads').all().map((item) => item.json);",
       "const sheetRows = $('Read Sheet').all().map((item) => item.json);",
       'return findNewSheetRows(leads, sheetRows).map((json) => ({ json }));',
@@ -65,7 +67,8 @@ function buildSheetSyncWorkflow() {
     // land below the boxes; a validation rule on the filled rows writes no values. It hangs off Read Sheet, below
     // Find New Rows, so it runs on every sync (even one that adds nothing) and, under executionOrder v1, after the
     // Add Rows branch has finished
-    buildCodeNode({ name: 'Checkbox Range', files: ['config.js', 'sheet_rows.js'], position: [660, 300], glue: [
+    buildCodeNode({ name: 'Checkbox Range', files: ['product.js', 'config.js', 'sheet_rows.js'],
+      position: [660, 300], glue: [
       "const lastRow = Math.max(1, ...$('Read Sheet').all().map((item) => item.json.row_number || 0));",
       "const rowCount = lastRow + $('Find New Rows').all().length;",
       'return [{ json: buildCheckboxRequest(rowCount) }];',
@@ -86,7 +89,7 @@ function buildSheetSyncWorkflow() {
     ['Read Sheet', 'Checkbox Range'],
     ['Checkbox Range', 'Add Checkboxes'],
   ]);
-  return { id: WORKFLOW_IDS.sheetSync, name: 'AcmeBook Sheet Sync', nodes, connections, settings: SETTINGS,
+  return { id: WORKFLOW_IDS.sheetSync, name: `${PRODUCT_NAME} Sheet Sync`, nodes, connections, settings: SETTINGS,
     active: false };
 }
 
@@ -98,7 +101,7 @@ function buildSenderWorkflow() {
   const nodes = [
     buildNode({ name: 'Run manually', type: 'n8n-nodes-base.manualTrigger', position: [0, 0], parameters: {} }),
     buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }),
-    buildCodeNode({ name: 'Pick Emails', files: ['config.js', 'pick_rows_to_send.js', 'build_email.js'],
+    buildCodeNode({ name: 'Pick Emails', files: ['product.js', 'config.js', 'pick_rows_to_send.js', 'build_email.js'],
       position: [440, 0], glue: [
         "const today = new Date().toLocaleDateString('en-CA', { timeZone: SEND_TIMEZONE });",
         'const sheetRows = $input.all().map((item) => item.json);',
@@ -163,7 +166,8 @@ function buildSenderWorkflow() {
     ['Mark Table Sent', 'Wait'],
     ['Wait', 'Send One by One'],
   ]);
-  return { id: WORKFLOW_IDS.sender, name: 'AcmeBook Sender', nodes, connections, settings: SETTINGS, active: false };
+  return { id: WORKFLOW_IDS.sender, name: `${PRODUCT_NAME} Sender`, nodes, connections, settings: SETTINGS,
+    active: false };
 }
 
 
@@ -178,7 +182,8 @@ function buildReplyCheckerWorkflow() {
         simple: false, filters: {}, options: {},
       } }), 'gmailOAuth2', GMAIL_CREDENTIAL),
     buildSheetNode('Read Sheet', [220, 0], { operation: 'read', options: {} }, { executeOnce: true }),
-    buildCodeNode({ name: 'Classify Replies', files: ['config.js', 'classify_reply.js'], position: [440, 0], glue: [
+    buildCodeNode({ name: 'Classify Replies', files: ['product.js', 'config.js', 'classify_reply.js'],
+      position: [440, 0], glue: [
       'const sheetRows = $input.all().map((item) => item.json);',
       "const results = $('New Email').all().map((item) => classifyReply(item.json, sheetRows)).filter(Boolean);",
       'return keepStrongestPerLead(results).map((json) => ({ json }));',
@@ -201,7 +206,7 @@ function buildReplyCheckerWorkflow() {
     ['Classify Replies', 'Mark Sheet Status'],
     ['Mark Sheet Status', 'Mark Table Status'],
   ]);
-  return { id: WORKFLOW_IDS.replyChecker, name: 'AcmeBook Reply Checker', nodes, connections, settings: SETTINGS,
+  return { id: WORKFLOW_IDS.replyChecker, name: `${PRODUCT_NAME} Reply Checker`, nodes, connections, settings: SETTINGS,
     active: false };
 }
 

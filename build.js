@@ -1,22 +1,23 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { CITIES, LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS, WORKFLOW_IDS } = require('./src/config');
+const { LEADS_TABLE, CITIES_TABLE, LEAD_COLUMNS, CITY_COLUMNS, WORKFLOW_IDS } = require('./src/config');
+const { PRODUCT_NAME, CITIES } = require('./src/product');
 const { inlineSources, buildTableReference, buildNode, buildCodeNode, connectNodes } = require('./build_nodes');
 const { buildSheetSyncWorkflow, buildSenderWorkflow, buildReplyCheckerWorkflow } = require('./build_outreach');
 
 const OUTPUT_FOLDER = path.join(__dirname, 'build');
-const WORKFLOW_NAME = 'AcmeBook Lead Finder';
+const WORKFLOW_NAME = `${PRODUCT_NAME} Lead Finder`;
 
 // each Code node gets config.js, the files it needs in dependency order, then the glue that n8n runs
 const CODE_NODES = [
   {
     name: 'Pick Cities',
-    files: ['config.js', 'pick_cities.js'],
+    files: ['product.js', 'config.js', 'pick_cities.js'],
     glue: "return pickCities($('Read Cities').all().map((item) => item.json)).map((json) => ({ json }));",
   },
   {
     name: 'Query Overpass',
-    files: ['config.js', 'query_overpass.js'],
+    files: ['product.js', 'config.js', 'query_overpass.js'],
     glue: [
       'const results = [];',
       'for (const item of $input.all()) {',
@@ -28,7 +29,7 @@ const CODE_NODES = [
   },
   {
     name: 'Normalize Businesses',
-    files: ['config.js', 'read_contacts.js', 'normalize_businesses.js'],
+    files: ['product.js', 'config.js', 'read_contacts.js', 'normalize_businesses.js'],
     glue: [
       "const seenKeys = $('Read Seen').all().map((item) => item.json.osm_key).filter(Boolean);",
       'return normalizeCities($input.all().map((item) => item.json), seenKeys).map((json) => ({ json }));',
@@ -36,7 +37,7 @@ const CODE_NODES = [
   },
   {
     name: 'Check Websites',
-    files: ['config.js', 'read_contacts.js', 'detect_booking.js', 'score_lead.js', 'check_websites.js'],
+    files: ['product.js', 'config.js', 'read_contacts.js', 'detect_booking.js', 'score_lead.js', 'check_websites.js'],
     glue: [
       'const businesses = $input.all().flatMap((item) => item.json.businesses);',
       'const leads = await checkBusinesses(businesses, (options) => this.helpers.httpRequest(options),',
@@ -46,7 +47,7 @@ const CODE_NODES = [
   },
   {
     name: 'Run Report',
-    files: ['config.js', 'report_run.js'],
+    files: ['product.js', 'config.js', 'report_run.js'],
     glue: [
       "const leads = $('Save Leads').isExecuted ? $('Check Websites').all().map((item) => item.json) : [];",
       'const cities = $input.all().map((item) => item.json);',
@@ -55,7 +56,7 @@ const CODE_NODES = [
   },
   {
     name: 'Check Run',
-    files: ['config.js', 'report_run.js'],
+    files: ['product.js', 'config.js', 'report_run.js'],
     glue: "return [{ json: summarizeRun($('Run Report').all().map((item) => item.json)) }];",
   },
 ];
