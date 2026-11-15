@@ -9,7 +9,8 @@ function findTier(score) {
 
 function writeOpener(bookingStatus, name, tool) {
 
-  return (OPENERS[bookingStatus] || '').replaceAll('{name}', name).replaceAll('{tool}', tool);
+  // a function replacement keeps a '$' in a business name literal instead of reading it as a pattern
+  return (OPENERS[bookingStatus] || '').replaceAll('{name}', () => name).replaceAll('{tool}', () => tool);
 }
 
 
@@ -17,7 +18,7 @@ function buildLead(business, check, today) {
 
   if (check.booking_status === 'acmebook') return null;
   const email = business.email || check.emails[0] || '';
-  const instagram = business.instagram || check.instagram;
+  const instagram = business.instagram || check.instagram || '';
   const reasons = [];
   let score = 0;
   const addSignal = (points, reason) => {

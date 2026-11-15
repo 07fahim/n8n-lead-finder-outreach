@@ -41,9 +41,16 @@ test('site down and site blocked get no booking points and a reason to check by 
   const down = buildLead(BUSINESS, makeCheck('site_down'), TODAY);
   assert.equal(down.score, 5);
   assert.match(down.reasons, /website down, check the business is still open/);
+  assert.match(down.opener, /^Hi Cut Co, looks like bookings mostly happen by phone/);
   const blocked = buildLead(BUSINESS, makeCheck('site_blocked'), TODAY);
   assert.equal(blocked.opener, '');
+  assert.equal(blocked.score, 5);
   assert.match(blocked.reasons, /site blocked our check, look by hand/);
+});
+
+test('a $ in a business name is written as it is', () => {
+  const lead = buildLead({ ...BUSINESS, name: "$$ Cuts & Fade$`s" }, makeCheck('none_found'), TODAY);
+  assert.ok(lead.opener.startsWith("Hi $$ Cuts & Fade$`s, noticed"));
 });
 
 test('tier edges', () => {
